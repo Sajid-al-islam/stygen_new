@@ -23,14 +23,15 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/animate.css">
     <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/owl.carousel.min.css">
     {{-- <link rel="stylesheet" href="/js/pace-theme-default.min.css"> --}}
-    <link rel="stylesheet" href="{{ asset('assets/frontend') }}/style.css">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/frontend') }}/style.css"> --}}
     <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/responsive.css">
     <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/style.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     
-    @livewireStyles
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/custom_style.css') }}">
+    
+    @livewireStyles
 
     <script src="/js/sweetalert.js"></script>
     <script src="/js/pace.min.js"></script>

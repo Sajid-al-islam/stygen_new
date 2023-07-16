@@ -71,35 +71,35 @@ span.del_variation:after {
 /*------Common Section End------*/
 
 /*------Header Section Start------*/
-#landing_header .header-middle-area {
+ .header-middle-area {
     background: #e3e3ea!important;
 }
-#landing_header .search-categories > form {
+ .search-categories > form {
     width: 60% !important;
     height: auto !important;
     margin-top: 7px !important;
     color: #a9a9a9 !important;
 }
-#landing_header .search-categories > form input {
+ .search-categories > form input {
     height: 30px !important;
     background: #efefef !important;
 }
-#landing_header .header-top-menu > li {
+ .header-top-menu > li {
     border: none !important;
 }
 
-#landing_header .category-heading {
+ .category-heading {
     background: transparent !important;
     border-bottom: none !important;
 }
-#landing_header .category-heading > h2:before {
+ .category-heading > h2:before {
     color: #3b006d96 !important;
     font-size: 40px !important;
 }
-#landing_header .browse-category-btn {
+ .browse-category-btn {
     top: 0px !important;
 }
-#landing_header .category-menu-list {
+ .category-menu-list {
     top: 48px !important;
     width: 50% !important;
     z-index: 999 !important;
@@ -112,28 +112,28 @@ span.del_variation:after {
     width: 300px;
     height: 120px;
 }
-#landing_header .search-form-input {
+ .search-form-input {
     border: 2px solid #e7e7e7 !important;
     box-shadow: 3px 3px #2511114d !important;
 }
-#landing_header .header-middle-area.header-style-2 .search-categories > form button {
+ .header-middle-area.header-style-2 .search-categories > form button {
     background: transparent !important;
     border-bottom: none !important;
 }
-#landing_header .top-search-btn i.ion-ios-search-strong {
+ .top-search-btn i.ion-ios-search-strong {
     color: #cababa !important
 }
-#landing_header .search-categories > form button {
+ .search-categories > form button {
     top: -2px !important;
 }
-#landing_header .header-middle-area {
+ .header-middle-area {
     padding: 5px 0px 5px 0px !important;
 }
-#landing_header .header-icon{
+ .header-icon{
     font-size: 20px !important;
     color: #5e2e87 !important;
 }
-#landing_header .cart-count {
+ .cart-count {
     background: #ff0000;
     color: #ffffff;
     font-size: 16px;
@@ -143,10 +143,10 @@ span.del_variation:after {
     position: absolute;
     transform: translate(0%, -50%);
 }
-#landing_header .category-menu-list > ul > li > a:before {
+ .category-menu-list > ul > li > a:before {
     display: none !important;
 }
-#landing_header .header-checkout-btn{
+ .header-checkout-btn{
     background: #5e2e87 !important;
     color: #ffffff !important;
     padding-top: 5px !important;
@@ -174,10 +174,10 @@ span.del_variation:after {
     .main-design {
         width: 100% !important;
     }
-    #landing_header .category-menu {
+     .category-menu {
         margin-top: 0px !important;
     }
-    #landing_header .browse-category-btn {
+     .browse-category-btn {
         top: 0px !important;
     }
     .header-middle-area.header-style-2 .logo {
@@ -188,67 +188,67 @@ span.del_variation:after {
         padding-top: 0px !important;
         border-bottom: none !important
     }
-    #landing_header .mobile-category-heading {
+     .mobile-category-heading {
         transform: translate(-20%, 20%) !important;
     }
-    #landing_header .mobile-li {
+     .mobile-li {
         transform: translate(-27%, -54%);
     }
-    #landing_header .mobile-li-icon {
+     .mobile-li-icon {
         transform: translate(78%, -49%);
     }
-    #landing_header .category-menu-list {
+     .category-menu-list {
         top: 82px !important;
         width: 100% !important;
     }
-    #landing_header .nav-mobile-screen {
+     .nav-mobile-screen {
         background: #ece3e3d1 !important;
     }
-    #landing_header .header-middle-area {
+     .header-middle-area {
         padding: 0px 0px 0px 0px !important;
     }
 }
 /*------Header Section End------*/
 
 /*------Landing Page Start------*/
-#landing{
+/* {
     background: #f5c2fbbd 0% 0% no-repeat padding-box;
-}
-#landing .slider-area {
+} */
+ .slider-area {
     min-height: auto !important;
     /* background: #f6c6fb !important; */
     background: #fff !important;
 }
-#landing .landing-category-list{
+ .landing-category-list{
     border: none;
 }
-#landing .landing-category-list .list-categories {
+ .landing-category-list .list-categories {
     padding: 5px 20px !important;
     background-repeat: no-repeat !important;
     height: 112px !important;
     width: 300px !important;
 }
-#landing .container .row .col-md-4.col-lg-3.parent-category-section {
+ .container .row .col-md-4.col-lg-3.parent-category-section {
     margin-left: inherit !important;
 }
-#landing  .name-categoreis > a {
+  .name-categoreis > a {
     color: #fff !important;
     position: absolute !important;
     transform: translate(-7%, 218%) !important;
 }
-#landing .owl-nav .owl-prev {
+ .owl-nav .owl-prev {
     display: none !important;
 }
-#landing .owl-nav .owl-next {
+ .owl-nav .owl-next {
     display: none !important;
 }
-#landing .shop-by-category-area{
+ .shop-by-category-area{
     /* background: #f5c2fbbd 0% 0% no-repeat padding-box; */
     background: #fff 0% 0% no-repeat padding-box;
     padding-top: 20px;
     padding-bottom: 20px;
 }
-#landing .landing-category-title-tag{
+ .landing-category-title-tag{
     border: 1px solid #573276e0;
     background: #573276e0;
     color: #f6c6fb;
@@ -261,13 +261,13 @@ span.del_variation:after {
     padding-bottom: 10px;
     box-shadow: 1px 1px 5px 6px #a43ff585;
 }
-#landing .gifts-by-occasion-area{
+ .gifts-by-occasion-area{
     /* background: #f5c2fbbd 0% 0% no-repeat padding-box; */
     background: #fff 0% 0% no-repeat padding-box;
     padding-top: 20px;
     padding-bottom: 40px;
 }
-#landing .landing-gifts-title-tag{
+ .landing-gifts-title-tag{
     border: 1px solid #573276e0;
     background: #573276e0;
     color: #f6c6fb;
@@ -280,44 +280,44 @@ span.del_variation:after {
     padding-bottom: 10px;
     box-shadow: 1px 1px 5px 6px #a43ff585;
 }
-#landing .gifts-main-section{
+ .gifts-main-section{
     border: 3px solid #573276;
     border-radius: 12px;
     background: #573276;
 }
-#landing .gift-img{
+ .gift-img{
     border-radius: 8px;
     /* background: #fba2f8; */
     background: #fff;
 }
-#landing .gifts-title{
+ .gifts-title{
     /* margin-top: 25%; */
     /* color: #f6c6fb; */
     margin-top: 17%;
     color: #fff;
 }
-#landing .gifts-title:hover a{
+ .gifts-title:hover a{
     color: #f6c6fb;
 }
-#landing .blog-area{
+ .blog-area{
     background: #a382bf 0% 0% no-repeat padding-box;
     padding-top: 20px;
     padding-bottom: 20px;
 }
-#landing .category-section-main{
+ .category-section-main{
     border: 3px solid #573276;
 }
-#landing .category-title-section{
+ .category-title-section{
     background: #573276;
 }
-#landing .category-title-section > h4 > a {
+ .category-title-section > h4 > a {
     color: #fff !important;
     font-size: 22px !important;
     font-family: Marker Felt;
     /* font-family: Comic Sans MS, Comic Sans, cursive !important; */
     font-family: Comic Sans MS, Comic Sans !important;
 }
-#landing h4.gifts-title a{
+ h4.gifts-title a{
     font-size: 22px !important;
     /* font-family: Comic Sans MS, Comic Sans, cursive !important; */
     font-family: Comic Sans MS, Comic Sans !important;
@@ -329,26 +329,26 @@ span.del_variation:after {
         padding-right: 0px !important;
         width: 100% !important;
     }
-    #landing .landing-category-list .list-categories {
+     .landing-category-list .list-categories {
         width: 270px !important;
         margin-left: 15px !important;
     }
-    #landing .landing-category-list{
+     .landing-category-list{
         margin-top: 10px !important;
     }
-    #landing .landing-category-title-tag{
+     .landing-category-title-tag{
         font-size: 12px !important;
         width: 100%;
         margin-left: auto;
         margin-right: auto;
     }
-    #landing .landing-gifts-title-tag{
+     .landing-gifts-title-tag{
         font-size: 12px !important;
         width: 75%;
         margin-left: auto;
         margin-right: auto;
     }
-    #landing .gifts-title {
+     .gifts-title {
         margin-top: 10%;
         font-size: 12px;
         text-align: center;

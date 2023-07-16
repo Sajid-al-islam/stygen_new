@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <!--Section Title Start-->
                     <div class="row text-center">
-                        <div class="col-8 ml-auto mr-auto">
+                        <div class="col-8 ms-auto me-auto">
                             <h3 class="landing-category-title-tag">GIFT BY CATEGORIES</h3>
                         </div>
                     </div>
