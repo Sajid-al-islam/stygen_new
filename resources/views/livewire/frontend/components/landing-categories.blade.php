@@ -18,17 +18,19 @@
             <div class="shop-by-department mt-4">
                 <div class="row">
                     @foreach ($landing_categories as $category)
-                        
-                    <div class="col-xl-3 col-lg-3 col-md-3">
+
+                    <div class="col-xl-3 col-lg-3 col-12">
                         <!--Single Product Start-->
                         <div class="single-product mb-30 category-section-main">
                             <div class="product-img">
-                                {{-- <router-link :to="{name: 'subCategoryProduct', params: {catSlug: category.cat_slug}}"> --}}
+                                <a href="#">
                                     <img class="first-img" src="{{ asset('assets/uploads/category') }}/{{$category->category_image}}" :alt="{{$category->category_name}}" lazy="loading">
+                                </a>
+                                {{-- <router-link :to="{name: 'subCategoryProduct', params: {catSlug: category.cat_slug}}"> --}}
                                 {{-- </router-link> --}}
                             </div>
                             <div class="product-content category-title-section">
-                                <h4 class="text-white"><router-link >{{ $category->category_name }}</router-link></h4>
+                                <h4 class="text-white"><a href="#">{{ $category->category_name }}</a></h4>
                             </div>
                         </div>
                         <!--Single Product End-->

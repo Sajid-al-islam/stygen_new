@@ -13,18 +13,18 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-8 ms-auto me-auto">
+                <div class="col-lg-8 col-xl-8 col-12 col-sm-12 ms-auto me-auto">
                     <div class="row justify-content-around">
                         @foreach ($occasions as $occasion)
                             
-                            <div class="col-6" v-for="occasion in occasions">
+                            <div class="col-sm-6 col-md-6 col-6">
                                 <div class="gifts-main-section mt-3">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="product-img">
-                                                <router-link>
-                                                    <img class="first-img gift-img" width="100px" height="100px" src="{{asset('/assets/uploads/occasion/')}}/{{$occasion->occasion_image}}" lazy="loading">
-                                                </router-link>
+                                                <a>
+                                                    <img class="first-img gift-img" src="{{asset('/assets/uploads/occasion/')}}/{{$occasion->occasion_image}}" lazy="loading">
+                                                </a>
                                             </div>
                                         </div>
 
