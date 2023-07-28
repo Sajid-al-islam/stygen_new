@@ -87,6 +87,7 @@ Auth::routes();
 
 Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/', "Frontend\Home");
+    Route::get('/shop', "Frontend\Components\AllProducts");
     // Route::get('category/{category}/{name}', "Frontend\CategoryProduct")->name('category_product');
     // Route::get('product/{product}/{name}', "Frontend\ProductDetails")->name('product_details');
     // Route::get('cart', "Frontend\Cart")->name('cart');

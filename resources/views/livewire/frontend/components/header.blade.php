@@ -43,8 +43,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                          
+
+
                                         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                                             <div class="offcanvas-header">
                                               <h5 class="offcanvas-title" id="offcanvasExampleLabel">Categories</h5>
@@ -53,16 +53,17 @@
                                             <div class="offcanvas-body">
                                                 <ul class="list-group" style="list-style: none;">
                                                     {{-- <a href="javascript:void(0)" id="category_close" class="d-flex justify-content-end pr-2 pt-2"><i class="fas fa-times-circle"></i></a> --}}
-                                                    <li><a>All Products</a></li>
-                                                    @foreach ($categories as $category)    
-                                                    <li class="@if(count($category->subcategory) > 0) right-menu @endif">
+                                                    <li><a href="#">All Products</a></li>   
+                                                    @foreach ($categories as $category)
+                                                    <li class="@if(count($category->subcategory) > 0) list-group-item right-menu @endif">
                                                         <a>{{ $category->category_name }}</a>
-                                                        @if($category->subcategory) 
-                                                            <ul class="@if(count($category->subcategory) > 0) cat-dropdown @endif">
-                                                                @foreach ($category->subcategory as $subcategory)    
-                                                                <li class="@if(count($subcategory->subcategory) > 0) right-menu @endif">
+                                                        @if($category->subcategory)
+                                                            <ul class="@if(count($category->subcategory) > 0) list-group-item cat-dropdown @endif">
+                                                                @foreach ($category->subcategory as $subcategory)
+                                                                <li class="@if(count($subcategory->subcategory) > 0) list-group-item right-menu @endif">
                                                                     <a>{{ $subcategory->category_name }}</a>
                                                                     {{-- <header-category-list :subcategories="subcategory.subcategory"></header-category-list> --}}
+                                                                    @include('livewire.frontend.components.subcategories', ['subcategory' => $subcategory])
                                                                 </li>
                                                                 @endforeach
                                                             </ul>
@@ -70,7 +71,7 @@
                                                     </li>
                                                     @endforeach
                                                 </ul>
-                                                
+
                                             </div>
                                         </div>
                                         {{-- <div id="cate-toggle" class="category-menu-list">
