@@ -53,7 +53,7 @@
                                             <div class="offcanvas-body">
                                                 <ul class="list-group" style="list-style: none;">
                                                     {{-- <a href="javascript:void(0)" id="category_close" class="d-flex justify-content-end pr-2 pt-2"><i class="fas fa-times-circle"></i></a> --}}
-                                                    <li><a href="#">All Products</a></li>   
+                                                    <li><a href="{{ route('shop') }}">All Products</a></li>   
                                                     @foreach ($categories as $category)
                                                     <li class="@if(count($category->subcategory) > 0) list-group-item right-menu @endif">
                                                         <a>{{ $category->category_name }}</a>

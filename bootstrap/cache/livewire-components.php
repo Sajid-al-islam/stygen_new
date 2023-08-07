@@ -1,5 +1,5 @@
 <?php return array (
-  'frontend.components.all-products' => 'App\\Http\\Livewire\\Frontend\\Components\\AllProducts',
+  'frontend.all-product' => 'App\\Http\\Livewire\\Frontend\\AllProduct',
   'frontend.components.header' => 'App\\Http\\Livewire\\Frontend\\Components\\Header',
   'frontend.components.landing-categories' => 'App\\Http\\Livewire\\Frontend\\Components\\LandingCategories',
   'frontend.components.landing-footer' => 'App\\Http\\Livewire\\Frontend\\Components\\LandingFooter',

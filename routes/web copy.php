@@ -72,6 +72,18 @@ Route::get('/send-mail', function () {
 });
 
 
+//Admin Route Path Linkup
+Route::prefix('admin')->group(base_path('routes/backend.php'));
+
+//Frontend Route Path Linkup
+Route::prefix('user')->group(base_path('routes/frontend.php'));
+
+//Seller Route Path Linkup
+Route::prefix('seller')->group(base_path('routes/seller.php'));
+
+Auth::routes();
+
+// Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/', "Frontend\Home");
@@ -115,6 +127,15 @@ Route::post('login-otp', [UserController::class, 'loginOtp'])->name('loginOtp');
 Route::post('login-otp-confirm', [UserController::class, 'loginOtpConfirm'])->name('loginOtpConfirm');
 
 Route::post('/fbapi',[FbapiController::class, 'fbapi'])->name('fbapi');
+//Route::get('/home', [UserController::class, 'index']);
+
+// Route::get('/', function () {
+//     // $products = Product::select('id', 'product_name', 'pro_slug', 'featured_image', 'short_description','regular_price', 'sales_price','product_sku')
+//     // ->where('status', 1)->get();
+//     // $brands = Brand::select('id', 'brand_name')->where('status', 1)->get();
+//     return view('frontend.frontend_master');
+// });
+
 
 
 Route::get('chart', [UserController::class, 'chart'])->name('chart');
@@ -251,10 +272,10 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
 
 //For Frontend Any Path
-// Route::get('/{path}', [UserController::class, 'index']);
+Route::get('/{path}', [UserController::class, 'index']);
 
 //For Frontend Any Path for ID
-// Route::get('/{path}/{id}', [UserController::class, 'index']);
+Route::get('/{path}/{id}', [UserController::class, 'index']);
 
 //For Frontend Any Path for ID
-// Route::get('/{path}/{path2}/{id}', [UserController::class, 'index']);
+Route::get('/{path}/{path2}/{id}', [UserController::class, 'index']);
