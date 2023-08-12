@@ -76,7 +76,7 @@ Route::get('/send-mail', function () {
 Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/', "Frontend\Home");
     Route::get('/shop', "Frontend\AllProduct")->name('shop');
-    // Route::get('category/{category}/{name}', "Frontend\CategoryProduct")->name('category_product');
+    Route::get('product-category/{name}', "Frontend\CategoryProduct")->name('category_product');
     // Route::get('product/{product}/{name}', "Frontend\ProductDetails")->name('product_details');
     // Route::get('cart', "Frontend\Cart")->name('cart');
     // Route::get('checkout', "Frontend\Checkout")->name('checkout');

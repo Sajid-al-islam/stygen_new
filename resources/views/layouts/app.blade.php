@@ -24,15 +24,39 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/owl.carousel.min.css">
     {{-- <link rel="stylesheet" href="/js/pace-theme-default.min.css"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('assets/frontend') }}/style.css"> --}}
-    <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/responsive.css">
     <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/style.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
-    
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/custom_style.css') }}">
-    
-    @livewireStyles
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/custom_style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/responsive.css') }}">
+
+    @livewireStyles
+    <style>
+        .container-slider {
+            background: #cc99ff;
+        }
+
+        #sub_category_product {
+            background: #cc99ff;
+        }
+
+        .addtocart {
+            background-color: #5e2e87;
+            font-size: 12px;
+        }
+
+        .addtocart i {
+            margin-right: 5px;
+            padding-left: 1px;
+        }
+
+        .detailsbtn {
+            background-color: #5e2e87;
+            color: white;
+            font-size: 12px;
+        }
+    </style>
     <script src="/js/sweetalert.js"></script>
     <script src="/js/pace.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/vendor/jquery-1.12.4.min.js"></script>

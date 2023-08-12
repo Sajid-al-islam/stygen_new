@@ -12,8 +12,8 @@ class AllProduct extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $products = Product::orderBy('id', 'desc')->with(['brand'])->paginate(10);
-        
+        $products = Product::orderBy('id', 'desc')->with(['brand'])->paginate(30)->onEachSide(3);
+
         return view('livewire.frontend.all-product', [
             'products' => $products,
         ])->extends('layouts.app', [

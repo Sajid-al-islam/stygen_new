@@ -1,25 +1,4 @@
 <div>
-    <style>
-        .container-slider {
-            background: #cc99ff;
-        }
-        #sub_category_product {
-            background: #cc99ff;
-        }
-        .addtocart {
-            background-color: #5e2e87;
-            font-size: 12px;
-        }
-        .addtocart i {
-            margin-right: 5px;
-            padding-left: 1px;
-        }
-        .detailsbtn {
-            background-color: #5e2e87;
-            color: white;
-            font-size: 12px;
-        }
-        </style>
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-12">
@@ -36,37 +15,52 @@
                                                     <div class="product-img">
                                                         <a href="#">
                                                             @if ($product->featured_image)
-                                                                <img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}" lazy="loading">
-                                                                <img class="hover-img" src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}" lazy="loading">
+                                                                <img class="first-img"
+                                                                    src="/assets/uploads/product/{{ $product->featured_image }}"
+                                                                    alt="{{ $product->id }}" lazy="loading">
+                                                                <img class="hover-img"
+                                                                    src="/assets/uploads/product/{{ $product->featured_image }}"
+                                                                    alt="{{ $product->id }}" lazy="loading">
                                                             @else
-                                                                <img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" lazy="loading">
+                                                                <img class="first-img"
+                                                                    src="/assets/frontend/img/icon/empty_product.jpeg"
+                                                                    lazy="loading">
                                                             @endif
                                                         </a>
                                                         {{-- @if (discount_percentage($product->regular_price, $product->sales_price))
-                                                            <span class="sticker">{{ discount_percentage($product->regular_price, $product->sales_price) }}</span>
-                                                        @endif --}}
+                                                                <span class="sticker">{{ discount_percentage($product->regular_price, $product->sales_price) }}</span>
+                                                            @endif --}}
 
                                                     </div>
                                                     <div class="product-content">
                                                         <h4><a href="#">{{ $product->product_name }}</a></h4>
                                                         <div class="product-price">
                                                             @if ($product->sales_price)
-                                                                <span class="price"><del>৳{{ $product->regular_price }}</del> ৳{{ $product->sales_price }}</span>
+                                                                <span
+                                                                    class="price"><del>৳{{ $product->regular_price }}</del>
+                                                                    ৳{{ $product->sales_price }}</span>
                                                             @else
-                                                                <span class="price">৳{{ $product->regular_price }}</span>
+                                                                <span
+                                                                    class="price">৳{{ $product->regular_price }}</span>
                                                             @endif
                                                             <div class="row mt-3">
 
 
                                                                 <div class="col-md-6 col-sm-6 col-lg-6 col-12">
                                                                     @if ($product->product_variations && count($product->product_variations) > 0)
-                                                                        <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2" href="#">select variant</a></span>
+                                                                        <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2"
+                                                                                href="#">select variant</a></span>
                                                                     @else
-                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="#" wire:click.prevent="addToCart({{ $product->id }})"><i class="fas fa-shopping-bag"></i>Add to cart</a></span>
+                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2"
+                                                                                href="#"
+                                                                                wire:click.prevent="addToCart({{ $product->id }})"><i
+                                                                                    class="fas fa-shopping-bag"></i>Add
+                                                                                to cart</a></span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-lg-6 col-12">
-                                                                    <span><a class="btn btn-primary btn-sm ps-2 detailsbtn" href="#"><i class="fas fa-eye pe-2"></i>Details</a></span>
+                                                                    <span><a class="btn btn-primary btn-sm ps-2 detailsbtn"
+                                                                            href="#"><i class="fas fa-eye pe-2"></i>Details</a></span>
                                                                 </div>
 
 
@@ -75,7 +69,10 @@
                                                         <div class="product-reviews d-flex justify-content-center mt-0">
                                                             <div class="show-rating">
                                                                 @if ($product->average_ratting)
-                                                                    <star-rating :rating="{{ $product->average_ratting }}" :show-rating="false" :read-only="true" :increment="0.01"></star-rating>
+                                                                    <star-rating
+                                                                        :rating="{{ $product->average_ratting }}"
+                                                                        :show-rating="false" :read-only="true"
+                                                                        :increment="0.01"></star-rating>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -86,7 +83,8 @@
                                         @endforeach
                                     @else
                                         <div class="col-md-12 text-center pl-5 pr-5 productEmtpyMsgBack">
-                                            <p class="mt-3 text-white">We can't find the products matching the selection</p>
+                                            <p class="mt-3 text-white">We can't find the products matching the selection
+                                            </p>
                                         </div>
                                     @endif
                                 </div>
@@ -103,19 +101,13 @@
 
                     </div>
                 </div>
-                <div class="mt-5 d-flex justify-content-center">
-                    {{ $products->onEachSide(3)->links() }}
+                <div class="mt-5 d-flex justify-content-center mb-5">
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>
 
-        <!--Pagination Start-->
-        <div class="pagination-product d-md-flex justify-content-md-between align-items-center">
-            <div class="paginationSection page-list shop-paginate">
 
-            </div>
-        </div>
-        <!--Pagination End-->
     </div>
 
     <!--Shop Product End-->
