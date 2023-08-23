@@ -2,6 +2,32 @@
     {{-- Care about people's approval and you will be their prisoner. --}}
     <!--Header Area Start-->
 		<header>
+            <style>
+                .accordion-button.has-not-subcategories::after{
+                    display: none
+                }
+                .accordion-body {
+                    padding: 0; /* Remove default padding */
+                }
+
+                .category-list {
+                    box-sizing: border-box;
+                    padding: 10px 20px;
+                    transition: background-color 0.3s; /* Add transition for smooth hover effect */
+                }
+                .category-list:first-child {
+                    border-top: 0.5px solid #0000004f;
+                    border-bottom: 0.5px solid #0000004f;
+                }
+
+                .category-list:not(:first-child) {
+                    border-bottom: 0.5px solid #0000004f;
+                }
+
+                .category-list:hover {
+                    background-color: #e3e3ea; /* Change background color on hover */
+                }
+            </style>
 		    <div id="landing_header">
                 <header>
                     <!--Header Middle Area Start-->
@@ -55,21 +81,12 @@
                                                     {{-- <a href="javascript:void(0)" id="category_close" class="d-flex justify-content-end pr-2 pt-2"><i class="fas fa-times-circle"></i></a> --}}
                                                     <li><a href="{{ route('shop') }}">All Products</a></li>
                                                     @foreach ($categories as $category)
-                                                    <li class="@if(count($category->subcategory) > 0) list-group-item right-menu @endif">
-                                                        <a href="{{route('category_product', $category->category_name)}}">{{ $category->category_name }}</a>
-                                                        @if($category->subcategory)
-                                                            <ul class="@if(count($category->subcategory) > 0) list-group-item cat-dropdown @endif">
-                                                                @foreach ($category->subcategory as $subcategory)
-                                                                <li class="@if(count($subcategory->subcategory) > 0) list-group-item right-menu @endif">
-                                                                    <a href="{{route('category_product', $category->category_name)}}">{{ $subcategory->category_name }}</a>
-                                                                    {{-- <header-category-list :subcategories="subcategory.subcategory"></header-category-list> --}}
-                                                                    @include('livewire.frontend.components.subcategories', ['subcategory' => $subcategory])
-                                                                </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
-                                                    </li>
+                                                        @include('livewire.frontend.components.sidebar-component',[
+                                                            'category'=> $category,
+                                                            'padding' => 0
+                                                        ])
                                                     @endforeach
+                                                    
                                                 </ul>
 
                                             </div>
