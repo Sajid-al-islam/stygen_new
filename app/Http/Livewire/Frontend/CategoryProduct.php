@@ -14,9 +14,9 @@ class CategoryProduct extends Component
     public $category;
     protected $paginationTheme = 'bootstrap';
 
-    public function mount($name)
+    public function mount($slug)
     {
-        $this->category = Category::where('category_name',$name)->first();
+        $this->category = Category::where('cat_slug',$slug)->first();
     }
 
     public function render()

@@ -83,7 +83,8 @@
                                                     @foreach ($categories as $category)
                                                         @include('livewire.frontend.components.sidebar-component',[
                                                             'category'=> $category,
-                                                            'padding' => 0
+                                                            'padding' => 0,
+                                                            'lebel' => 'category'
                                                         ])
                                                     @endforeach
                                                     
@@ -130,11 +131,9 @@
                                     <!--Header Top Right Start-->
                                     <div class="header-top-center">
                                         <ul class="header-top-menu mt-0">
-                                            <li>
-                                                <div class="category-heading mobile-category-heading">
-                                                    <h2 class="categories-toggle category-menu-header"></h2>
-                                                </div>
-                                            </li>
+                                            <button class="btn mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                                <i class="fas fa-bars fa-lg"></i>
+                                            </button>
                                             <li class="mobile-li">
                                                 <a>
                                                     <img src="/assets/frontend/img/logo/logo.png" width="70px" alt="">

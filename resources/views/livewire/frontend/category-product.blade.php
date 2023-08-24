@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="mt-5 d-flex justify-content-center mb-5">
-                    {{ $products->links() }}
+                    {{ $products->onEachSide(2)->links() }}
                 </div>
             </div>
         </div>

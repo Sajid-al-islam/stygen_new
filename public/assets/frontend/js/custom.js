@@ -1,5 +1,5 @@
-let loader = {};
-let slider_reboot = () => '';
+var loader = {};
+var slider_reboot = () => '';
 document.addEventListener("DOMContentLoaded", () => {
     slider_reboot = function() {
         $(".slider-active")
