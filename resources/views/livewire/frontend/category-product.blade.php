@@ -13,7 +13,7 @@
                                                 <!--Single Product Start-->
                                                 <div class="single-product mb-3 shop-product-single">
                                                     <div class="product-img">
-                                                        <a href="#">
+                                                        <a href="{{ route('product_details', $product->pro_slug) }}">
                                                             @if ($product->featured_image)
                                                                 <img class="first-img"
                                                                     src="/assets/uploads/product/{{ $product->featured_image }}"
@@ -33,7 +33,7 @@
 
                                                     </div>
                                                     <div class="product-content">
-                                                        <h4><a href="#">{{ $product->product_name }}</a></h4>
+                                                        <h4><a href="{{ route('product_details', $product->pro_slug) }}">{{ $product->product_name }}</a></h4>
                                                         <div class="product-price">
                                                             @if ($product->sales_price)
                                                                 <span
@@ -60,7 +60,7 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-lg-6 col-12">
                                                                     <span><a class="btn btn-primary btn-sm ps-2 detailsbtn"
-                                                                            href="#"><i class="fas fa-eye pe-2"></i>Details</a></span>
+                                                                            href="{{ route('product_details', $product->pro_slug) }}"><i class="fas fa-eye pe-2"></i>Details</a></span>
                                                                 </div>
 
 
