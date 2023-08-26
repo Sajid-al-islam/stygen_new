@@ -113,7 +113,7 @@
                                 
                                 <div class="col-md-4 col-lg-4 col-sm-12 text-center text-md-right d-none d-md-block">
                                     
-                                    <a data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight"><i class="fas fa-shopping-cart header-icon me-4"><span class="cart-count">{{ $cart_count }}</span></i></a>
+                                    <a href="{{ route('cart') }}"><i class="fas fa-shopping-cart header-icon me-4"><span class="cart-count">{{ $cart_count }}</span></i></a>
                                     <a><i class="fa fa-user-alt header-icon ml-3 me-3"></i></a>
                                     
                                     <!-- <a href="#" @click.prevent="userLogout"><i class="fas fa-sign-out-alt header-icon ml-3"></i></a> -->
@@ -154,7 +154,7 @@
                     </div>
                     <!-- Mobile Nav End-->
 
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    {{-- <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                         <div class="offcanvas-header">
                           <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -176,16 +176,10 @@
                                     <a href="{{ route('cart') }}" class="btn btn-secondary">Cart</a>
                                     <a href="#" class="btn btn-primary">Checkout</a>
                                 </div>
-                                {{-- <div class="col-12">
-                                <a  class="btn btn-block btn-primary">Checkout</a>
-                                </div>
-                                <div class="col-12">
-                                <a href="#" class="btn btn-block btn-secondary p-2">Cart</a>
-                                </div> --}}
                             </div>
                             
                         </div>
-                    </div>
+                    </div> --}}
                 </header>
                 {{-- <div class="mobile_view">
                     <div class="col-sm-12">
