@@ -51,9 +51,11 @@ class Cart extends Component
 
     public function quantityChange($qty, $id)
     {
-        $this->cart_handler->qty_change($qty, $id);
-        $this->cart_total = $this->cart_handler->cart_total();
-        $this->status_message = 'cartUpdated';
+        if($qty > 0) {
+            $this->cart_handler->qty_change($qty, $id);
+            $this->cart_total = $this->cart_handler->cart_total();
+            $this->status_message = 'cartUpdated';
+        }
         // $this->emit('cartUpdated');
     }
 
