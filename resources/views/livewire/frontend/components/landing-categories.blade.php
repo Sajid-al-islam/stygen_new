@@ -23,14 +23,14 @@
                         <!--Single Product Start-->
                         <div class="single-product mb-30 category-section-main">
                             <div class="product-img">
-                                <a href="#">
+                                <a href="{{ route('category_product', $category->cat_slug) }}">
                                     <img class="first-img" src="{{ asset('assets/uploads/category') }}/{{$category->category_image}}" :alt="{{$category->category_name}}" lazy="loading">
                                 </a>
                                 {{-- <router-link :to="{name: 'subCategoryProduct', params: {catSlug: category.cat_slug}}"> --}}
                                 {{-- </router-link> --}}
                             </div>
                             <div class="product-content category-title-section">
-                                <h4 class="text-white"><a href="#">{{ $category->category_name }}</a></h4>
+                                <h4 class="text-white"><a href="{{ route('category_product', $category->cat_slug) }}">{{ $category->category_name }}</a></h4>
                             </div>
                         </div>
                         <!--Single Product End-->

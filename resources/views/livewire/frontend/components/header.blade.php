@@ -2,6 +2,32 @@
     {{-- Care about people's approval and you will be their prisoner. --}}
     <!--Header Area Start-->
 		<header>
+            <style>
+                .accordion-button.has-not-subcategories::after{
+                    display: none
+                }
+                .accordion-body {
+                    padding: 0; /* Remove default padding */
+                }
+
+                .category-list {
+                    box-sizing: border-box;
+                    padding: 10px 20px;
+                    transition: background-color 0.3s; /* Add transition for smooth hover effect */
+                }
+                .category-list:first-child {
+                    border-top: 0.5px solid #0000004f;
+                    border-bottom: 0.5px solid #0000004f;
+                }
+
+                .category-list:not(:first-child) {
+                    border-bottom: 0.5px solid #0000004f;
+                }
+
+                .category-list:hover {
+                    background-color: #e3e3ea; /* Change background color on hover */
+                }
+            </style>
 		    <div id="landing_header">
                 <header>
                     <!--Header Middle Area Start-->
@@ -24,7 +50,7 @@
                                             <div class="col-md-2 d-none d-md-block">
                                                 <!--Logo Start-->
                                                 <div class="logo logo-section">
-                                                    <a>
+                                                    <a href="/">
                                                         <img src="/assets/frontend/img/logo/logo.png" width="100px" alt="">
                                                     </a>
                                                 </div>
@@ -55,21 +81,13 @@
                                                     {{-- <a href="javascript:void(0)" id="category_close" class="d-flex justify-content-end pr-2 pt-2"><i class="fas fa-times-circle"></i></a> --}}
                                                     <li><a href="{{ route('shop') }}">All Products</a></li>
                                                     @foreach ($categories as $category)
-                                                    <li class="@if(count($category->subcategory) > 0) list-group-item right-menu @endif">
-                                                        <a href="{{route('category_product', $category->category_name)}}">{{ $category->category_name }}</a>
-                                                        @if($category->subcategory)
-                                                            <ul class="@if(count($category->subcategory) > 0) list-group-item cat-dropdown @endif">
-                                                                @foreach ($category->subcategory as $subcategory)
-                                                                <li class="@if(count($subcategory->subcategory) > 0) list-group-item right-menu @endif">
-                                                                    <a href="{{route('category_product', $category->category_name)}}">{{ $subcategory->category_name }}</a>
-                                                                    {{-- <header-category-list :subcategories="subcategory.subcategory"></header-category-list> --}}
-                                                                    @include('livewire.frontend.components.subcategories', ['subcategory' => $subcategory])
-                                                                </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
-                                                    </li>
+                                                        @include('livewire.frontend.components.sidebar-component',[
+                                                            'category'=> $category,
+                                                            'padding' => 0,
+                                                            'lebel' => 'category'
+                                                        ])
                                                     @endforeach
+                                                    
                                                 </ul>
 
                                             </div>
@@ -92,12 +110,14 @@
                                     </div>
                                     <!--Category Menu End-->
                                 </div>
-
+                                
                                 <div class="col-md-4 col-lg-4 col-sm-12 text-center text-md-right d-none d-md-block">
-                                    <a href="#" ><i class="fas fa-shopping-cart header-icon mr-4"><span class="cart-count"></span></i></a>
-                                    <a><i class="fa fa-user-alt header-icon ml-3 mr-3"></i></a>
+                                    
+                                    <a data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight"><i class="fas fa-shopping-cart header-icon me-4"><span class="cart-count">{{ $cart_count }}</span></i></a>
+                                    <a><i class="fa fa-user-alt header-icon ml-3 me-3"></i></a>
+                                    
                                     <!-- <a href="#" @click.prevent="userLogout"><i class="fas fa-sign-out-alt header-icon ml-3"></i></a> -->
-                                    <a title="wishlist"><i class="fas fa-heart header-icon ml-3"></i></a>
+                                    <a title="wishlist"><i class="fas fa-heart header-icon ms-3"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -113,11 +133,9 @@
                                     <!--Header Top Right Start-->
                                     <div class="header-top-center">
                                         <ul class="header-top-menu mt-0">
-                                            <li>
-                                                <div class="category-heading mobile-category-heading">
-                                                    <h2 class="categories-toggle category-menu-header"></h2>
-                                                </div>
-                                            </li>
+                                            <button class="btn mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                                <i class="fas fa-bars fa-lg"></i>
+                                            </button>
                                             <li class="mobile-li">
                                                 <a>
                                                     <img src="/assets/frontend/img/logo/logo.png" width="70px" alt="">
@@ -136,7 +154,38 @@
                     </div>
                     <!-- Mobile Nav End-->
 
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                        <div class="offcanvas-header">
+                          <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body" style="display: flex; flex-direction: column;">
+                            
+                            <ul class="list-group list-group-flush">
+                                @foreach ($carts as $cart)
+                                    <li class="list-group-item">
+                                        {{ \Illuminate\Support\Str::limit($cart['product']->product_name, 60) }} <br>
+                                        <span>{{ $cart['qty'] }}  × <span class="price"> {{ $cart['price'] }} </span></span>
+                                    </li>
+                                @endforeach
+                            </ul>
 
+                           
+                            <div class="row align-items-end mt-auto">
+                                <div class="d-grid gap-2">
+                                    <a href="{{ route('cart') }}" class="btn btn-secondary">Cart</a>
+                                    <a href="#" class="btn btn-primary">Checkout</a>
+                                </div>
+                                {{-- <div class="col-12">
+                                <a  class="btn btn-block btn-primary">Checkout</a>
+                                </div>
+                                <div class="col-12">
+                                <a href="#" class="btn btn-block btn-secondary p-2">Cart</a>
+                                </div> --}}
+                            </div>
+                            
+                        </div>
+                    </div>
                 </header>
                 {{-- <div class="mobile_view">
                     <div class="col-sm-12">

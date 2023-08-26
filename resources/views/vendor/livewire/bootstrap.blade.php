@@ -46,5 +46,11 @@
                 @endif
             </ul>
         </nav>
+        <script>
+            $(document).on('click', '.page-item', function (e) {
+                $("html, body").animate({ scrollTop: 0 });
+                return false;
+            });
+        </script>
     @endif
 </div>

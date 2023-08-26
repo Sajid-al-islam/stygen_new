@@ -34,7 +34,7 @@
                                                 <!--Single Product Start-->
                                                 <div class="single-product mb-3 shop-product-single">
                                                     <div class="product-img">
-                                                        <a href="#">
+                                                        <a href="{{ route('product_details', $product->pro_slug) }}">
                                                             @if ($product->featured_image)
                                                                 <img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}" lazy="loading">
                                                                 <img class="hover-img" src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}" lazy="loading">
@@ -48,7 +48,7 @@
 
                                                     </div>
                                                     <div class="product-content">
-                                                        <h4><a href="#">{{ $product->product_name }}</a></h4>
+                                                        <h4><a href="{{ route('product_details', $product->pro_slug) }}">{{ $product->product_name }}</a></h4>
                                                         <div class="product-price">
                                                             @if ($product->sales_price)
                                                                 <span class="price"><del>৳{{ $product->regular_price }}</del> ৳{{ $product->sales_price }}</span>
@@ -62,11 +62,11 @@
                                                                     @if ($product->product_variations && count($product->product_variations) > 0)
                                                                         <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2" href="#">select variant</a></span>
                                                                     @else
-                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="#" wire:click.prevent="addToCart({{ $product->id }})"><i class="fas fa-shopping-bag"></i>Add to cart</a></span>
+                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="#" onclick="addToCart({{ $product->id }})"><i class="fas fa-shopping-bag"></i>Add to cart</a></span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-lg-6 col-12">
-                                                                    <span><a class="btn btn-primary btn-sm ps-2 detailsbtn" href="#"><i class="fas fa-eye pe-2"></i>Details</a></span>
+                                                                    <span><a class="btn btn-primary btn-sm ps-2 detailsbtn" href="{{ route('product_details', $product->pro_slug) }}"><i class="fas fa-eye pe-2"></i>Details</a></span>
                                                                 </div>
 
 

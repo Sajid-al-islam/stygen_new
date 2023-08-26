@@ -14,9 +14,9 @@ class CategoryProduct extends Component
     public $category;
     protected $paginationTheme = 'bootstrap';
 
-    public function mount($name)
+    public function mount($slug)
     {
-        $this->category = Category::where('category_name',$name)->first();
+        $this->category = Category::where('cat_slug',$slug)->first();
     }
 
     public function render()
@@ -26,7 +26,7 @@ class CategoryProduct extends Component
             'products' => Product::where('status', 1)->whereIn('id', $productIds)->orderBy('product_view','desc')->with('brand','product_categories','product_images','product_variations')->paginate(30),
         ])->extends('layouts.app', [
             'meta' => [
-                "title" =>  $this->category->category_name . "products",
+                "title" =>  $this->category->category_name . " products",
                 "image" => "",
                 "og_image" => "",
                 "twitter_image" => "",

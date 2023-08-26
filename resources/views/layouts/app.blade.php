@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @csrf
     <title>{{$meta["title"]??'Best online Gift Shop in Bangladesh | Stygen'}}</title>
     <meta property="og:title" content="{{$meta["title"]??''}}" />
@@ -57,18 +57,57 @@
             font-size: 12px;
         }
     </style>
-    <script src="/js/sweetalert.js"></script>
     <script src="/js/pace.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/frontend') }}/js/sweetalert.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/owl.carousel.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/custom.js"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
+        window.toggleSidebar = () => {
+            document.getElementById('left_navbar_dashboard').classList.toggle('active');
+        }
+
+
+
+        window.s_alert = (title = "success", icon = 'success') => {
+            Toast.fire({
+                icon,
+                title
+            })
+        };
+        window.s_confirm = async (title = "Are you sure?", confirmButtonText = 'Yes, do it!', icon = 'warning') => {
+            let result = await Swal.fire({
+                title,
+                text: "",
+                icon,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText
+            })
+            return result.isConfirmed ? true : false;
+        }
+    </script>
+    <script src="{{ asset('assets/frontend') }}/js/cart_management.js" defer></script>
+    
     @livewireScripts
     <script src="/js/turbolink.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/livewire_hook.js" defer></script>
     <script src="{{ asset('assets/frontend') }}/js/main.js" defer></script>
-
+    
 </head>
 
 <body>
