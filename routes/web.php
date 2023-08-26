@@ -96,6 +96,8 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
 
     // Route::get('/about-us',"Frontend\About");
 });
+
+Route::get('')
 Route::get('/mailchimp_add_store', [MailchimpController::class, 'addstore']);
 Route::get('/mailchimp_addproduct', [MailchimpController::class, 'addproducts']);
 Route::get('/mailchimp_products',[MailchimpController::class, 'products']);
