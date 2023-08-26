@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CartManagerController;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 // use App\Models\Addon_product;
@@ -31,6 +32,28 @@ class ProductController extends Controller
                 'products' => $products
             ], 200);
         }
+    }
+
+    // add to cart
+    public function add_to_cart() {
+        $cart = new CartManagerController();
+        $cart->add_to_cart(request()->id, request()->qty);
+        return response()->json([
+            'cart' => $cart->get(),
+            "message" => "Product added to cart successfully",
+            'cart_count' => $cart->cart_count(),
+        ], 200);
+    }
+
+    // clear cart
+    public function clear_cart()
+    {
+        session()->forget('carts');
+    }
+
+    public function cart_all()
+    {
+        ddd(session()->get('carts'));
     }
 
     public function filterByVariation(Request $request){

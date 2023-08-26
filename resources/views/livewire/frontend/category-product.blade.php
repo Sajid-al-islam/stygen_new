@@ -52,8 +52,7 @@
                                                                                 href="#">select variant</a></span>
                                                                     @else
                                                                         <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2"
-                                                                                href="#"
-                                                                                wire:click.prevent="addToCart({{ $product->id }})"><i
+                                                                                href="#" onclick="addToCart({{ $product->id }})"><i
                                                                                     class="fas fa-shopping-bag"></i>Add
                                                                                 to cart</a></span>
                                                                     @endif

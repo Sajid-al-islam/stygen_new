@@ -6,7 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class CartController extends Controller
+class CartManagerController extends Controller
 {
     public $cart = [];
 
@@ -33,19 +33,19 @@ class CartController extends Controller
         }
         
         $product = Product::where('id', $id)
-        ->where('status', 1)
-        ->select("id", "product_name", "regular_price", 'sales_price')
+        ->select("id", "product_name", "regular_price", 'sales_price', 'featured_image')
         // ->with(['discounts', 'related_image' => function($q) {
         //     $q->select('id', 'product_id' ,'image');
         // }])
         ->first();
 
-        // dd($product);
+        if($product !== null) {
 
-        if($product->sales_price) {
-            $price = $product->sales_price;
-        }else {
-            $price = $product->regular_price;
+            if(isset($product->sales_price)) {
+                $price = $product->sales_price;
+            }else {
+                $price = $product->regular_price;
+            }
         }
         
         // if(!is_numeric($price)) {

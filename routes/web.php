@@ -76,6 +76,7 @@ Route::get('/send-mail', function () {
 Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/', "Frontend\Home");
     Route::get('/shop', "Frontend\AllProduct")->name('shop');
+    Route::get('/cart', "Frontend\Cart")->name('cart');
     Route::get('product-category/{slug}', "Frontend\CategoryProduct")->name('category_product');
     Route::get('product/{slug}', "Frontend\ProductDetails")->name('product_details');   
     // Route::get('cart', "Frontend\Cart")->name('cart');
@@ -97,7 +98,8 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     // Route::get('/about-us',"Frontend\About");
 });
 
-Route::get('')
+Route::post('add_to_cart', [ProductController::class, 'add_to_cart']);
+Route::get('cart_all', [ProductController::class, 'cart_all']);
 Route::get('/mailchimp_add_store', [MailchimpController::class, 'addstore']);
 Route::get('/mailchimp_addproduct', [MailchimpController::class, 'addproducts']);
 Route::get('/mailchimp_products',[MailchimpController::class, 'products']);

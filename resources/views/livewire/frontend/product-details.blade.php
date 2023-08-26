@@ -1,5 +1,20 @@
 <div id="single_product">
+    <style>
+        #detailsbtn {
+            color: white !important;
+            font-size: 12px;
+            text-transform: capitalize;
+        }
+        #buynowbtn {
+            background-color: #5e2e87;
+            padding: 17px;
+            text-transform: capitalize;
+        }
 
+        #buynowbtn i{
+            padding-right: 12px;
+        }
+    </style>
     <div class="container single-product-container">
         <div class="breadcrumb-content single-product-breadcrumb">
             <ul>
@@ -296,6 +311,28 @@
                                         </div>
                                     </form>
                                 </div> --}}
+                                <div class="product-add-to-cart">
+                                    
+                                    <div class="row d-flex justify-content-start" v-if="product.status != 0">
+                                        <div class="col-md-4">
+                                            <div class="add mt-4">
+                                                <button class="add-to-cart" onclick="addToCart({{ $product_details->id }})"><i class="ion-bag"></i>
+                                                    add-to-cart</button>
+                                                <!--<span class="product-availability">In stock</span>-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="add mt-4" v-if="product.status != 0">
+                                                <button class="btn btn-primary btn-lg" id="buynowbtn"><i
+                                                        class="fas fa-money-check-alt"></i>Buy now</button>
+                                                <!--<span class="product-availability">In stock</span>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+
+                                </div>
                             </div>
                         </div>
                     </div>

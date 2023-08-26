@@ -50,7 +50,7 @@
                                             <div class="col-md-2 d-none d-md-block">
                                                 <!--Logo Start-->
                                                 <div class="logo logo-section">
-                                                    <a>
+                                                    <a href="/">
                                                         <img src="/assets/frontend/img/logo/logo.png" width="100px" alt="">
                                                     </a>
                                                 </div>
@@ -110,12 +110,14 @@
                                     </div>
                                     <!--Category Menu End-->
                                 </div>
-
+                                
                                 <div class="col-md-4 col-lg-4 col-sm-12 text-center text-md-right d-none d-md-block">
-                                    <a href="#" ><i class="fas fa-shopping-cart header-icon mr-4"><span class="cart-count"></span></i></a>
-                                    <a><i class="fa fa-user-alt header-icon ml-3 mr-3"></i></a>
+                                    
+                                    <a data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight"><i class="fas fa-shopping-cart header-icon me-4"><span class="cart-count">{{ $cart_count }}</span></i></a>
+                                    <a><i class="fa fa-user-alt header-icon ml-3 me-3"></i></a>
+                                    
                                     <!-- <a href="#" @click.prevent="userLogout"><i class="fas fa-sign-out-alt header-icon ml-3"></i></a> -->
-                                    <a title="wishlist"><i class="fas fa-heart header-icon ml-3"></i></a>
+                                    <a title="wishlist"><i class="fas fa-heart header-icon ms-3"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +154,38 @@
                     </div>
                     <!-- Mobile Nav End-->
 
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                        <div class="offcanvas-header">
+                          <h5 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body" style="display: flex; flex-direction: column;">
+                            
+                            <ul class="list-group list-group-flush">
+                                @foreach ($carts as $cart)
+                                    <li class="list-group-item">
+                                        {{ \Illuminate\Support\Str::limit($cart['product']->product_name, 60) }} <br>
+                                        <span>{{ $cart['qty'] }}  × <span class="price"> {{ $cart['price'] }} </span></span>
+                                    </li>
+                                @endforeach
+                            </ul>
 
+                           
+                            <div class="row align-items-end mt-auto">
+                                <div class="d-grid gap-2">
+                                    <a href="{{ route('cart') }}" class="btn btn-secondary">Cart</a>
+                                    <a href="#" class="btn btn-primary">Checkout</a>
+                                </div>
+                                {{-- <div class="col-12">
+                                <a  class="btn btn-block btn-primary">Checkout</a>
+                                </div>
+                                <div class="col-12">
+                                <a href="#" class="btn btn-block btn-secondary p-2">Cart</a>
+                                </div> --}}
+                            </div>
+                            
+                        </div>
+                    </div>
                 </header>
                 {{-- <div class="mobile_view">
                     <div class="col-sm-12">
