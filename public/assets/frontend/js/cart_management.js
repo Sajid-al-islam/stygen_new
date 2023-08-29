@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    renderCart();
+});
+
 function addToCart(product_id, qty=1) {
     fetch("/add_to_cart", {
         method: "POST",
@@ -20,10 +24,24 @@ function addToCart(product_id, qty=1) {
             window.s_alert(res.data.message, "success");
             // $(".cart-count").val(res.data.cart_count);
             $(".cart-count").html(res.data.cart_count);
+            renderCart();
             // update_cart_count_html(res.data.cart_count);
             // Livewire.emit('cartAdded');
         }
     })
+}
+
+function renderCart() {
+    $.ajax({
+        url: "/cart_all",
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // console.log(data);
+            $('#cart_sidebar').html(data.html);
+            
+        }
+    });
 }
 
 function quick_view_add_to_cart(product_id) {

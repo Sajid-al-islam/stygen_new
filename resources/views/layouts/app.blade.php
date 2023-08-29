@@ -63,6 +63,7 @@
     <script src="{{ asset('assets/frontend') }}/js/sweetalert.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/owl.carousel.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/custom.js"></script>
+    
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -104,7 +105,7 @@
     <script src="{{ asset('assets/frontend') }}/js/cart_management.js" defer></script>
     
     @livewireScripts
-    <script src="/js/turbolink.min.js"></script>
+    {{-- <script src="/js/turbolink.min.js"></script> --}}
     <script src="{{ asset('assets/frontend') }}/js/livewire_hook.js" defer></script>
     <script src="{{ asset('assets/frontend') }}/js/main.js" defer></script>
     

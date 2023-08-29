@@ -53,7 +53,15 @@ class ProductController extends Controller
 
     public function cart_all()
     {
-        ddd(session()->get('carts'));
+        $cart = new CartManagerController();
+        $carts = $cart->get();
+        // ddd(session()->get('carts'));
+        $html = view('livewire.frontend.components.cart', compact('carts'))->render();
+        return response()->json([
+            'status' => true,
+            'html' => $html,
+            'message' => 'Data loaded',
+        ]);
     }
 
     public function filterByVariation(Request $request){
