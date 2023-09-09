@@ -80,7 +80,7 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('product-category/{slug}', "Frontend\CategoryProduct")->name('category_product');
     Route::get('product/{slug}', "Frontend\ProductDetails")->name('product_details');   
     // Route::get('cart', "Frontend\Cart")->name('cart');
-    // Route::get('checkout', "Frontend\Checkout")->name('checkout');
+    Route::get('checkout', "Frontend\Checkout")->name('checkout');
     // Route::get('invoice/{invoice}', "Frontend\Invoice")->name('invoice');
     // Route::get('/profile', "Frontend\CustomerProfile");
 
