@@ -27,9 +27,9 @@
                                         <div class="checkout-form-list">
                                             <label>Full Name <span class="required">*</span></label>
                                             <input placeholder="e.g. Rahim" name="name" type="text">
-                                            @if(isset($errors['name']))
+                                            {{-- @if(isset($errors['name']))
                                                 <span class="text-danger">{{ $errors['name'][0] }}</span>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
     
@@ -37,9 +37,9 @@
                                         <div class="checkout-form-list">
                                             <label>Address <span class="required">*</span></label>
                                             <input name="address" placeholder="e.g. House#1, Road#1, Dhaka" type="text">
-                                            @if(isset($errors['address']))
+                                            {{-- @if(isset($errors['address']))
                                                 <span class="text-danger">{{ $errors['address'][0] }}</span>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
     
@@ -54,9 +54,9 @@
                                         <div class="checkout-form-list">
                                             <label>Phone  <span class="required">*</span></label>
                                             <input name="phone" type="number" placeholder="e.g. 01xxxxxxxxx">
-                                            @if(isset($errors['phone']))
+                                            {{-- @if(isset($errors['phone']))
                                                 <span class="text-danger">{{ $errors['phone'][0] }}</span>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
     
@@ -115,9 +115,9 @@
                                             <div class="checkout-form-list">
                                                 <label>Full Name <span class="required">*</span></label>
                                                 <input name="shipping_name" placeholder="e.g. Rahim" type="text">
-                                                @if(isset($errors['shipping_name']))
+                                                {{-- @if(isset($errors['shipping_name']))
                                                     <span class="text-danger">{{ $errors['shipping_name'][0] }}</span>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
     
@@ -125,9 +125,9 @@
                                             <div class="checkout-form-list">
                                                 <label>Address <span class="required">*</span></label>
                                                 <input name="shipping_address" placeholder="e.g. House#1, Road#1, Dhaka" type="text">
-                                                @if(isset($errors['shipping_address']))
+                                                {{-- @if(isset($errors['shipping_address']))
                                                     <span class="text-danger">{{ $errors['shipping_address'][0] }}</span>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
     
@@ -141,9 +141,9 @@
                                             <div class="checkout-form-list">
                                                 <label>Phone  <span class="required">*</span></label>
                                                 <input name="shipping_phone" placeholder="e.g. 01xxxxxxxxx" type="number">
-                                                @if(isset($errors['shipping_phone']))
+                                                {{-- @if(isset($errors['shipping_phone']))
                                                     <span class="text-danger">{{ $errors['shipping_phone'][0] }}</span>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
     
@@ -162,9 +162,9 @@
                                                     <label>Add Greetings Card (Optional)</label>
                                                     <select @change.prevent="changeGreetingsCard($event)" v-model="card_id" class="form-control">
                                                         <option value="0">Select Greetings Card</option>
-                                                        {{-- @foreach($cards as $card)
-                                                            <option :key="{{ $card['id'] }}" :price="{{ $card['price'] }}" :value="{{ $card['id'] }}">{{ $card['name'] }}</option>
-                                                        @endforeach --}}
+                                                        @foreach($cards as $card)
+                                                            <option :value="{{ $card['id'] }}">{{ $card['name'] }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             @endif
@@ -176,28 +176,28 @@
                                                     <label>Packaging (Optional)</label>
                                                     <select @change.prevent="changePackaging($event)" v-model="packaging_id" class="form-control">
                                                         <option value="0">Select Packaging</option>
-                                                        {{-- @foreach($packagings as $packaging)
-                                                            <option :price="{{ $packaging['price'] }}" :key="{{ $packaging['id'] }}" :value="{{ $packaging['id'] }}">{{ $packaging['name'] }}</option>
-                                                        @endforeach --}}
+                                                        @foreach($packagings as $packaging)
+                                                            <option value="{{ $packaging['id'] }}">{{ $packaging['name'] }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             @endif
                                         </div>
                                     </div>
     
-                                    @if(count($shippings_charges) > 0)
+                                    @if($shippings !== null)
                                         <div class="country-select clearfix">
                                             <label>Shipping Method <span class="required">*</span></label>
                                             <select @change.prevent="shippingMethod" v-model="shipping_charge_id" class="form-control">
                                                 <option value="0">Select Shipping Method</option>
                                                 <!-- <option v-if="cart_products.total > 900" value="0">Free Delivery</option> -->
-                                                {{-- @foreach($shippings_charges as $shippings_charge)
-                                                    <option :key="{{ $shippings_charge['id'] }}" :value="{{ $shippings_charge['id'] }}">{{ $shippings_charge['name'] }}</option>
-                                                @endforeach --}}
+                                                @foreach($shippings as $shippings_charge)
+                                                    <option value="{{ $shippings_charge['id'] }}">{{ $shippings_charge['name'] }}</option>
+                                                @endforeach
                                             </select>
-                                            @if(isset($errors['shipping_charge_id']) || isset($shippingAlert))
+                                            {{-- @if(isset($errors['shipping_charge_id']) || isset($shippingAlert))
                                                 <span class="text-danger">{{ $errors['shipping_charge_id'][0] ?? $shippingAlert }}</span>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     @endif
                                 </div>
@@ -233,19 +233,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($cart_products['products'] as $product)
+                                        @foreach($carts as $cart)
+                                        {{-- @dd($cart) --}}
                                             <tr class="cart_item">
-                                                <td class="cart-product-name">{{ $product['name'] }}<strong class="product-quantity"> × {{ $product['quantity'] }}</strong></td>
-                                                <td class="cart-product-total"><span class="amount">৳{{ $product['quantity'] * $product['price'] }}</span></td>
+                                                <td class="cart-product-name">{{ $cart['product']['product_name'] }}<strong class="product-quantity"> × {{ $cart['qty'] }}</strong></td>
+                                                <td class="cart-product-total"><span class="amount">৳{{ $cart['qty'] * $cart['product']['regular_price'] }}</span></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr class="cart-subtotal">
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount">৳ {{ $cart_products['sub_total'] }}</span></td>
+                                            <td><span class="amount">৳ {{ number_format($cart_total) }}</span></td>
                                         </tr>
-                                        @if($cart_products['discount'] > 0)
+                                        {{-- @if($cart_products['discount'] > 0)
                                             <tr class="cart-subtotal">
                                                 <th>Discount</th>
                                                 <td><span class="amount">৳ {{ $cart_products['discount'] + $coupon_amount }}</span></td>
@@ -257,14 +258,14 @@
                                                     <td><span class="amount">৳ {{ $coupon_amount }}</span></td>
                                                 </tr>
                                             @endif
-                                        @endif
-                                        @if($cart_products['vat'] > 0)
+                                        @endif --}}
+                                        {{-- @if($cart_products['vat'] > 0)
                                             <tr class="cart-subtotal">
                                                 <th>Vat</th>
                                                 <td><span class="amount">৳ {{ $cart_products['vat'] }}</span></td>
                                             </tr>
-                                        @endif
-                                        @if($shipping_charge)
+                                        @endif --}}
+                                        {{-- @if($shipping_charge)
                                             <tr class="cart-subtotal">
                                                 <th>Shipping Charge</th>
                                                 <td><span class="amount shippingCharge">৳ {{ $shipping_charge }}</span></td>
@@ -281,10 +282,10 @@
                                                 <th>Packaging</th>
                                                 <td><span class="amount shippingCharge">৳ {{ $packaging_price }}</span></td>
                                             </tr>
-                                        @endif
+                                        @endif --}}
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">৳ {{ orderTotal($cart_products['total'], $shipping_charge, $card_price, $packaging_price) - $coupon_amount}}</span></strong></td>
+                                            <td><strong><span class="amount">৳ {{ number_format($cart_total) }}</span></strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -297,7 +298,7 @@
                                             <div class="row mb-2">
                                                 <div class="col-md-4 col-sm-12 col-12">
                                                     <div class="payment_single text-center">
-                                                        <a @click="cashOn" class="btn" :class="{selected: cash_on}" data-toggle="collapse" data-target="#cashOnDelivery" aria-expanded="true" aria-controls="cashOnDelivery">
+                                                        <a class="btn"  data-toggle="collapse" data-target="#cashOnDelivery" aria-expanded="true" aria-controls="cashOnDelivery">
                                                             <img src="assets/frontend/img/cart/cash-on-delivery.png" class="img-fluid mx-auto d-block mb-2">
                                                             <span><i class="fas fa-truck"></i><b>Cash On Delivery</b></span>
                                                         </a>
@@ -307,7 +308,7 @@
                                                     <div class="payment_single text-center">
                                                         <div class="card-header" id="#payment-2">
                                                             <h5 class="panel-title">
-                                                                <a @click="onlinePay" :class="{selected: online}" class="btn" data-toggle="collapse" data-target="#onlinePayment" aria-expanded="false" aria-controls="onlinePayment">
+                                                                <a class="btn" data-toggle="collapse" data-target="#onlinePayment" aria-expanded="false" aria-controls="onlinePayment">
                                                                     <img src="assets/frontend/img/cart/secure.png" class="img-fluid mx-auto d-block mb-2">
                                                                     <span><i class="fas fa-money-check"></i><b>Online Payment</b></span>
                                                                 </a>
@@ -319,7 +320,7 @@
                                                     <div class="payment_single text-center">
                                                         <div class="card-header" id="#payment-3">
                                                             <h5 class="panel-title">
-                                                                <a @click="bkash()" :class="{selected: Bkash}" class="btn collapsed">
+                                                                <a  class="btn collapsed">
                                                                     <img src="assets/frontend/img/cart/bkash.svg" class="img-fluid mx-auto d-block bkash_img">
                                                                     <span><b>Bkash</b></span>
                                                                 </a>
@@ -330,16 +331,16 @@
                                             </div>
                                         </div>
                                         <div class="card">
-                                            <div id="onlinePayment" class="collapse" data-parent="#accordion">
+                                            {{-- <div id="onlinePayment" class="collapse" data-parent="#accordion">
                                                 <div class="card-body">
                                                     <button id="sslczPayBtn" @click.prevent="sslCommerzePayment" class="btn mln-btn mln-btn--border btn-block" token="data" postdata="data" order="data" endpoint="/pay-via-ajax">PAY NOW</button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div id="cashOnDelivery" class="collapse show" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    @if($cart_products['total'] > 0)
+                                                    @if($cart_total > 0)
                                                         <div class="order-button-payment">
-                                                            <input value="{{ $place_order }}" type="submit" @click.prevent="placeOrder">
+                                                            <button type="submit" onclick="placeOrder()">Place Order</button>
                                                         </div>
                                                     @endif
                                                 </div>

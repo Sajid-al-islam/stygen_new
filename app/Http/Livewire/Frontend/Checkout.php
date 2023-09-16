@@ -3,16 +3,20 @@
 namespace App\Http\Livewire\Frontend;
 
 use App\Http\Controllers\CartManagerController;
+use App\Models\Card;
+use App\Models\Packaging;
 use App\Models\ShippingCharge;
 use Livewire\Component;
 
 class Checkout extends Component
 {
     public $carts;
+    public $cards;
     public $cart_amount;
     public $cart_total;
     private $cart_handler;
     public $shippings;
+    public $packagings;
 
     public function __construct() {
         $this->cart_handler = new CartManagerController();
@@ -23,9 +27,14 @@ class Checkout extends Component
         $this->CountCart();
         $this->cart_total = $this->cart_handler->cart_total();
 
+
+        $this->cards = Card::where('status', 1)->get();
+        $this->packagings = Packaging::where('status', 1)->get();
+
         $product_id = [];
         foreach($this->carts as $cart){
-            array_push($product_id, $cart->id, $cart->price);
+            // dd($cart);
+            array_push($product_id, $cart['product']['id'], $cart['product']['price']);
         }
         $shippings = ShippingCharge::join('product_shipping_charges','product_shipping_charges.shipping_charge_id','=','shipping_charges.id')
                 ->whereIn('product_shipping_charges.product_id', $product_id)
@@ -40,5 +49,9 @@ class Checkout extends Component
         
 
         return view('livewire.frontend.checkout')->extends('layouts.app');
+    }
+    public function CountCart()
+    {
+        $this->cart_amount = $this->cart_handler->cart_count();
     }
 }
