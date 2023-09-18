@@ -1,6 +1,53 @@
 $(document).ready(function(){
     renderCart();
+    $('#checkout-login').addClass('d-none');
+    $('#checkout_coupon').addClass('d-none');
+    $('#cbox-info').addClass('d-none');
+    $('#ship-box-info').addClass('d-none');
 });
+
+$('#showlogin').on('click', function() {
+    $('#checkout-login').toggleClass('d-none').animate('easeIn');
+});
+
+/*--- showlogin toggle function ----*/
+$('body').on('click','#showcoupon', function() {
+    $('#checkout_coupon').toggleClass('d-none').animate('easeIn');
+});
+/*--- showlogin toggle function ----*/
+$('#cbox').on('click', function() {
+    $('#cbox-info').toggleClass('d-none').animate('easeIn');
+});
+
+/*--- showlogin toggle function ----*/
+$('#ship-box').on('click', function() {
+    $('#ship-box-info').toggleClass('d-none').animate('easeIn');
+});
+
+function checkout_submit(event) {
+    event.preventDefault();
+    let formData = new FormData(event.target);
+
+    fetch("/checkout", {
+        method: "POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        body: formData
+    }).then(async res => {
+        let response = {}
+        response.status = res.status
+        response.data = await res.json();
+        return response;
+    }).then(res => {
+        if(res.status === 422) {
+            error_response(res.data)
+        }
+        if(res.status === 200) {
+            location.href = "/order-complete/"+res.data.order.id;
+        }
+    })
+}
 
 function addToCart(product_id, qty=1) {
     fetch("/add_to_cart", {
@@ -46,31 +93,6 @@ function renderCart() {
 
 function quick_view_add_to_cart(product_id) {
     Livewire.emit('viewProduct', product);
-}
-
-function checkout_submit(event) {
-    event.preventDefault();
-    let formData = new FormData(event.target);
-
-    fetch("/checkout", {
-        method: "POST",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        body: formData
-    }).then(async res => {
-        let response = {}
-        response.status = res.status
-        response.data = await res.json();
-        return response;
-    }).then(res => {
-        if(res.status === 422) {
-            error_response(res.data)
-        }
-        if(res.status === 200) {
-            location.href = "/order-complete/"+res.data.order.id;
-        }
-    })
 }
 
 function login(params) {

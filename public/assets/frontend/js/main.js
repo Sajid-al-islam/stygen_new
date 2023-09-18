@@ -617,23 +617,23 @@ $('.single-slide-menu a').on('click',function(e){
     Toggle Function Active
 ---------------------------------*/
 /*--- showlogin toggle function ----*/
-$('#showlogin').on('click', function() {
-    $('#checkout-login').slideToggle(900);
-});
+// $('#showlogin').on('click', function() {
+//     $('#checkout-login').slideToggle(900);
+// });
 
-/*--- showlogin toggle function ----*/
-$('body').on('click','#showcoupon', function() {
-    $('#checkout_coupon').slideToggle(900);
-});
-/*--- showlogin toggle function ----*/
-$('#cbox').on('click', function() {
-    $('#cbox-info').slideToggle(900);
-});
+// /*--- showlogin toggle function ----*/
+// $('body').on('click','#showcoupon', function() {
+//     $('#checkout_coupon').slideToggle(900);
+// });
+// /*--- showlogin toggle function ----*/
+// $('#cbox').on('click', function() {
+//     $('#cbox-info').slideToggle(900);
+// });
 
-/*--- showlogin toggle function ----*/
-$('#ship-box').on('click', function() {
-    $('#ship-box-info').slideToggle(1000);
-});
+// /*--- showlogin toggle function ----*/
+// $('#ship-box').on('click', function() {
+//     $('#ship-box-info').slideToggle(1000);
+// });
 /* --------------------------------------------------------
 	FAQ-accordion
 * -------------------------------------------------------*/

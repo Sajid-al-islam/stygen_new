@@ -108,7 +108,7 @@
     {{-- <script src="/js/turbolink.min.js"></script> --}}
     <script src="{{ asset('assets/frontend') }}/js/livewire_hook.js" defer></script>
     <script src="{{ asset('assets/frontend') }}/js/main.js" defer></script>
-    
+    @stack('custom-js')
 </head>
 
 <body>

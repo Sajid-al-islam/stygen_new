@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Mail;
 use PDF;
@@ -29,13 +30,17 @@ Use MailchimpMarketing;
 
 class CashOnDeliveryController extends Controller
 {
+
     public function cashOnDelivery(Request $request) {
+        // dd($request->all());
+
         $coupon_code            = $request->coupon_code;
         $coupon_amount          = $request->coupon_amount;
-        $shippingStatus         = $request->shippingDisplay == 'false' ? 0: 1;
+        $shippingStatus         = $request->shippingDisplay == 'on' ? 0: 1;
         $paymentType            = $request->cashOnDelivery;
         $createAccountStatus    = $request->createAccount;
         $carts                  = \Cart::getContent();
+        
         $cart_count             = count($carts);
         $current_date           = date('d/m/Y');
         $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
@@ -56,7 +61,16 @@ class CashOnDeliveryController extends Controller
         $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
 
         if ($shippingStatus == 1) {
-            $request->validate([
+            // $request->validate([
+            //     'name'              => 'required',
+            //     'address'           => 'required',
+            //     'phone'             => 'required',
+            //     'shipping_name'     => 'required',
+            //     'shipping_address'  => 'required',
+            //     'shipping_phone'    => 'required',
+            //     'shipping_charge_id'=> 'required | not_in:0'
+            // ]);
+            $validator = Validator::make($request->all(), [
                 'name'              => 'required',
                 'address'           => 'required',
                 'phone'             => 'required',
@@ -67,12 +81,22 @@ class CashOnDeliveryController extends Controller
             ]);
         }
         else {
-            $request->validate([
+            $validator = Validator::make($request->all(), [
                 'name'              => 'required',
                 'address'           => 'required',
                 'phone'             => 'required',
                 'shipping_charge_id'=> 'required | not_in:0'
             ]);
+        }
+
+        
+
+
+        if ($validator->fails()) {
+            return response()->json([
+                'err_message' => 'validation error',
+                'data' => $validator->errors(),
+            ], 422);
         }
 
 
