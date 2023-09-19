@@ -951,6 +951,7 @@ footer .sslImageMain {
     margin: 0px 0 10px !important;
 }
 .loading-checkout {
+    
     height: 0;
     width: 0;
     z-index: 999;

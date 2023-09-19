@@ -5,6 +5,9 @@
         {{-- @if($checkoutLoader)
             <div class="loading-checkout"></div>
         @endif --}}
+        
+        <div class="checkout-loader"></div>
+        
     
         <!-- Checkout Area Start -->
         <div class="checkout-area">

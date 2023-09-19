@@ -25,6 +25,9 @@ $('#ship-box').on('click', function() {
 });
 
 function checkout_submit(event) {
+    $('.checkout-area').css('filter','blur(2px)');
+    $('.checkout-loader').css('display','block');
+    window.scrollTo(0, 0);
     event.preventDefault();
     let formData = new FormData(event.target);
 
@@ -42,8 +45,12 @@ function checkout_submit(event) {
     }).then(res => {
         if(res.status === 422) {
             error_response(res.data)
+            $('.checkout-area').css('filter','none');
         }
         if(res.status === 200) {
+            $('.checkout-area').css('filter','none');
+            $('.checkout-loader').css('display','none');
+
             location.href = "/thank-you?"+res.data;
         }
     })

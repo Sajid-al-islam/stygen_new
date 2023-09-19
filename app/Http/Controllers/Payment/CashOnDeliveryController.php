@@ -224,7 +224,7 @@ class CashOnDeliveryController extends Controller
                     'company_id'        => $company_id,
                     'order_id'          => $order->id,
                     'product_id'        => $cart['product']->id,
-                    'price'             => $cart['product']->sales_price,
+                    'price'             => $cart['product']->sales_price ? $cart['product']->sales_price : $cart['product']->regular_price,
                     'quantity'          => $cart['qty'],
                     'total_amount'      => $cart['product']->price * $cart['qty'],
                     'transaction_id'    => $order->transaction_id,
