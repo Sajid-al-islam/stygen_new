@@ -1,4 +1,10 @@
 <div>
+    <style>
+        #checkout .order-button-payment button {
+            background: #5e2e87 none repeat scroll 0 0;
+            color: white;
+        }
+    </style>
     {{-- The Master doesn't talk, he acts. --}}
     <div id="checkout">
 
@@ -344,7 +350,7 @@
                                                     <div class="card-body">
                                                         @if($cart_total > 0)
                                                             <div class="order-button-payment">
-                                                                <button type="submit">Place Order</button>
+                                                                <button class="btn btn-block" type="submit">Place Order</button>
                                                             </div>
                                                         @endif
                                                     </div>
