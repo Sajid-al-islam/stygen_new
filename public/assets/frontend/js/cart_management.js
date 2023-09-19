@@ -273,7 +273,7 @@ window.render_error = (object)=>{
         // console.log(data);
     }
 
-    window.s_alert('error',data.err_message)
+    // window.s_alert('error',data.err_message)
 }
 
 // function checkout_handling() {
