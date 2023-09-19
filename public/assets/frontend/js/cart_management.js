@@ -44,7 +44,7 @@ function checkout_submit(event) {
             error_response(res.data)
         }
         if(res.status === 200) {
-            location.href = "/order-complete/"+res.data.order.id;
+            location.href = "/thank-you?"+res.data;
         }
     })
 }

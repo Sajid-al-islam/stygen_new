@@ -33,7 +33,7 @@ class CartManagerController extends Controller
         }
         
         $product = Product::where('id', $id)
-        ->select("id", "product_name", "regular_price", 'sales_price', 'featured_image')
+        ->select("id", "product_name", "regular_price", 'sales_price', 'vat' ,'featured_image')
         // ->with(['discounts', 'related_image' => function($q) {
         //     $q->select('id', 'product_id' ,'image');
         // }])

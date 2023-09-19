@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Payment;
 
+use App\Http\Controllers\CartManagerController;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Customer;
@@ -12,6 +13,7 @@ use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Seller;
 use App\Models\Shipping;
+use App\Models\ShippingCharge;
 use App\Models\StockLedger;
 use App\Models\User;
 use Carbon\Carbon;
@@ -30,64 +32,60 @@ Use MailchimpMarketing;
 
 class CashOnDeliveryController extends Controller
 {
+    private $cart_handler;
 
     public function cashOnDelivery(Request $request) {
-        // dd($request->all());
+        // dd($request->all());    
+        $this->cart_handler = new CartManagerController();  
+
+        $shippingStatus = $request->shippingDisplay;
+        
+        $validator = Validator::make($request->all(), [
+            'name'              => 'required',
+            'address'           => 'required',
+            'phone'             => 'required',
+            'shipping_charge_id' => ['required', 'not_in:0'],
+            'shipping_name'     => ['required_if:shippingDisplay,==,ship_to_other'],
+            'shipping_address'  => ['required_if:shippingDisplay,==,ship_to_other'],
+            'shipping_phone'    => ['required_if:shippingDisplay,==,ship_to_other'],
+        ]);
+        
 
         $coupon_code            = $request->coupon_code;
         $coupon_amount          = $request->coupon_amount;
-        $shippingStatus         = $request->shippingDisplay == 'on' ? 0: 1;
+        // if()
+        
         $paymentType            = $request->cashOnDelivery;
         $createAccountStatus    = $request->createAccount;
-        $carts                  = \Cart::getContent();
+        // $carts                  = \Cart::getContent();
+        $carts                  = $this->cart_handler->get();
         
-        $cart_count             = count($carts);
+        // $cart_count             = count($carts);
+        $cart_count             = $this->cart_handler->cart_count();
         $current_date           = date('d/m/Y');
         $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
-        $cart_total_amount      = \Cart::getTotal();
+        // $cart_total_amount      = \Cart::getTotal();
+        $cart_total_amount      = floatval($this->cart_handler->cart_total());
+        // dd($carts);
         $card_id                = (!empty($request->card_id)?$request->card_id:NULL);
         $card_price             = (!empty($request->card_price)?$request->card_price:0);
         $packaging_id           = (!empty($request->packaging_id)?$request->packaging_id:NULL);
         $packaging_price        = (!empty($request->packaging_price)?$request->packaging_price:0);
         $personal_notes         = (!empty($request->personal_notes)?$request->personal_notes:NULL);
-        $shipping_charge        = floatval($request->shipping_charge);
+        $get_shipping_charge    = ShippingCharge::where('id', $request->shipping_charge_id)->first();
+        // dd($get_shipping_charge);
+        $shipping_charge        = floatval($get_shipping_charge->shipping_charge);
         if($cart_total_amount < 0) {
             $total_amount = 0;
         }
         else {
+            // dd($cart_total_amount, $shipping_charge, $card_price, $packaging_price);
             $total_amount       = $cart_total_amount + $shipping_charge + $card_price + $packaging_price;
         }
         $current_date           = date('d/m/Y');
         $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
 
-        if ($shippingStatus == 1) {
-            // $request->validate([
-            //     'name'              => 'required',
-            //     'address'           => 'required',
-            //     'phone'             => 'required',
-            //     'shipping_name'     => 'required',
-            //     'shipping_address'  => 'required',
-            //     'shipping_phone'    => 'required',
-            //     'shipping_charge_id'=> 'required | not_in:0'
-            // ]);
-            $validator = Validator::make($request->all(), [
-                'name'              => 'required',
-                'address'           => 'required',
-                'phone'             => 'required',
-                'shipping_name'     => 'required',
-                'shipping_address'  => 'required',
-                'shipping_phone'    => 'required',
-                'shipping_charge_id'=> 'required | not_in:0'
-            ]);
-        }
-        else {
-            $validator = Validator::make($request->all(), [
-                'name'              => 'required',
-                'address'           => 'required',
-                'phone'             => 'required',
-                'shipping_charge_id'=> 'required | not_in:0'
-            ]);
-        }
+        
 
         
 
@@ -218,39 +216,39 @@ class CashOnDeliveryController extends Controller
 
             foreach ($carts as $cart) {
 
-                $discount_price += $cart->attributes['discount_price'];
-                $total_vat      += $cart->attributes['vat'];
+                $discount_price += $cart['product']->discount_price;
+                $total_vat      += $cart['product']->vat;
 
-                $company_id = Product::where('id', $cart->id)->first()->company_id;
+                $company_id = Product::where('id', $cart['product']->id)->first()->company_id;
                 $order_details = OrderDetail::create([
                     'company_id'        => $company_id,
                     'order_id'          => $order->id,
-                    'product_id'        => $cart->id,
-                    'price'             => $cart->price,
-                    'quantity'          => $cart->quantity,
-                    'total_amount'      => $cart->price * $cart->quantity,
+                    'product_id'        => $cart['product']->id,
+                    'price'             => $cart['product']->sales_price,
+                    'quantity'          => $cart['qty'],
+                    'total_amount'      => $cart['product']->price * $cart['qty'],
                     'transaction_id'    => $order->transaction_id,
                     'status'            => 'Pending',
                     'created_by'        => $userID
                 ]);
 
-                if(!empty($cart->attributes['color']) || !empty($cart->attributes['size']) || !empty($cart->attributes['weight'])){
-                    $order_attributes = OrderAttribute::create([
-                        'company_id'         => $company_id,
-                        'order_id'           => $order->id,
-                        'product_id'         => $cart->id,
-                        'color'              => $cart->attributes['color'],
-                        'size'               => $cart->attributes['size'],
-                        'weight'             => $cart->attributes['weight'],
-                        'status'             => 1,
-                    ]);
-                }
+                // if(!empty($cart->attributes['color']) || !empty($cart->attributes['size']) || !empty($cart->attributes['weight'])){
+                //     $order_attributes = OrderAttribute::create([
+                //         'company_id'         => $company_id,
+                //         'order_id'           => $order->id,
+                //         'product_id'         => $cart->id,
+                //         'color'              => $cart->attributes['color'],
+                //         'size'               => $cart->attributes['size'],
+                //         'weight'             => $cart->attributes['weight'],
+                //         'status'             => 1,
+                //     ]);
+                // }
 
-                $variationId = $cart->attributes['variation_id'];
+                $variationId = $cart['product']->variation_id;
                 if(!empty($variationId)){
                     $prev_stock = ProductVariation::where('status', 1)->where('id', $variationId)->first();
                     if(isset($prev_stock)){
-                        $new_stock = ($prev_stock->attribute_stock) - ($cart->quantity);
+                        $new_stock = ($prev_stock->attribute_stock) - ($cart['qty']);
                         $prev_stock->update(['attribute_stock' => $new_stock]);
                     }
 
@@ -258,10 +256,10 @@ class CashOnDeliveryController extends Controller
                         'company_id'  => $company_id,
                         'invoice_no'  => $invoice_no,
                         'invoice_date'=> $invoice_date,
-                        'product_id'  => $cart->id,
+                        'product_id'  => $cart['product']->id,
                         'variation_id'=> $variationId,
                         'stock_in'    => 0,
-                        'stock_out'   => $cart->quantity,
+                        'stock_out'   => $cart['qty'],
                         'ledger_type' => 2,
                         'status'      => 1,
                         'created_by'  => $userID
@@ -271,10 +269,10 @@ class CashOnDeliveryController extends Controller
                         'company_id'  => $company_id,
                         'invoice_no'  => $invoice_no,
                         'invoice_date'=> $invoice_date,
-                        'product_id'  => $cart->id,
+                        'product_id'  => $cart['product']->id,
                         'variation_id'=> NULL,
                         'stock_in'    => 0,
-                        'stock_out'   => $cart->quantity,
+                        'stock_out'   => $cart['qty'],
                         'ledger_type' => 2,
                         'status'      => 1,
                         'created_by'  => $userID
@@ -321,33 +319,33 @@ class CashOnDeliveryController extends Controller
 
             // mailchimp user entry start
 
-            if(isset($request->email) && $request->email != 'null') {
+            // if(isset($request->email) && $request->email != 'null') {
 
-                $client = new \MailchimpMarketing\ApiClient();
+            //     $client = new \MailchimpMarketing\ApiClient();
 
-                $client->setConfig([
-                    'apiKey' => config('services.mailchimp.key'),
-                    'server' => 'us20',
-                ]);
+            //     $client->setConfig([
+            //         'apiKey' => config('services.mailchimp.key'),
+            //         'server' => 'us20',
+            //     ]);
 
-                $order_email = $request->email;
+            //     $order_email = $request->email;
 
-                $customer = $client->ecommerce->addStoreCustomer("stygen", [
-                    "id" => "stg_$customer->id",
-                    "email_address" => "$order_email",
-                    "opt_in_status" => true,
-                    "status" => "customer",
-                    "company" => "Stygen",
-                    "address" => [
-                        "address1"=> "$request->address",
-                        "country"=> "Bangladesh",
-                        "country_code"=> "BD"
-                    ],
-                    "created_at" => "$order->created_at",
-                    "updated_at" => "$order->updated_at"
-                ]);
+            //     $customer = $client->ecommerce->addStoreCustomer("stygen", [
+            //         "id" => "stg_$customer->id",
+            //         "email_address" => "$order_email",
+            //         "opt_in_status" => true,
+            //         "status" => "customer",
+            //         "company" => "Stygen",
+            //         "address" => [
+            //             "address1"=> "$request->address",
+            //             "country"=> "Bangladesh",
+            //             "country_code"=> "BD"
+            //         ],
+            //         "created_at" => "$order->created_at",
+            //         "updated_at" => "$order->updated_at"
+            //     ]);
 
-            }
+            // }
             // // mailchimp user entry end
 
             //Send Mail Start---------------------------------------
@@ -419,7 +417,7 @@ class CashOnDeliveryController extends Controller
 
             if(!blank($customer_email) && $customer_email != 'null' && $customer_email != NULL){
                 $user_email = $customer_email;
-                $data['order_details'] = $order_details = OrderDetail::join('products','products.id','=','order_details.product_id')
+                $data['order_details'] = OrderDetail::join('products','products.id','=','order_details.product_id')
                     ->select('order_details.*','products.product_name','products.product_sku')
                     ->where('order_details.order_id', $order->id)
                     ->get();
@@ -462,7 +460,8 @@ class CashOnDeliveryController extends Controller
 
         }
 
-        \Cart::clear();
+        // \Cart::clear();
+        $this->cart_handler->emptyCart();
         // Auth::loginUsingId($userID);
         $orderID = $order->id;
         return response()->json($orderID);

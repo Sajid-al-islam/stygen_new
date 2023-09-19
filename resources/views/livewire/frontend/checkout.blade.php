@@ -108,7 +108,7 @@
                                         <div class="ship-different-title">
                                             <h3>
                                                 <label>Send this as a gift</label>
-                                                <input id="ship-box" name="ship-box" name="shippingDisplay" type="checkbox">
+                                                <input id="ship-box" name="shippingDisplay" value="ship_to_other" type="checkbox">
                                             </h3>
                                         </div>
                                         <div id="ship-box-info" class="row d-block">
@@ -189,8 +189,8 @@
                                         @if($shippings !== null)
                                             <div class="country-select clearfix">
                                                 <label>Shipping Method <span class="required">*</span></label>
-                                                <select @change.prevent="shippingMethod" v-model="shipping_charge_id" class="form-control">
-                                                    <option value="0">Select Shipping Method</option>
+                                                <select name="shipping_charge_id" class="form-control">
+                                                    {{-- <option>Select Shipping Method</option> --}}
                                                     <!-- <option v-if="cart_products.total > 900" value="0">Free Delivery</option> -->
                                                     @foreach($shippings as $shippings_charge)
                                                         <option value="{{ $shippings_charge['id'] }}">{{ $shippings_charge['name'] }}</option>

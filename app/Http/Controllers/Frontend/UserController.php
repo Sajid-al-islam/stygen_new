@@ -38,7 +38,7 @@ class UserController extends Controller
         $title = 'Best online Gift Shop in Bangladesh | Stygen';
         $meta_title = 'Buy gifts online for your loved ones | Stygen.gift';
         $description = 'Order & send gifts online to your friends & family for any occasion. Gifts delivery in Bangladesh. Flower, cake, perfume, chocolate, books home delivery.';
-        return view('frontend.frontend_master');
+        return view('frontend_old.frontend_master');
     }
 
     public function user_details(Request $request){

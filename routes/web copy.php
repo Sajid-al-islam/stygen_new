@@ -85,29 +85,6 @@ Auth::routes();
 
 // Route::get('/', [UserController::class, 'index'])->name('home');
 
-Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
-    Route::get('/', "Frontend\Home");
-    Route::get('/shop', "Frontend\AllProduct")->name('shop');
-    // Route::get('category/{category}/{name}', "Frontend\CategoryProduct")->name('category_product');
-    // Route::get('product/{product}/{name}', "Frontend\ProductDetails")->name('product_details');
-    // Route::get('cart', "Frontend\Cart")->name('cart');
-    // Route::get('checkout', "Frontend\Checkout")->name('checkout');
-    // Route::get('invoice/{invoice}', "Frontend\Invoice")->name('invoice');
-    // Route::get('/profile', "Frontend\CustomerProfile");
-
-    // Route::get('/login', "Login")->name('login');
-    // Route::get('/register', "Register")->name('register');
-
-    // // Route::get('pos', "Frontend\Pos")->name('pos');
-    // Route::get('contact', "Frontend\Contact")->name('contact');
-    // Route::get('/frequently-asked-questions', "Frontend\Faq");
-    // Route::get('/how-to-buy', "Frontend\Howtobuy");
-    // Route::get('/terms', "Frontend\Terms");
-    // Route::get('/refund-policy', "Frontend\RefundPolicy");
-    // Route::get('/privacy-policy', "Frontend\PrivacyPolicy");
-
-    // Route::get('/about-us',"Frontend\About");
-});
 Route::get('/mailchimp_add_store', [MailchimpController::class, 'addstore']);
 Route::get('/mailchimp_addproduct', [MailchimpController::class, 'addproducts']);
 Route::get('/mailchimp_products',[MailchimpController::class, 'products']);

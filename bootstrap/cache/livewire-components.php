@@ -11,4 +11,5 @@
   'frontend.components.slider' => 'App\\Http\\Livewire\\Frontend\\Components\\Slider',
   'frontend.home' => 'App\\Http\\Livewire\\Frontend\\Home',
   'frontend.product-details' => 'App\\Http\\Livewire\\Frontend\\ProductDetails',
+  'frontend.thank-you' => 'App\\Http\\Livewire\\Frontend\\ThankYou',
 );

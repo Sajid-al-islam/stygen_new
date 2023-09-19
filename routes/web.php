@@ -19,6 +19,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductVariation;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
 
 /*
@@ -71,6 +72,13 @@ Route::get('/send-mail', function () {
     return view('email.welcome');
 });
 
+Route::prefix('admin')->group(base_path('routes/backend.php'));
+
+//Frontend Route Path Linkup
+Route::prefix('user')->group(base_path('routes/frontend.php'));
+
+//Seller Route Path Linkup
+Route::prefix('seller')->group(base_path('routes/seller.php'));
 
 
 Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
@@ -79,8 +87,11 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/cart', "Frontend\Cart")->name('cart');
     Route::get('product-category/{slug}', "Frontend\CategoryProduct")->name('category_product');
     Route::get('product/{slug}', "Frontend\ProductDetails")->name('product_details');   
-    // Route::get('cart', "Frontend\Cart")->name('cart');
+    Route::get('/admin', function() {
+        return redirect()->route('admin.login');
+    })->name('admin_login');
     Route::get('checkout', "Frontend\Checkout")->name('checkout');
+    Route::get('thank-you', "Frontend\ThankYou")->name('thankyou');
     // Route::get('invoice/{invoice}', "Frontend\Invoice")->name('invoice');
     // Route::get('/profile', "Frontend\CustomerProfile");
 
@@ -255,13 +266,17 @@ Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+
+Route::get('cart-test', function () {
+    ddd(Session::get("carts"));
+});
 //SSLCOMMERZ END
 
 //For Frontend Any Path
-// Route::get('/{path}', [UserController::class, 'index']);
+Route::get('/{path}', [UserController::class, 'index']);
 
 //For Frontend Any Path for ID
-// Route::get('/{path}/{id}', [UserController::class, 'index']);
+Route::get('/{path}/{id}', [UserController::class, 'index']);
 
 //For Frontend Any Path for ID
-// Route::get('/{path}/{path2}/{id}', [UserController::class, 'index']);
+Route::get('/{path}/{path2}/{id}', [UserController::class, 'index']);
