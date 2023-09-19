@@ -46,6 +46,8 @@ function checkout_submit(event) {
         if(res.status === 422) {
             error_response(res.data)
             $('.checkout-area').css('filter','none');
+            $('.checkout-loader').css('display','none');
+
         }
         if(res.status === 200) {
             $('.checkout-area').css('filter','none');
