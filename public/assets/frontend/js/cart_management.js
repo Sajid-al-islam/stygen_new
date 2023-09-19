@@ -45,14 +45,12 @@ function checkout_submit(event) {
     }).then(res => {
         if(res.status === 422) {
             error_response(res.data)
-            $('.checkout-area').css('filter','none');
-            $('.checkout-loader').css('display','none');
-
+            document.getElementsByClassName("checkout-loader").style.display = "none";
+            document.getElementsByClassName("checkout-area").style.filter = "none";
         }
         if(res.status === 200) {
-            $('.checkout-area').css('filter','none');
-            $('.checkout-loader').css('display','none');
-
+            document.getElementsByClassName("checkout-loader").style.display = "none";
+            document.getElementsByClassName("checkout-area").style.filter = "none"; 
             location.href = "/thank-you?"+res.data;
         }
     })
