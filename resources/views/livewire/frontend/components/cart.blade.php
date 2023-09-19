@@ -13,7 +13,7 @@
     <div class="row align-items-end mt-auto">
         <div class="d-grid gap-2 mt-auto">
             <a href="{{ route('cart') }}" class="btn btn-secondary">Cart</a>
-            <a href="#" class="btn btn-primary">Checkout</a>
+            <a href="/checkout" class="btn btn-primary">Checkout</a>
         </div>
         {{-- <div class="col-12">
         <a  class="btn btn-block btn-primary">Checkout</a>
