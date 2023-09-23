@@ -42,11 +42,11 @@
                                     {{-- <image-magnifier src="`/assets/uploads/product/${product.featured_image}`"
                                         :zoom-src="`/assets/uploads/product/${product.featured_image}`" width="100%"
                                         height="100%" zoom-width="440" zoom-height="440"></image-magnifier> --}}
-                                    <img class="first-img" width="400px" height="400px"
+                                    <img class="first-img" class="img-fluid"
                                         src="/assets/uploads/product/{{ $product_details->featured_image }}">
                                     @else
 
-                                    <img class="first-img" width="400px" height="400px"
+                                    <img class="first-img" class="img-fluid"
                                         src="/assets/frontend/img/icon/empty_product.jpeg">
 
                                     @endif
