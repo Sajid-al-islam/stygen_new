@@ -33,7 +33,7 @@
             <div class="single-product-area">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-5 col-xl-5 col-sm-12 col-12">
                             <div class="product__details__pic">
                                 @if ($product_details->product_images)
                                 <div class="">
@@ -66,7 +66,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-7 col-xl-7 col-sm-12 col-12">
                             <div class="single-product-content">
                                 <h1 class="single-product-name mb-0">{{ $product_details->product_name }}</h1>
                                 <div class="single-product-reviews show-rating" style="display: inline-block;">
