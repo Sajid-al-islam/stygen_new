@@ -583,8 +583,9 @@
                                 <div class="single-product style-2">
                                     <div class="product-img">
                                         <a href="{{ route('product_details', $related_product->pro_slug) }}">
-                                            <img class="first-img" src="/assets/uploads/product/{{ $related_product->featured_image }}" alt="{{ $related_product->product_name }}">
-                                            <img class="hover-img" src="/assets/uploads/product/{{ $related_product->featured_image }}" alt="{{ $related_product->product_name }}">
+                                            <img class="first-img lazy" data-src="/assets/uploads/product/{{ $related_product->featured_image }}" alt="{{ $related_product->product_name }}">
+                                            <img class="hover-img lazy" data-src="/assets/uploads/product/{{ $related_product->featured_image }}" alt="{{ $related_product->product_name }}">
+                                            <noscript><img class="first-img" src="/assets/uploads/product/{{ $related_product->featured_image }}" /></noscript>
                                         </a>
                 
                                         <div class="product-action">

@@ -85,7 +85,7 @@
     <script src="{{ asset('assets/frontend') }}/js/sweetalert.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/owl.carousel.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/custom.js"></script>
-    
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -123,9 +123,14 @@
             })
             return result.isConfirmed ? true : false;
         }
+        $(function() {
+            $('.lazy').lazy({
+                placeholder: "{{ asset('assets/frontend/img_loader.gif')}}"
+            });
+        });
     </script>
     <script src="{{ asset('assets/frontend') }}/js/cart_management.js" defer></script>
-    
+    {{-- <script src="{{ asset('assets/frontend') }}/js/jquery.lazy.min.js" defer></script> --}}
     @livewireScripts
     {{-- <script src="/js/turbolink.min.js"></script> --}}
     <script src="{{ asset('assets/frontend') }}/js/livewire_hook.js" defer></script>
