@@ -87,6 +87,12 @@
     <script src="{{ asset('assets/frontend') }}/js/custom.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
     <script>
+        $(function() {
+            console.log('lazy loading initialization');
+            $('.lazy').lazy({
+                placeholder: "https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif"
+            });
+        });
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -123,11 +129,7 @@
             })
             return result.isConfirmed ? true : false;
         }
-        $(function() {
-            $('.lazy').lazy({
-                placeholder: "https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif"
-            });
-        });
+        
     </script>
     <script src="{{ asset('assets/frontend') }}/js/cart_management.js" defer></script>
     {{-- <script src="{{ asset('assets/frontend') }}/js/jquery.lazy.min.js" defer></script> --}}
