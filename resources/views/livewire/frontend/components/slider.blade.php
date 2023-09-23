@@ -7,11 +7,7 @@
                     <div class="hero-slider hero-slider-2 owl-carousel">
                         <!--Single Slider Start-->
                         @foreach ($sliders as $item)
-                            <div class="single-slider" style="background-image: url({{ asset('assets/uploads/slider') }}/{{ $item->image }})">
-                                <div class="hero-slider-content">
-                                    
-                                </div>
-                            </div>
+                            <div class="item"><img src="{{ asset('assets/uploads/slider') }}/{{ $item->image }}" alt="GTA V"></div>
                         @endforeach
                     </div>
                 </div>
