@@ -125,7 +125,7 @@
         }
         $(function() {
             $('.lazy').lazy({
-                placeholder: "{{ asset('assets/frontend/img_loader.gif')}}"
+                placeholder: "https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif"
             });
         });
     </script>
