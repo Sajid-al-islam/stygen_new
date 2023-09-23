@@ -77,6 +77,8 @@
             animation: l3 1s infinite linear;
         }
             @keyframes l3 {to{transform: rotate(1turn)}}
+
+        
         
     </style>
     <script src="/js/pace.min.js"></script>
@@ -90,7 +92,7 @@
         $(function() {
             // console.log('lazy loading initialization');
             $('.lazy').lazy({
-                placeholder: "https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif"
+                placeholder: "data:https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif"
             });
         });
         const Toast = Swal.mixin({
