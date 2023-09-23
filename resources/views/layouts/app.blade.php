@@ -78,9 +78,7 @@
         }
             @keyframes l3 {to{transform: rotate(1turn)}}
 
-            img.lazy {
-            
-            /* optional way, set loading as background */
+        img.lazy {
             background-image: url('{{ asset('assets/frontend/img_loader.gif') }}');
             background-repeat: no-repeat;
             background-position: 50% 50%;
