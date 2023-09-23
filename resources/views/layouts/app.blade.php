@@ -88,7 +88,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
     <script>
         $(function() {
-            console.log('lazy loading initialization');
+            // console.log('lazy loading initialization');
             $('.lazy').lazy({
                 placeholder: "https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif"
             });

@@ -36,10 +36,11 @@
                                                     <div class="product-img">
                                                         <a href="{{ route('product_details', $product->pro_slug) }}">
                                                             @if ($product->featured_image)
-                                                                <img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}" lazy="loading">
-                                                                <img class="hover-img" src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}" lazy="loading">
+                                                                <img class="first-img lazy" data-src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}">
+                                                                <img class="hover-img lazy" data-src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}">
                                                             @else
-                                                                <img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" lazy="loading">
+                                                                <img class="first-img lazy" data-src="/assets/frontend/img/icon/empty_product.jpeg">
+                                                                <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
                                                             @endif
                                                         </a>
                                                         {{-- @if (discount_percentage($product->regular_price, $product->sales_price))

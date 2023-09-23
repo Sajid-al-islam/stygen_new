@@ -42,12 +42,15 @@
                                     {{-- <image-magnifier src="`/assets/uploads/product/${product.featured_image}`"
                                         :zoom-src="`/assets/uploads/product/${product.featured_image}`" width="100%"
                                         height="100%" zoom-width="440" zoom-height="440"></image-magnifier> --}}
-                                    <img class="first-img img-fluid w-100"
-                                        src="/assets/uploads/product/{{ $product_details->featured_image }}">
+                                    <img class="first-img img-fluid w-100 lazy"
+                                        data-src="/assets/uploads/product/{{ $product_details->featured_image }}">
+                                    <noscript><img class="first-img" src="/assets/uploads/product/{{ $product_details->featured_image }}" /></noscript>
+
                                     @else
 
-                                    <img class="first-img img-fluid w-100"
-                                        src="/assets/frontend/img/icon/empty_product.jpeg">
+                                    <img class="first-img img-fluid w-100 lazy"
+                                        data-src="/assets/frontend/img/icon/empty_product.jpeg">
+                                    <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
 
                                     @endif
                                 </div>
