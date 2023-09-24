@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @csrf
-    <title>{{$meta["title"]??'Best online Gift Shop in Bangladesh | Stygen'}}</title>
+    <title>{{$meta["title"]?? 'Best online Gift Shop in Bangladesh | Stygen' }}</title>
     <meta property="og:title" content="{{$meta["title"]??''}}" />
     <meta property="og:site_name" content="{{$meta["title"]??''}}" />
     <meta property="og:description" content="{{$meta["title"]??''}}" />
