@@ -27,7 +27,7 @@ $('#ship-box').on('click', function() {
 function checkout_submit(event) {
     $('.checkout-area').css('filter','blur(2px)');
     $('.checkout-loader').css('display','block');
-    window.scrollTo(0, 0);
+    $('html, body').scrollTop($(".checkout-area").offset().top);
     event.preventDefault();
     let formData = new FormData(event.target);
 
@@ -42,15 +42,20 @@ function checkout_submit(event) {
         response.status = res.status
         response.data = await res.json();
         return response;
-    }).then(res => {
-        if(res.status === 422) {
-            error_response(res.data)
-            document.getElementsByClassName("checkout-loader").style.display = "none";
-            document.getElementsByClassName("checkout-area").style.filter = "none";
+    }).then(async res => {
+        if(res.status == 422) {
+            // console.log(res.status);
+            await $('html, body').scrollTop($(".checkout-area").offset().top);
+            await $('.checkout-area').css('filter','unset');
+            await $('.checkout-loader').css('display','none');
+            window.s_alert("please fill in the required fields", "warning");
+            setTimeout(() => {
+                error_response(res.data);
+            }, 500);
         }
         if(res.status === 200) {
-            document.getElementsByClassName("checkout-loader").style.display = "none";
-            document.getElementsByClassName("checkout-area").style.filter = "none"; 
+            $('.checkout-area').css('filter','unset');
+            $('.checkout-loader').css('display','none');
             location.href = "/thank-you?"+res.data;
         }
     })

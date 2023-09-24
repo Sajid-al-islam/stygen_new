@@ -43,7 +43,7 @@
                                                 {{-- <div class="category-heading">
                                                     <h2 class="categories-toggle category-menu-header"></h2>
                                                 </div> --}}
-                                                <button class="btn mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                                                     <i class="fas fa-bars fa-lg"></i>
                                                 </button>
                                             </div>
@@ -132,16 +132,18 @@
                                 <div class="col-md-12">
                                     <!--Header Top Right Start-->
                                     <div class="header-top-center">
-                                        <ul class="header-top-menu mt-0">
-                                            <button class="btn mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                                                <i class="fas fa-bars fa-lg"></i>
-                                            </button>
+                                        <ul class="header-top-menu">
+                                            <li class="mobile-li">
+                                                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                                    <i class="fas fa-bars fa-lg"></i>
+                                                </button>
+                                            </li>
                                             <li class="mobile-li">
                                                 <a>
                                                     <img src="/assets/frontend/img/logo/logo.png" width="70px" alt="">
                                                 </a>
                                             </li>
-                                            <li class="mobile-li-icon"><a href="#" ><i class="fas fa-shopping-cart header-icon"><span class="cart-count"></span></i></a></li>
+                                            <li class="mobile-li-icon"><a data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight"><i class="fas fa-shopping-cart header-icon"><span class="cart-count">{{ $cart_count }}</span></i></a>
                                             <li class="mobile-li-icon"><a><i class="fa fa-user-alt header-icon"></i></a></li>
                                             <!-- <li class="mobile-li-icon"><a href="#" @click.prevent="userLogout"><i class="fas fa-sign-out-alt header-icon"></i></a></li> -->
                                             <li class="mobile-li-icon"><a title="wishlist"><i class="fas fa-heart header-icon"></i></a></li>

@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="#" onsubmit="checkout_submit(event)" method="post">
+                <form action="#" onsubmit="checkout_submit(event)" id="checkout_submission_form" method="post">
                     <div class="row">
                         <div class="col-lg-6 col-12">
                             
