@@ -139,7 +139,7 @@
                                                 </button>
                                             </li>
                                             <li class="mobile-li">
-                                                <a>
+                                                <a href="/">
                                                     <img src="/assets/frontend/img/logo/logo.png" width="70px" alt="">
                                                 </a>
                                             </li>
