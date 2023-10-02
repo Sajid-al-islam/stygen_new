@@ -1,4 +1,5 @@
 <?php return array (
+  'frontend.about-us' => 'App\\Http\\Livewire\\Frontend\\AboutUs',
   'frontend.all-product' => 'App\\Http\\Livewire\\Frontend\\AllProduct',
   'frontend.cart' => 'App\\Http\\Livewire\\Frontend\\Cart',
   'frontend.category-product' => 'App\\Http\\Livewire\\Frontend\\CategoryProduct',
@@ -11,5 +12,6 @@
   'frontend.components.slider' => 'App\\Http\\Livewire\\Frontend\\Components\\Slider',
   'frontend.home' => 'App\\Http\\Livewire\\Frontend\\Home',
   'frontend.product-details' => 'App\\Http\\Livewire\\Frontend\\ProductDetails',
+  'frontend.term-and-condition' => 'App\\Http\\Livewire\\Frontend\\TermAndCondition',
   'frontend.thank-you' => 'App\\Http\\Livewire\\Frontend\\ThankYou',
 );

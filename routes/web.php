@@ -86,12 +86,15 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/shop', "Frontend\AllProduct")->name('shop');
     Route::get('/cart', "Frontend\Cart")->name('cart');
     Route::get('product-category/{slug}', "Frontend\CategoryProduct")->name('category_product');
-    Route::get('product/{slug}', "Frontend\ProductDetails")->name('product_details');   
+    Route::get('product/{slug}', "Frontend\ProductDetails")->name('product_details');
     Route::get('/admin', function() {
         return redirect()->route('admin.login');
     })->name('admin_login');
     Route::get('checkout', "Frontend\Checkout")->name('checkout');
     Route::get('thank-you', "Frontend\ThankYou")->name('thankyou');
+
+    Route::get('/about-us', "Frontend\AboutUs")->name('about_us');
+    Route::get('/terms-and-condition', "Frontend\TermAndCondition")->name('term_condition');
     // Route::get('invoice/{invoice}', "Frontend\Invoice")->name('invoice');
     // Route::get('/profile', "Frontend\CustomerProfile");
 

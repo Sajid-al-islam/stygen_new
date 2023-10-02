@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire\Frontend;
 
-use App\Models\Category;
+use App\Models\CompanyInfo;
 use Livewire\Component;
 
-class Home extends Component
+class TermAndCondition extends Component
 {
-    public $landing_categories;
+    public $terms;
+
     public function render()
     {
-        $this->landing_categories = Category::where('status', 1)->where('parent_id', 0)->where('approve_category', 1)->take(8)->get();
-        return view('livewire.frontend.home')
-        ->extends('layouts.app', [
+        $this->terms = CompanyInfo::select('id','terms_condition')->first();
+        return view('livewire.frontend.term-and-condition')->extends('layouts.app', [
             'meta' => [
                 "title" =>  "",
                 "image" => "",

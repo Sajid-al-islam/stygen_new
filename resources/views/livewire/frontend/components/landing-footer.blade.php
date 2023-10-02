@@ -43,11 +43,13 @@
                                         <div class="footer-title">
                                             <h3>MAIN FEATURES</h3>
                                         </div>
-                                        {{-- <ul class="link-widget hover-color2 mt-3 footer-ul-section">
-                                            <li v-for="landing_cat in landing_categories" :key="landing_cat.id">
-                                                <router-link :to="{name: 'subCategoryProduct', params: {catSlug: landing_cat.cat_slug}}">{{ landing_cat.category_name }}</router-link>
-                                            </li>
-                                        </ul> --}}
+                                        <ul class="link-widget hover-color2 mt-3 footer-ul-section">
+                                            @foreach ($landing_categories as $category)
+                                                <li>
+                                                    <a href="{{ route('category_product', $category->cat_slug) }}">{{ $category->category_name }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
 
@@ -57,13 +59,13 @@
                                             <h3>USEFUL LINKS</h3>
                                         </div>
                                         <ul class="link-widget hover-color2 mt-3 footer-ul-section">
-                                            <li><router-link :to="{name: 'aboutUs'}">About Us</router-link></li>
-                                            <li><router-link :to="{name: 'blog'}">Blog</router-link></li>
-                                            <li><router-link :to="{name: 'privacyPolicy'}">Privacy Policy</router-link></li>
-                                            <li><router-link :to="{name: 'termsCondition'}">Terms & Conditions</router-link></li>
-                                            <li><router-link :to="{name: 'returnPolicy'}">Return and Refund Policy</router-link></li>
-                                            <li><router-link :to="{name: 'warrantyGuide'}">Warranty Guide</router-link></li>
-                                            <li><router-link :to="{name: 'contactUs'}">Contact Us</router-link></li>
+                                            <li><a href="{{ route('about_us') }}">About Us</a></li>
+                                            <li><a href="#">Blog</a></li>
+                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="{{ route('term_condition') }}">Terms & Conditions</a></li>
+                                            <li><a href="#">Return and Refund Policy</a></li>
+                                            <li><a href="#">Warranty Guide</a></li>
+                                            <li><a href="#">Contact Us</a></li>
                                             <!-- <li><a href="/seller/register">Become a Seller</a></li> -->
                                             <li><a href="/seller">Become a Seller</a></li>
                                         </ul>
