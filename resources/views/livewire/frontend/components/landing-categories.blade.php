@@ -24,7 +24,10 @@
                         <div class="single-product mb-30 category-section-main">
                             <div class="product-img">
                                 <a href="{{ route('category_product', $category->cat_slug) }}">
-                                    <img class="first-img" src="{{ asset('assets/uploads/category') }}/{{$category->category_image}}" :alt="{{$category->category_name}}" lazy="loading">
+                                    <img class="first-img lazy" data-src="{{ asset('assets/uploads/category') }}/{{$category->category_image}}" :alt="{{$category->category_name}}" lazy="loading">
+                                    <noscript>
+                                        <img class="first-img" src="{{ asset('assets/uploads/category') }}/{{$category->category_image}}" :alt="{{$category->category_name}}" lazy="loading">
+                                    </noscript>
                                 </a>
                                 {{-- <router-link :to="{name: 'subCategoryProduct', params: {catSlug: category.cat_slug}}"> --}}
                                 {{-- </router-link> --}}

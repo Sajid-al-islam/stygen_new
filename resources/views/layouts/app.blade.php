@@ -6,18 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @csrf
-    <title>{{$meta["title"]?? 'Best online Gift Shop in Bangladesh | Stygen' }}</title>
-    <meta property="og:title" content="{{$meta["title"]??''}}" />
-    <meta property="og:site_name" content="{{$meta["title"]??''}}" />
-    <meta property="og:description" content="{{$meta["title"]??''}}" />
-    <meta property="og:image" content="{{$meta["meta_image"]??''}}" />
-    <meta property="og:image:width" content="600" />
-    <meta property="og:image:height" content="315" />
+    {{-- @dd($meta["title"] &&  $meta["title"] != "") --}}
+    <title>{{ $meta["title"] ? $meta["title"] : 'Best online Gift Shop in Bangladesh | Stygen' }}</title>
+    <meta property="og:title" content="{{$meta["title"] ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}" />
+    <meta property="og:site_name" content="{{$meta["site_name"]??'Stygen'}}" />
+    <meta property="og:description" content="{{$meta["description"] ? $meta["description"] : 'Order and send gifts online to your friends & family for any occasion. Gifts delivery in Bangladesh. Flower, cake, perfume, chocolate, books home delivery.'}}" />
+    <meta property="og:image" content="{{ $meta["image"] ? $meta["image"] : asset('assets/frontend/img/logo/stygen_image.jpg')}}" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="400" />
 
-    <meta name="twitter:title" content="{{$meta["title"]??''}}">
-    <meta name="twitter:description" content="{{$meta["title"]??''}}">
-    <meta name="twitter:image" content="{{$meta["meta_image"]??''}}">
+
+    <meta name="twitter:title" content="{{$meta["title"] ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}">
+    <meta name="twitter:description" content="{{$meta["title"] ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}">
+    <meta name="twitter:image" content="{{ $meta["image"] ? $meta["image"] : asset('assets/frontend/img/logo/stygen_image.jpg')}}">
     <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="google-site-verification" content="f2GHJdIMv4beEoFnjRaawAc2PabeM26ElyJsNKVOeRo" />
+    <meta name="robots" content="index, follow" />
 
     {{-- <link rel="stylesheet" href="{{ asset('assets/frontend') }}/css/bootstrap.min.css"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -68,7 +73,7 @@
             aspect-ratio: 1;
             border-radius: 50%;
             background: #573276;
-            --_m: 
+            --_m:
                 conic-gradient(#0000 10%,#000),
                 linear-gradient(#000 0 0) content-box;
             -webkit-mask: var(--_m);
@@ -84,7 +89,7 @@
             background-repeat: no-repeat;
             background-position: 50% 50%;
         }
-        
+
     </style>
     <script src="/js/pace.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/vendor/jquery-1.12.4.min.js"></script>
@@ -134,7 +139,7 @@
             })
             return result.isConfirmed ? true : false;
         }
-        
+
     </script>
     <script src="{{ asset('assets/frontend') }}/js/cart_management.js" defer></script>
     {{-- <script src="{{ asset('assets/frontend') }}/js/jquery.lazy.min.js" defer></script> --}}
