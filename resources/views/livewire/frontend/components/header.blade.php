@@ -61,12 +61,26 @@
                                                     <div class="search-categories">
                                                         <form action="#">
                                                             <div class="search-form-input">
-                                                                <input type="text" v-model="keyword" placeholder="Search product...">
+                                                                <input type="text" wire:model="searchQuery" wire:keyup="search_product" placeholder="Search product...">
                                                                 <button class="top-search-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
+                                                @if ($search_products)
+                                                    <div class="search_result">
+                                                        <div class="list-group list-group-flush">
+                                                            @foreach ($search_products as $item)
+                                                                
+                                                                <a href="{{ route('product_details', $item->slug) }}" class="list-group-item list-group-item-action">
+                                                                    <img src="/{{ $item->featured_image }}" width="80" height="80" alt="Image-Ctgcomputer">
+                                                                    {{ $item->product_name }}
+                                                                </a>
+                                                            @endforeach
+                                                                {{-- <a href="{{ route('search_product', $searchQuery) }}" class="my-5 list-group-item list-group-item-action active text-center">View more</a> --}}
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
 

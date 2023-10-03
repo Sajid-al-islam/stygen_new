@@ -162,6 +162,8 @@
     <main>
         <div class="loader"></div>
         @yield('content')
+
+        @livewire('frontend.components.landing-footer')
     </main>
 
     {{-- @livewire('frontend.components.footer') --}}
