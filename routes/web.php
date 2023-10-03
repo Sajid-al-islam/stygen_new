@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CouponController;
 use App\Http\Controllers\MailchimpController;
 use App\Http\Controllers\Payment\SslCommerzPaymentController;
+use App\Http\Livewire\Frontend\SearchProduct;
 use App\Mail\TestMail;
 use App\Mail\welcome;
 use App\Models\Brand;
@@ -87,6 +88,9 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/cart', "Frontend\Cart")->name('cart');
     Route::get('product-category/{slug}', "Frontend\CategoryProduct")->name('category_product');
     Route::get('product/{slug}', "Frontend\ProductDetails")->name('product_details');
+
+    // Route::any('/search-product/{search}', SearchProduct::class)->name('search_product');
+
     Route::get('/admin', function() {
         return redirect()->route('admin.login');
     })->name('admin_login');
