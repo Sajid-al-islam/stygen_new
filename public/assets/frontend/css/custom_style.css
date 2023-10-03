@@ -1254,4 +1254,27 @@ div .overlay {
 #otp_login .no-account a {
     border-top: none !important
 }
+.search_result {
+    background-color: #fff;
+    position: absolute;
+    /* top: 100%; */
+    left: 20%;
+    width: 675px;
+    max-height: 450px;
+    overflow-x: auto;
+    z-index: 99999;
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+    .search_result {
+        background-color: #fff;
+        position: absolute;
+        /* top: 100%; */
+        left: 17%;
+        width: 620px;
+        max-height: 450px;
+        overflow-x: auto;
+        z-index: 9999;
+    }
+}
 /* OTP Login  End--*/

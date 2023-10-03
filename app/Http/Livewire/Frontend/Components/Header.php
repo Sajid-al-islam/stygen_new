@@ -24,8 +24,8 @@ class Header extends Component
             $query->where(function ($q) use ($key) {
                 $q->Where('product_name', 'LIKE', '%' . $key . '%')
                 ->orWhere('product_sku', 'LIKE', '%' . $key . '%');
-            })->select('id', 'default_price', 'product_name', 'featured_image');
-            $this->search_products = $query->paginate(10);
+            })->select('id', 'regular_price', 'pro_slug' ,'sales_price','product_name', 'featured_image');
+            $this->search_products = $query->take(10)->get();
         }else {
             $this->search_products = null;
         }
