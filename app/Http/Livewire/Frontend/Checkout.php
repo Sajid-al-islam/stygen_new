@@ -48,7 +48,17 @@ class Checkout extends Component
         }
         
 
-        return view('livewire.frontend.checkout')->extends('layouts.app');
+        return view('livewire.frontend.checkout')->extends('layouts.app', [
+            'meta' => [
+                "title" =>  "Checkout | stygen",
+                "image" => "",
+                "og_image" => "",
+                "twitter_image" => "",
+                "description" => "",
+                "price" => "" ,
+                "keywords" => ""
+            ],
+        ]);
     }
     public function CountCart()
     {

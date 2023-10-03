@@ -21,7 +21,17 @@ class Cart extends Component
         $this->carts = $this->cart_handler->get();
         $this->CountCart();
         $this->cart_total = $this->cart_handler->cart_total();
-        return view('livewire.frontend.cart')->extends('layouts.app');
+        return view('livewire.frontend.cart')->extends('layouts.app', [
+            'meta' => [
+                "title" =>  $this->product_details->product_name . " | stygen",
+                "image" => "",
+                "og_image" => "",
+                "twitter_image" => "",
+                "description" => "",
+                "price" => "" ,
+                "keywords" => ""
+            ],
+        ]);
     }
 
     public function increase($id)
