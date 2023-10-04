@@ -226,7 +226,7 @@
             {{-- @dd($item->id, $item->slug) --}}
 
             <a href="{{ route('product_details', $item->pro_slug) }}" class="list-group-item list-group-item-action">
-                <img src="/{{ $item->featured_image }}" width="80" height="80" alt="Image-Ctgcomputer">
+                <img src="/assets/uploads/product/{{ $product->featured_image }}" width="80" height="80" alt="Image-Ctgcomputer">
                 {{ $item->product_name }}
             </a>
             @endforeach
