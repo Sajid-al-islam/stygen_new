@@ -19,7 +19,7 @@ class BlogController extends Controller
     public function getSingleBlog($slug){
         $blog = Blog::where('blog_slug', $slug)->where('status', 1)->first();
         // $blog_product = Product::whereIn('product_sku', $skus)->select('product_name', 'product_sku', 'short_description', 'featured_image', 'regular_price', 'sales_price')->get();
-        return view('frontend.single_blog', compact('blog'));
+        return view('livewire.frontend.single_blog', compact('blog'));
 
     }
     public function blog_product($slug)

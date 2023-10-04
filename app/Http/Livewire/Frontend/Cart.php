@@ -23,7 +23,7 @@ class Cart extends Component
         $this->cart_total = $this->cart_handler->cart_total();
         return view('livewire.frontend.cart')->extends('layouts.app', [
             'meta' => [
-                "title" =>  $this->product_details->product_name . " | stygen",
+                "title" => "Cart | stygen",
                 "image" => "",
                 "og_image" => "",
                 "twitter_image" => "",

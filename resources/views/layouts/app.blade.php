@@ -7,18 +7,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @csrf
     {{-- @dd($meta["title"] &&  $meta["title"] != "") --}}
-    <title>{{ $meta["title"] ? $meta["title"] : 'Best online Gift Shop in Bangladesh | Stygen' }}</title>
-    <meta property="og:title" content="{{$meta["title"] ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}" />
-    <meta property="og:site_name" content="{{$meta["site_name"]??'Stygen'}}" />
-    <meta property="og:description" content="{{$meta["description"] ? $meta["description"] : 'Order and send gifts online to your friends & family for any occasion. Gifts delivery in Bangladesh. Flower, cake, perfume, chocolate, books home delivery.'}}" />
-    <meta property="og:image" content="{{ $meta["image"] ? $meta["image"] : asset('assets/frontend/img/logo/stygen_image.jpg')}}" />
+    <title>{{ isset($meta["title"]) ? $meta["title"] : 'Best online Gift Shop in Bangladesh | Stygen' }}</title>
+    <meta property="og:title" content="{{ isset($meta["title"]) ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}" />
+    <meta property="og:site_name" content="{{ $meta["site_name"]??'Stygen'}}" />
+    <meta property="og:description" content="{{ isset($meta["title"]) ? $meta["description"] : 'Order and send gifts online to your friends & family for any occasion. Gifts delivery in Bangladesh. Flower, cake, perfume, chocolate, books home delivery.'}}" />
+    <meta property="og:image" content="{{ isset($meta["title"]) ? $meta["image"] : asset('assets/frontend/img/logo/stygen_image.jpg')}}" />
     <meta property="og:image:width" content="800" />
     <meta property="og:image:height" content="400" />
 
 
-    <meta name="twitter:title" content="{{$meta["title"] ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}">
-    <meta name="twitter:description" content="{{$meta["title"] ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}">
-    <meta name="twitter:image" content="{{ $meta["image"] ? $meta["image"] : asset('assets/frontend/img/logo/stygen_image.jpg')}}">
+    <meta name="twitter:title" content="{{ isset($meta["title"]) ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}">
+    <meta name="twitter:description" content="{{ isset($meta["title"]) ? $meta["title"] : 'Buy gifts online for your loved ones | Stygen.gift'}}">
+    <meta name="twitter:image" content="{{ isset($meta["title"]) ? $meta["image"] : asset('assets/frontend/img/logo/stygen_image.jpg')}}">
     <meta name="twitter:card" content="summary_large_image">
 
     <meta name="google-site-verification" content="f2GHJdIMv4beEoFnjRaawAc2PabeM26ElyJsNKVOeRo" />

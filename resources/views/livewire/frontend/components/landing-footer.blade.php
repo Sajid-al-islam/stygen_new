@@ -60,24 +60,52 @@
                                         </div>
                                         <ul class="link-widget hover-color2 mt-3 footer-ul-section">
                                             <li><a href="{{ route('about_us') }}">About Us</a></li>
-                                            <li><a href="#">Blog</a></li>
-                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="{{ route('blogs') }}">Blog</a></li>
+                                            <li><a href="{{ route('privacy_policy') }}">Privacy Policy</a></li>
                                             <li><a href="{{ route('term_condition') }}">Terms & Conditions</a></li>
-                                            <li><a href="#">Return and Refund Policy</a></li>
+                                            <li><a href="{{ route('return_policy') }}">Return and Refund Policy</a></li>
                                             <li><a href="#">Warranty Guide</a></li>
-                                            <li><a href="#">Contact Us</a></li>
+                                            <li><a href="{{ route('contact_us') }}">Contact Us</a></li>
                                             <!-- <li><a href="/seller/register">Become a Seller</a></li> -->
-                                            <li><a href="/seller">Become a Seller</a></li>
+                                            <li><a href="{{ route('become_seller') }}">Become a Seller</a></li>
                                         </ul>
                                     </div>
                                 </div>
 
 
                                 <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="fb-page" data-href="https://www.facebook.com/Stygen/" data-tabs="" data-width="500" data-height="400" data-show-facepile="true" data-lazy="true">
-                                        <!-- <blockquote cite="https://www.facebook.com/Stygen/" class="fb-xfbml-parse-ignore">
-                                        <a href="https://www.facebook.com/Stygen/">Stygen</a>
-                                        </blockquote> -->
+                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                        <div
+        
+                                            data-href="https://www.facebook.com/Stygen/"
+                                            data-tabs=""
+                                            data-width="500"
+                                            data-height="400"
+                                            data-show-facepile="true"
+                                            data-lazy="true"
+                                            class="fb-page fb_iframe_widget"
+                                            fb-xfbml-state="rendered"
+                                            fb-iframe-plugin-query="app_id=273559519924166&amp;container_width=255&amp;height=400&amp;href=https%3A%2F%2Fwww.facebook.com%2FStygen%2F&amp;lazy=true&amp;locale=en_US&amp;sdk=joey&amp;show_facepile=true&amp;tabs=&amp;width=500"
+                                        >
+                                            <span style="vertical-align: bottom; width: 255px; height: 130px;">
+                                                <iframe
+                                                    name="f236da548b3e5bc"
+                                                    width="500px"
+                                                    height="400px"
+                                                    data-testid="fb:page Facebook Social Plugin"
+                                                    title="fb:page Facebook Social Plugin"
+                                                    frameborder="0"
+                                                    allowtransparency="true"
+                                                    allowfullscreen="true"
+                                                    scrolling="no"
+                                                    allow="encrypted-media"
+                                                    loading="lazy"
+                                                    src="https://www.facebook.com/v10.0/plugins/page.php?app_id=273559519924166&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dff0b18c73722ac%26domain%3Dstygen.gift%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fstygen.gift%252Ff83f4cc9748af4%26relation%3Dparent.parent&amp;container_width=255&amp;height=400&amp;href=https%3A%2F%2Fwww.facebook.com%2FStygen%2F&amp;lazy=true&amp;locale=en_US&amp;sdk=joey&amp;show_facepile=true&amp;tabs=&amp;width=500"
+                                                    style="border: none; width: 255px; height: 130px; visibility: visible;"
+                                                    class=""
+                                                ></iframe>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -100,7 +128,7 @@
                             <div class="col-md-6">
                                 <!--Footer Copyright Start-->
                                 <div class="footer-copyright">
-                                    {{-- <p>©{{ new Date().getFullYear() }} <a href="#">Stygen.</a> All Rights Reserved</p> --}}
+                                    <p>©{{ date("Y") }} <a href="#">Stygen.</a> All Rights Reserved</p>
                                 </div>
                                 <!--Footer Copyright End-->
                             </div>

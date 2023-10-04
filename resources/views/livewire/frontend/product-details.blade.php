@@ -319,14 +319,14 @@
                                     <div class="row d-flex justify-content-start" v-if="product.status != 0">
                                         <div class="col-md-4">
                                             <div class="add mt-4">
-                                                <button class="add-to-cart" onclick="addToCart({{ $product_details->id }})"><i class="ion-bag"></i>
-                                                    add-to-cart</button>
+                                                <button class="add-to-cart" onclick="addToCart({{ $product_details->id }})"><i class="fas fa-shopping-bag"></i>
+                                                    add to cart</button>
                                                 <!--<span class="product-availability">In stock</span>-->
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="add mt-4" v-if="product.status != 0">
-                                                <button class="btn btn-primary btn-lg" id="buynowbtn"><i
+                                                <button onclick="buyNow({{ $product_details->id }})" class="btn btn-primary btn-lg" id="buynowbtn"><i
                                                         class="fas fa-money-check-alt"></i>Buy now</button>
                                                 <!--<span class="product-availability">In stock</span>-->
                                             </div>

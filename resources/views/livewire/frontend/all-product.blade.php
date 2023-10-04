@@ -120,6 +120,4 @@
     </div>
 
     <!--Shop Product End-->
-
-    @livewire('frontend.components.landing-footer')
 </div>
