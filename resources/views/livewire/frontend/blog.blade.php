@@ -38,7 +38,7 @@
                                     </header>
                                     <div class="post-thumbnail">
                                         <a href="{{ route('getSingleBlog', $blog->blog_slug) }}">
-                                            <img src="`/assets/uploads/blog/{{ $blog->image }}`" width="60%" :alt="blog.title">
+                                            <img src="{{ asset('assets/uploads/slider') }}/{{ $blog->image }}" width="60%" :alt="blog.title">
                                         </a>
                                     </div>
                                     <div class="postinfo-wrapper">
