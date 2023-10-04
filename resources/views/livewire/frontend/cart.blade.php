@@ -93,5 +93,4 @@
         </div>
         <!--Shopping Cart Area End-->
     </div>
-    @livewire('frontend.components.landing-footer')
 </div>

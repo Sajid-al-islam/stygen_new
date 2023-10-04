@@ -90,6 +90,12 @@ function addToCart(product_id, qty=1) {
     })
 }
 
+async function buyNow(product_id, qty=1) {
+    await addToCart(product_id, qty=1);
+
+    await window.location.replace('/checkout');
+}
+
 function renderCart() {
     $.ajax({
         url: "/cart_all",

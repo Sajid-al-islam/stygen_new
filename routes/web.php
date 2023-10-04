@@ -94,11 +94,16 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/admin', function() {
         return redirect()->route('admin.login');
     })->name('admin_login');
-    Route::get('checkout', "Frontend\Checkout")->name('checkout');
+    Route::get('/checkout', "Frontend\Checkout")->name('checkout');
     Route::get('thank-you', "Frontend\ThankYou")->name('thankyou');
 
     Route::get('/about-us', "Frontend\AboutUs")->name('about_us');
+    Route::get('/privacy-policy', "Frontend\PrivacyPolicy")->name('privacy_policy');
+    Route::get('/return-policy', "Frontend\ReturnPolicy")->name('return_policy');
     Route::get('/terms-and-condition', "Frontend\TermAndCondition")->name('term_condition');
+    Route::get('/seller', "Frontend\BecomeSeller")->name('become_seller');
+    Route::get('/blog', "Frontend\Blog")->name('blogs');
+    Route::get('/contact-us', "Frontend\ContactUs")->name('contact_us');
     // Route::get('invoice/{invoice}', "Frontend\Invoice")->name('invoice');
     // Route::get('/profile', "Frontend\CustomerProfile");
 
