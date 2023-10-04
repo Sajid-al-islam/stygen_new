@@ -1,4 +1,4 @@
-<div class="accordion" id="accordion_{{$lebel}}" style="padding-left: {{$padding}}px">
+{{-- <div class="accordion" id="accordion_{{$lebel}}" style="padding-left: {{$padding}}px">
     <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button collapsed @if($category->subcategory->count() == 0) has-not-subcategories @endif" type="button" 
@@ -21,4 +21,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

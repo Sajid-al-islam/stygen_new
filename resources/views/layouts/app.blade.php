@@ -36,6 +36,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/custom_style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/sidebar.css') }}">
 
     @livewireStyles
     <style>
