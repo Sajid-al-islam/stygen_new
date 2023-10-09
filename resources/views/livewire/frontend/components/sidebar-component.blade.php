@@ -1,24 +1,24 @@
-{{-- <div class="accordion" id="accordion_{{$lebel}}" style="padding-left: {{$padding}}px">
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed @if($category->subcategory->count() == 0) has-not-subcategories @endif" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#collapse{{$category->id}}" aria-expanded="false" 
-                aria-controls="collapse{{$category->id}}">{{$category->category_name}}</button>
-        </h2>
-        <div id="collapse{{$category->id}}" class="accordion-collapse collapse" data-bs-parent="#accordion_{{$lebel}}">
-            <div class="accordion-body">
-                @foreach ($category->subcategory as $subcategory)
-                    @if($subcategory->subcategory->count() == 0)
-                    <a href="{{ route('category_product', $subcategory->cat_slug) }}"><li class="category-list">{{$subcategory->category_name}}</li></a>
-                    @else
-                        @include('livewire.frontend.components.sidebar-component',[
-                            'category'=> $subcategory,
-                            'padding' => $padding + 10,
-                            'lebel' => 'sub-' . $lebel
-                        ])
-                    @endif
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div> --}}
+@if($category->subcategory->count() == 0)
+    <li>
+        <a href="{{ route('category_product', $category->cat_slug) }}" class="product_name">{{$category->category_name}}</a>
+    </li>
+@else
+    <li>
+        <a href="{{ route('category_product', $category->cat_slug) }}" class="product_name right_icon menu_bar">{{$category->category_name}}</a>
+        <i class="fa fa-angle-right"></i>
+        <ul>
+            @foreach ($category->subcategory as $sub_category)
+                @if($sub_category->subcategory->count() == 0)
+                    <li>
+                        <a href="{{ route('category_product', $sub_category->cat_slug) }}">{{$sub_category->category_name}}</a>
+                    </li>
+                @else
+                    @include('livewire.frontend.components.sidebar-component',[
+                        'category'=> $sub_category,
+                    ])
+                @endif
+            @endforeach
+        </ul>
+    </li>
+@endif
+    
