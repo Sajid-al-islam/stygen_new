@@ -216,6 +216,6 @@
       onClose: function(){
         window.location.href='/cart';  // Your redirect route when cancel payment
       },
-      });
+    });
 </script>
 </html>
