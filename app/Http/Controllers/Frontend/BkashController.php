@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\CartManagerController;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Customer;
@@ -11,6 +12,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Shipping;
+use App\Models\ShippingCharge;
 use App\Models\StockLedger;
 use App\Models\User;
 use Carbon\Carbon;
@@ -23,6 +25,9 @@ use Illuminate\Support\Facades\File;
 
 class BkashController extends Controller
 {
+    private $cart_handler;
+
+    
     public function visit(Request $request)
     {
 
@@ -160,10 +165,11 @@ class BkashController extends Controller
     //     echo $idtoken;
     // }
 
-    protected function bkash_Get_Token(){
+    protected function bkash_Get_Token()
+    {
+        /*$strJsonFileContents = file_get_contents("config.json");
+        $array = json_decode($strJsonFileContents, true);*/
 
-        // $strJsonFileContents = file_get_contents("config.json");
-        // $array = json_decode($strJsonFileContents, true);
         $array = $this->_get_config_file();
 
         $post_token=array(
@@ -190,30 +196,38 @@ class BkashController extends Controller
         curl_close($url);
         $arr = json_decode($resultdata, true);
         return $arr['id_token'];
-        // return json_decode()
     }
 
-    protected function _get_config_file() {
+    protected function _get_config_file()
+    {
         $path = storage_path() . "/app/public/config.json";
         return json_decode(file_get_contents($path), true);
     }
 
     public function createpayment(Request $request) {
+        // dd(request()->shoppingID);
         session_start();
+        $this->cart_handler = new CartManagerController();  
         // $strJsonFileContents = file_get_contents("config.json");
         // $array = json_decode($strJsonFileContents, true);
         $array = $this->_get_config_file();
-        $shipping_cost = $request->session()->get('shipping_charge');
-        $cart_total      = \Cart::getTotal();
 
+        $get_shipping_charge = ShippingCharge::where('id', $request->shipping_id)->first();
+    
+        $shipping_cost = $get_shipping_charge->shipping_charge;
+        $cart_total    = floatval($this->cart_handler->cart_total());
 
         $amount = $shipping_cost+$cart_total;
-        $invoice = $request->session()->get('invoice'); // must be unique
+        $invoice = Helper::autoOrderNewInvoiceNoGenereate(); // must be unique
 
-        $token = $request->session()->get('token');
+        $token = $this->bkash_Get_Token();
+        $request->session()->put('token',$token);
+
         $intent = "sale";
+
         $proxy = $array["proxy"];
-            $createpaybody = array('amount' => $amount, 'currency' => 'BDT', 'merchantInvoiceNumber' => $invoice, 'intent' => $intent);
+        $createpaybody = array('amount' => $amount, 'currency' => 'BDT', 'merchantInvoiceNumber' => $invoice, 'intent' => $intent);
+        
             $url = curl_init($array["createURL"]);
 
             $createpaybodyx = json_encode($createpaybody);
@@ -224,6 +238,7 @@ class BkashController extends Controller
                 'x-app-key:'.$array["app_key"]
             );
 
+            
             curl_setopt($url,CURLOPT_HTTPHEADER, $header);
             curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($url,CURLOPT_RETURNTRANSFER, true);
@@ -234,6 +249,7 @@ class BkashController extends Controller
             $resultdata = curl_exec($url);
             curl_close($url);
             $arr = json_decode($resultdata, true);
+            
             $paymentID = $arr['paymentID'];
 
             $request->session()->put('paymentID',$paymentID);

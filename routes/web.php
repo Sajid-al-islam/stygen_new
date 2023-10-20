@@ -237,7 +237,7 @@ Route::get('blog/{slug}',[BlogController::class, 'getSingleBlog'])->name('getSin
 
 
 Route::get('bkash_payment',[BkashController::class, 'visit']);
-// Route::post('token', [BkashController::class, 'token'])->name('token');
+Route::post('token', [BkashController::class, 'token'])->name('token');
 Route::post('createpayment', [BkashController::class, 'createpayment'])->name('createpayment');
 Route::post('executepayment', [BkashController::class, 'executepayment'])->name('executepayment');
 // Route::get('/thank-you', [BkashController::class, 'thank_you'])->name('thanks');
