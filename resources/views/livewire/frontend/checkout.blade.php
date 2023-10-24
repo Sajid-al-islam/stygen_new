@@ -378,7 +378,8 @@
                                         <div class="card-body">
                                             @if ($cart_total > 0)
                                             <div class="order-button-payment d-grid">
-                                                <button id="bKash_button" class="bkash_btn btn btn-block" type="button">Pay with Bkash</button>
+                                                <button onclick="bkash_checkout_submit()" class="btn btn-block" type="button">Pay with Bkash</button>
+                                                <button id="bKash_button" type="button" hidden></button>
                                             </div>
                                             @endif
                                         </div>
@@ -426,85 +427,6 @@
             });
         });
     });
-    
-    var shipping_id = $(".shipping_charge_selection").val();
-    var price = $('.total_order_amount').text();
-    $("select.shipping_charge_selection").change(function() {
-        let selectedItem = $(this).children("option:selected").val();
-        shipping_id = selectedItem;
-    });
-    var paymentID = '';
-    bKash.init({
-        paymentMode: 'checkout', //fixed value ‘checkout’
-        //paymentRequest format: {amount: AMOUNT, intent: INTENT}
-        //intent options
-        //1) ‘sale’ – immediate transaction (2 API calls)
-        //2) ‘authorization’ – deferred transaction (3 API calls)
-        paymentRequest: {
-            amount: price, //max two decimal points allowed
-            intent: 'sale'
-        },
-        createRequest: function(
-            request
-        ) { //request object is basically the paymentRequest object, automatically pushed by the script in createRequest method
-            console.log("create working !!", shipping_id)
-            let request_data = {
-                shipping_id: shipping_id,
-                request: request
-            }
-            $.ajax({
-                url: 'createpayment',
-                type: 'POST',
-                data: JSON.stringify(request_data),
-                contentType: 'application/json',
-                success: function(data) {
 
-                    if (data && data.paymentID != null) {
-                        paymentID = data.paymentID;
-                        bKash.create().onSuccess(
-                            data
-                        ); //pass the whole response data in bKash.create().onSucess() method as a parameter
-                    } else {
-                        bKash.create().onError();
-                    }
-                },
-                error: function() {
-                    bKash.create().onError();
-                }
-            });
-        },
-        executeRequestOnAuthorization: function() {
-            console.log("execute working !!")
-            $.ajax({
-                url: 'executepayment',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    "paymentID": paymentID
-                }),
-                success: function(data) {
 
-                    console.log("execute response ", data)
-                    data = JSON.parse(data);
-                    if (data && data.paymentID != null) {
-                        console.log("trxID: ", data.trxID)
-                        window.location.href =
-                            "/thank-you"; // Your redirect route when successful payment
-                    } else {
-                        console.log("error ");
-
-                        window.location.href =
-                            "/failed"; // Your redirect route when fail payment
-                        bKash.execute().onError();
-                    }
-                },
-                error: function() {
-                    bKash.execute().onError();
-                }
-            });
-        },
-        onClose: function() {
-            window.location.href = '/cart'; // Your redirect route when cancel payment
-        },
-    });
 </script>
