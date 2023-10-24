@@ -1,12 +1,30 @@
 <header class="sidebar_area_header">
+    <style>
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 9990; /* Place the overlay beneath the sidebar */
+        }
+        .menu_area_all_content{
+            position: relative;
+            z-index: 9999;
+        }
+    </style>
     <div class="container">
         <div class="sidebar_area_header_content">
 
             <!-- left_area start -->
             <div class="left_area">
+                <div id="overlay" class="d-none"></div>
                 <div class="menu_area_all_content">
                     <!-- menu_bar start -->
-                    <a href="#" onclick="add_menu_list.classList.toggle('active_class')" class="menu_bar">
+                    <a href="#" 
+                    {{-- onclick="add_menu_list.classList.toggle('active_class')"  --}}
+                    class="menu_bar main_sidebar_class">
                         <i class="fa fa-bars"></i>
                     </a>
                     <!-- menu_bar end -->
@@ -19,8 +37,10 @@
                             </li>
                             @foreach ($categories as $category)
                                 @if($category->subcategory->count() == 0)
-                                    <li>
-                                        <a href="{{ route('category_product', $category->cat_slug) }}" class="product_name">{{$category->category_name}}</a>
+                                    <li class="level" data-id="{{$category->id}}">
+                                        <a href="{{ route('category_product', $category->cat_slug) }}" class="product_name">
+                                            {{$category->category_name}}
+                                        </a>
                                     </li>
                                 @else
                                     @include('livewire.frontend.components.sidebar-component',[
@@ -86,26 +106,50 @@
         </div>
     </div>
 </header>
-<!-- sidebar_area_header end -->
 
 <script>
-    const categoryLinks = document.querySelectorAll('.product_name.right_icon.menu_bar');
+    var isOpen = 0;
+    $(document).ready(function() {
 
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            // Hide all subcategory lists
-            const subcategoryLists = document.querySelectorAll('.product_name.right_icon.menu_bar + ul');
-            subcategoryLists.forEach(list => {
-                list.style.display = 'none';
-            });
-
-            // Toggle the visibility of the subcategory list of the clicked category
-            const subcategoryList = link.nextElementSibling;
-            if (subcategoryList) {
-                subcategoryList.style.display = (subcategoryList.style.display === 'none' || subcategoryList.style.display === '') ? 'block' : 'none';
+        $('li.level').on('click', function(event) {
+            if(isOpen === $(this).attr("data-id")){
+                src = $(this).children('a').attr("data-src");
+                location.href = src;
+            } else{
+                event.preventDefault();
+                $(this).siblings().children('ul').css("display","none");
+                var ulElement = $(this).closest('li').children('ul');
+                if (ulElement.length) {
+                    ulElement.css("display","block");
+                }
+                isOpen = $(this).attr("data-id");
             }
+
+        });
+      
+    });
+
+    $(document).ready(function() {
+        $('.main_sidebar_class').on('click', function(event) {
+            event.preventDefault();
+            $('#add_menu_list').toggleClass('active_class');
+            $('#overlay').toggleClass('d-none');
+            $('li.level').find('ul').css('display','none');
         });
     });
-</script>
+
+    $(document).on('ready', function() {
+        $('#overlay').on('click', function() {
+            console.log('overlay clicked');
+            $('.menu_list_all').on('click', function(event) {
+                event.stopPropagation();
+            });
+
+            $('#add_menu_list').toggleClass('active_class');
+            $('#overlay').toggleClass('d-none');
+        });
+    });
+  </script>
+
+
+
