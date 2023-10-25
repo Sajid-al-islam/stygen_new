@@ -317,7 +317,7 @@
                                     <div class="row mb-2">
                                         <div class="col-md-4 col-sm-12 col-12">
                                             <div class="payment_single text-center">
-                                                <a class="btn" data-bs-toggle="collapse" href="#cashOnDelivery" role="button" aria-expanded="false" aria-controls="cashOnDelivery">
+                                                <a class="btn" data-bs-toggle="collapse" href="#cashOnDelivery" role="button" aria-expanded="true" aria-controls="cashOnDelivery">
                                                     <img src="assets/frontend/img/cart/cash-on-delivery.png" class="img-fluid mx-auto d-block mb-2">
                                                     <span><i class="fas fa-truck"></i><b>Cash On Delivery</b></span>
                                                 </a>
@@ -325,30 +325,12 @@
                                         </div>
                                         <div class="col-md-4 col-sm-12">
                                             <div class="payment_single text-center">
-                                                <div class="card-header" id="#payment-2">
-                                                    <h5 class="panel-title">
-                                                        <a class="btn" data-toggle="collapse" data-target="#onlinePayment" aria-expanded="false" aria-controls="onlinePayment">
-                                                            <img src="assets/frontend/img/cart/secure.png" class="img-fluid mx-auto d-block mb-2">
-                                                            <span><i class="fas fa-money-check"></i><b>Online
-                                                                    Payment</b></span>
-                                                        </a>
-                                                    </h5>
-                                                </div>
+                                                <a class="btn" data-bs-toggle="collapse" href="#onlinePayment" role="button" aria-expanded="false" aria-controls="onlinePayment">
+                                                    <img src="assets/frontend/img/cart/secure.png" class="img-fluid mx-auto d-block mb-2">
+                                                    <span><i class="fas fa-money-check"></i><b>Online Payment</b></span>
+                                                </a>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-4 col-sm-12">
-                                                        <div class="payment_single text-center">
-                                                            <div class="card-header" id="#payment-3">
-                                                                <h5 class="panel-title">
-                                                                    <a class="btn collapsed">
-                                                                        <img src="assets/frontend/img/cart/bkash.svg"
-                                                                            class="img-fluid mx-auto d-block bkash_img">
-                                                                        <span><b>Bkash</b></span>
-                                                                    </a>
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                         <div class="col-md-4 col-sm-12 col-12">
                                             <div class="payment_single text-center">
                                                 <a class="btn" data-bs-toggle="collapse" href="#bkash_pay" role="button" aria-expanded="false" aria-controls="bkash_pay">
@@ -360,11 +342,11 @@
                                     </div>
                                 </div>
                                 <div class="card">
-                                    {{-- <div id="onlinePayment" class="collapse" data-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <button id="sslczPayBtn" @click.prevent="sslCommerzePayment" class="btn mln-btn mln-btn--border btn-block" token="data" postdata="data" order="data" endpoint="/pay-via-ajax">PAY NOW</button>
-                                                    </div>
-                                                </div> --}}
+                                    <div id="onlinePayment" class="collapse" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <button type="button" onclick="submitSSl()" id="sslczPayBtn" class="btn mln-btn mln-btn--border btn-block" token="" postdata="" order="" endpoint="/pay-via-ajax">PAY NOW</button>
+                                        </div>
+                                    </div>
                                     <div id="cashOnDelivery" class="collapse show">
                                         <div class="card-body">
                                             @if ($cart_total > 0)
@@ -399,7 +381,7 @@
 </div>
 <script id="myScript" src="https://scripts.sandbox.bka.sh/versions/1.2.0-beta/checkout/bKash-checkout-sandbox.js">
 </script>
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Select all buttons with data-bs-toggle="collapse"
         const buttons = document.querySelectorAll('[data-bs-toggle="collapse"]');
@@ -427,6 +409,49 @@
             });
         });
     });
+</script> --}}
+<script>
+    // JavaScript to handle accordion selection
+    document.querySelectorAll('.payment_single a').forEach(function (element) {
+        element.addEventListener('click', function () {
+            // Toggle the collapse for the clicked element
+            var targetId = this.getAttribute('href').substring(1); // Extract the target ID
+            var targetCollapse = document.getElementById(targetId);
+            var allCollapses = document.querySelectorAll('.collapse');
+            
+            allCollapses.forEach(function(collapse) {
+                if (collapse !== targetCollapse) {
+                    collapse.classList.remove('show');
+                }
+            });
+        });
+    });
+</script>
 
+<script>
+    var obj = {};
+    obj.cus_name = $('#customer_name').val();
+    obj.cus_phone = $('#mobile').val();
+    obj.cus_email = $('#email').val();
+    obj.cus_addr1 = $('#address').val();
+    obj.amount = $('#total_amount').val();
 
+    $('#sslczPayBtn').prop('postdata', obj);
+    function submitSSl() {
+        var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+        // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
+        script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
+        tag.parentNode.insertBefore(script, tag);
+        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    }
+    // (function (window, document) {
+    //     var loader = function () {
+    //         var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+    //         // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
+    //         script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
+    //         tag.parentNode.insertBefore(script, tag);
+    //     };
+
+        
+    // })(window, document);
 </script>
