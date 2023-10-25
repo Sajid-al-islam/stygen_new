@@ -30,7 +30,6 @@ class SslCommerzNotification extends AbstractSslCommerz
         }
 
         $validation = $this->validate($trx_id, $amount, $currency, $post_data);
-        dd($validation);
 
         if ($validation) {
             return true;
@@ -131,7 +130,6 @@ class SslCommerzNotification extends AbstractSslCommerz
                     } else {
                         # FAILED TRANSACTION
                         $this->error = "Failed Transaction";
-                        dd('here');
                         return false;
                     }
                 } else {
