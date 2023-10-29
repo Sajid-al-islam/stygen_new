@@ -112,6 +112,14 @@
     $(document).ready(function() {
 
         $('li.level').on('click', function(event) {
+            if($(window).width() <= 768){
+                length = $(this).children('li').length;
+                bottom = length * 40 + "px";
+                $(this).children().find('li').css("border-left","5px solid purple");
+                $(this).siblings().children().find('li').css("border-left","0px");
+                $(this).css("padding-bottom", bottom);
+                $(this).siblings().css("padding-bottom", "0px");
+            }
             if(isOpen === $(this).attr("data-id")){
                 src = $(this).children('a').attr("data-src");
                 location.href = src;
