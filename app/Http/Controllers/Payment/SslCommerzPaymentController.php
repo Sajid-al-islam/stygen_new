@@ -85,7 +85,7 @@ class SslCommerzPaymentController extends Controller
                 'name' => $post_data['cus_name'],
                 'email' => $post_data['cus_email'],
                 'phone' => $post_data['cus_phone'],
-                'amount' => $post_data['total_amount'],
+                'total_amount' => $post_data['total_amount'],
                 'status' => 'Pending',
                 'address' => $post_data['cus_add1'],
                 'transaction_id' => $post_data['tran_id'],
@@ -105,7 +105,6 @@ class SslCommerzPaymentController extends Controller
 
     public function payViaAjax(Request $request)
     {
-
         # Here you have to receive all the order data to initate the payment.
         # Lets your oder trnsaction informations are saving in a table called "orders"
         # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.

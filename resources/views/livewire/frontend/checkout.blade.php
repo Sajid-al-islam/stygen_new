@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="#" onsubmit="checkout_submit(event)" id="checkout_submission_form" method="post">
+                <form action="#" id="checkout_submission_form" method="post">
                     <div class="row">
                         <div class="col-lg-6 col-12">
 
@@ -344,14 +344,14 @@
                                 <div class="card">
                                     <div id="onlinePayment" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
-                                            <button type="button" onclick="submitSSl()" id="sslczPayBtn" class="btn mln-btn mln-btn--border btn-block" token="" postdata="" order="" endpoint="/pay-via-ajax">PAY NOW</button>
+                                            <button onclick="submitSSl()" id="sslczPayBtn" class="btn mln-btn mln-btn--border btn-block" token="" postdata="" order="" endpoint="/pay-via-ajax">PAY NOW</button>
                                         </div>
                                     </div>
                                     <div id="cashOnDelivery" class="collapse show">
                                         <div class="card-body">
                                             @if ($cart_total > 0)
                                             <div class="order-button-payment d-grid">
-                                                <button class="btn btn-block" type="submit">Place Order</button>
+                                                <button onclick="checkout_submit()" class="btn btn-block" type="submit">Place Order</button>
                                             </div>
                                             @endif
                                         </div>

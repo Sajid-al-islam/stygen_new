@@ -152,19 +152,20 @@ $('#ship-box').on('click', function() {
     $('#ship-box-info').toggleClass('d-none').animate('easeIn');
 });
 
-function checkout_submit(event) {
+function checkout_submit() {
     $('.checkout-area').css('filter','blur(2px)');
     $('.checkout-loader').css('display','block');
     $('html, body').scrollTop($(".checkout-area").offset().top);
-    event.preventDefault();
-    let formData = new FormData(event.target);
+    // event.preventDefault();
+    const {form_values, form_inputs, form_data} = window.get_form_data(`#checkout_submission_form`);
+    // console.log(form_values, form_inputs, form_data);
 
     fetch("/checkout", {
         method: "POST",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        body: formData
+        body: form_data
     }).then(async res => {
         let response = {}
         response.status = res.status
