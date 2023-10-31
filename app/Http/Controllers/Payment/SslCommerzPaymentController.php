@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Payment;
+
+use App\Http\Controllers\CartManagerController;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
@@ -15,6 +17,7 @@ use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Seller;
 use App\Models\Shipping;
+use App\Models\ShippingCharge;
 use App\Models\StockLedger;
 use App\Models\User;
 use Carbon\Carbon;
@@ -23,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SslCommerzPaymentController extends Controller
 {
-
+    private $cart_handler;
     public function exampleEasyCheckout()
     {
         return view('exampleEasycheckout');
@@ -36,26 +39,86 @@ class SslCommerzPaymentController extends Controller
 
     public function index(Request $request)
     {
+        $this->cart_handler = new CartManagerController();
+        $request->validate([
+            'name' => 'required|max:100',
+            'address' => 'required|max:200',
+            'email' => 'nullable|email',
+            'phone' => 'required',
+            'shipping_charge_id' => 'required',
+        ]);
+        // cart data's
+        $coupon_code            = $request->coupon_code;
+        $coupon_amount          = $request->coupon_amount;
+        // if()
+
+        $paymentType            = $request->cashOnDelivery;
+        $createAccountStatus    = $request->createAccount;
+        // $carts                  = \Cart::getContent();
+        $carts                  = $this->cart_handler->get();
+
+        // $cart_count             = count($carts);
+        $cart_count             = $this->cart_handler->cart_count();
+        $current_date           = date('d/m/Y');
+        $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
+        // $cart_total_amount      = \Cart::getTotal();
+        $cart_total_amount      = floatval($this->cart_handler->cart_total());
+        // dd($carts);
+        $card_id                = (!empty($request->card_id)?$request->card_id:NULL);
+        $card_price             = (!empty($request->card_price)?$request->card_price:0);
+        $packaging_id           = (!empty($request->packaging_id)?$request->packaging_id:NULL);
+        $packaging_price        = (!empty($request->packaging_price)?$request->packaging_price:0);
+        $personal_notes         = (!empty($request->personal_notes)?$request->personal_notes:NULL);
+        $get_shipping_charge    = ShippingCharge::where('id', $request->shipping_charge_id)->first();
+        // dd($get_shipping_charge);
+        $shipping_charge        = floatval($get_shipping_charge->shipping_charge);
+        if($cart_total_amount < 0) {
+            $total_amount = 0;
+        }
+        else {
+            // dd($cart_total_amount, $shipping_charge, $card_price, $packaging_price);
+            $total_amount = $cart_total_amount + $shipping_charge + $card_price + $packaging_price;
+        }
+        $invoice_date = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
+
+
         # Here you have to receive all the order data to initate the payment.
         # Let's say, your oder transaction informations are saving in a table called "orders"
         # In "orders" table, order unique identity is "transaction_id". "status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
 
         $post_data = array();
-        $post_data['total_amount'] = '10'; # You cant not pay less than 10
+        $post_data['total_amount'] = $total_amount; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
         # CUSTOMER INFORMATION
-        $post_data['cus_name'] = 'Customer Name';
-        $post_data['cus_email'] = 'customer@mail.com';
-        $post_data['cus_add1'] = 'Customer Address';
+        $post_data['cus_name'] = $request->name;
+        $post_data['cus_email'] = $request->email;
+        $post_data['cus_add1'] = $request->address;
         $post_data['cus_add2'] = "";
         $post_data['cus_city'] = "";
         $post_data['cus_state'] = "";
         $post_data['cus_postcode'] = "";
         $post_data['cus_country'] = "Bangladesh";
-        $post_data['cus_phone'] = '8801XXXXXXXXX';
+        $post_data['cus_phone'] = $request->phone;
         $post_data['cus_fax'] = "";
+
+
+        $post_data['notes']                 = (!empty($request->notes))?$request->notes:NULL;
+        $post_data['delivery_date']         = (!empty($request->delivery_date))?$request->delivery_date:NULL;
+        $post_data['shipping_charge']       = (!empty($request->shipping_charge))?$request->shipping_charge:NULL;
+        $post_data['shipping_charge_id']    = $request->shipping_charge_id;
+        $post_data['payment_type']          = 2;
+        $post_data['coupon_code']           = (!empty($request->coupon_code))?$request->coupon_code:NULL;
+        $post_data['coupon_amount']         = (!empty($request->coupon_amount))?$request->coupon_amount:NULL;
+        $post_data['discountType']          = (!empty($request->coupon_amount))?2:0;
+
+        $post_data['card_id']               = (!empty($request->card_id))?$request->card_id:NULL;
+        $post_data['card_price']            = (!empty($request->card_price))?$request->card_price:0;
+        $post_data['packaging_id']          = (!empty($request->packaging_id))?$request->packaging_id:NULL;
+        $post_data['packaging_price']       = (!empty($request->packaging_price))?$request->packaging_price:0;
+        $post_data['personal_notes']        = (!empty($request->personal_notes))?$request->personal_notes:NULL;
+
 
         # SHIPMENT INFORMATION
         $post_data['ship_name'] = "Store Test";
@@ -79,22 +142,241 @@ class SslCommerzPaymentController extends Controller
         $post_data['value_d'] = "ref004";
 
         #Before  going to initiate the payment order status need to insert or update as Pending.
-        $update_product = DB::table('orders')
-            ->where('transaction_id', $post_data['tran_id'])
-            ->updateOrInsert([
-                'name' => $post_data['cus_name'],
-                'email' => $post_data['cus_email'],
-                'phone' => $post_data['cus_phone'],
-                'total_amount' => $post_data['total_amount'],
-                'status' => 'Pending',
-                'address' => $post_data['cus_add1'],
-                'transaction_id' => $post_data['tran_id'],
-                'currency' => $post_data['currency']
+        $post_data['account_password']      = (!empty($request->account_password))?$request->account_password:$request->phone;
+
+            $username = explode(" ", $post_data['cus_name']);
+            $ex_email = User::where('email', $post_data['cus_email'])->first();
+            $ex_phone = User::where('phone', $post_data['cus_phone'])->first();
+            if(isset($ex_email) && isset($ex_phone)){
+                $userID = $ex_email->id;
+            }elseif (isset($ex_email)){
+                $userID = $ex_email->id;
+            }elseif (isset($ex_phone)){
+                $userID = $ex_phone->id;
+            }else{
+                $user = User::create([
+                    'name'          => $post_data['cus_name'],
+                    'username'      => $username[0],
+                    'email'         => $post_data['cus_email'],
+                    'phone'         => $post_data['cus_phone'],
+                    'address'       => $post_data['cus_add1'],
+                    'password'      => (!empty($post_data['account_password']))?Hash::make($post_data['account_password']):Hash::make($post_data['cus_phone']),
+                    'status'        => 1
+                ]);
+                $userID = $user->id;
+            }
+
+            /*if (isset($ex_phone)){
+                $userID = $ex_phone->id;
+            }else{
+                $user = User::create([
+                    'name'          => $post_data['cus_name'],
+                    'username'      => $username[0],
+                    'email'         => $post_data['cus_email'],
+                    'phone'         => $post_data['cus_phone'],
+                    'address'       => $post_data['cus_add1'],
+                    'password'      => (!empty($post_data['account_password']))?Hash::make($post_data['account_password']):Hash::make($post_data['cus_phone']),
+                    'status'        => 1
+                ]);
+                $userID = $user->id;
+            }*/
+
+            //User Update after OTP Verify
+            /*$userUpdate = User::where('id', $userID)->first();
+            if(isset($userUpdate)){
+                $userUpdate->update([
+                    'name'          => $post_data['cus_name'],
+                    'username'      => $username[0],
+                    'email'         => (!empty($post_data['cus_email']))?$post_data['cus_email']:NULL,
+                    'address'       => (!empty($post_data['cus_add1']))?$post_data['cus_add1']:NULL,
+                ]);
+            }*/
+
+            $customer = Customer::create([
+                'company_id'                    => 0,
+                'customer_name'                 => $post_data['cus_name'],
+                'customer_email'                => $post_data['cus_email'],
+                'customer_phone'                => $post_data['cus_phone'],
+                'customer_address'              => $post_data['cus_add1'],
+                'status'                        => 1,
+                'created_by'                    => $userID,
             ]);
 
-        $sslc = new SslCommerzNotification();
-        # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
-        $payment_options = $sslc->makePayment($post_data, 'hosted');
+            $post_data['shipping_name']         = isset($request->shipping_name) ? $request->shipping_name : '';
+            $post_data['shipping_phone']        = isset($request->shipping_phone) ? $request->shipping_phone : '';
+            $post_data['shipping_email']        = isset($request->shipping_email) ? $request->shipping_email : '';
+            $post_data['shipping_address']      = isset($request->shipping_address) ? $request->shipping_address : '';
+
+            $shipping = Shipping::create([
+                'company_id'                    => 0,
+                'shipping_name'                 => $post_data['shipping_name'],
+                'shipping_email'                => $post_data['shipping_phone'],
+                'shipping_phone'                => $post_data['shipping_email'],
+                'shipping_address'              => $post_data['shipping_address'],
+                'status'                        => 1,
+                'created_by'                    => $userID,
+            ]);
+
+
+            #Before  going to initiate the payment order status need to update as Pending.
+            $order_data = DB::table('orders')
+                ->where('transaction_id', $post_data['tran_id'])
+                ->updateOrInsert([
+                    'orderId'                   => Helper::autoOrderIdGenereate(),
+                    'shipping_id'               => $shipping->id,
+                    'user_id'                   => $userID,
+                    'customer_id'               => $customer->id,
+                    'ship_to_gift'              => $request->shippingDisplay == 'true'?1:0,
+                    'shipping_agent_id'         => 0,
+                    'invoice_last_digit'        => Helper::autoInvoiceLastDigit(),
+                    'invoice_no_old'            => Helper::autoOrderInvoiceNoGenereate(),
+                    'invoice_no'                => Helper::autoOrderNewInvoiceNoGenereate(),
+                    'invoice_date'              => $invoice_date,
+                    'delivery_date'             => $post_data['delivery_date'],
+                    'payment_type'              => $post_data['payment_type'],
+                    'name'                      => $post_data['cus_name'],
+                    'phone'                     => $post_data['cus_phone'],
+                    'email'                     => $post_data['cus_email'],
+                    'address'                   => $post_data['cus_add1'],
+                    'notes'                     => $post_data['notes'],
+                    'card_id'                   => $post_data['card_id'],
+                    'card_price'                => $post_data['card_price'],
+                    'packaging_id'              => $post_data['packaging_id'],
+                    'packaging_price'           => $post_data['packaging_price'],
+                    'personal_notes'            => $post_data['personal_notes'],
+                    'total_amount'              => $post_data['total_amount'],
+                    'discount_type'             => $post_data['discountType'],
+                    'discount_amount'           => 0,
+                    'shipping_charge_id'        => $post_data['shipping_charge_id'],
+                    'shipping_charge'           => $post_data['shipping_charge'],
+                    'net_receiveable_amount'    => $post_data['total_amount'],
+                    'collect_amount'            => 0,
+                    'return_amount'             => 0,
+                    'total_vat'                 => 0,
+                    'coupon_code'               => $post_data['coupon_code'],
+                    'coupon_amount'             => $post_data['coupon_amount'],
+                    'due_amount'                => $post_data['total_amount'],
+                    'transaction_id'            => $post_data['tran_id'],
+                    'currency'                  => $post_data['currency'],
+                    'status'                    => 'Pending',
+                    'created_by'                => 1,
+                    'created_at'                => Carbon::now(),
+                    'updated_at'                => Carbon::now()
+                ]);
+
+            $order_detials = DB::table('orders')->where('transaction_id', $post_data['tran_id'])->first();
+            $userID         = $order_detials->user_id;
+            $discount_price = 0;
+            $total_vat      = 0;
+            foreach ($carts as $cart) {
+                $discount_price += $cart['product']->discount_price;
+                $total_vat      += $cart['product']->vat;
+
+                // $company_id = Product::where('id', $cart->id)->first()->company_id;
+                $product_data = Product::where('id', $cart['product']->id)->first();
+                $company_id = $product_data !== null ? $product_data->company_id : 0;
+                $order_details = OrderDetail::create([
+                    'company_id'        => $company_id,
+                    'order_id'          => $order_detials->id,
+                    'product_id'        => $cart['product']->id,
+                    'price'             => $cart['product']->sales_price ? $cart['product']->sales_price : $cart['product']->regular_price,
+                    'quantity'          => $cart['qty'],
+                    'total_amount'      => $cart['product']->price * $cart['qty'],
+                    'transaction_id'    => $order_detials->transaction_id,
+                    'status'            => 'Pending',
+                    'created_by'        => $userID
+                ]);
+
+
+                // if(!empty($cart->attributes['color']) || !empty($cart->attributes['size']) || !empty($cart->attributes['weight'])){
+                //     $order_attributes = OrderAttribute::create([
+                //         'company_id'         => $company_id,
+                //         'order_id'           => $order_detials->id,
+                //         'product_id'         => $cart->id,
+                //         'color'              => $cart->attributes['color'],
+                //         'size'               => $cart->attributes['size'],
+                //         'weight'             => $cart->attributes['weight'],
+                //         'status'             => 1,
+                //     ]);
+                // }
+                // dd($order_details, $order_data);
+                // $variationId = $cart->attributes['variation_id'];
+                $variationId = $cart['product']->variation_id;
+                // if($variationId != null){
+                //     // dd($order_details, $variationId);
+                //     $prev_stock = ProductVariation::where('status', 1)->where('id', $variationId)->first();
+                //     if(isset($prev_stock)){
+                //         $new_stock = ($prev_stock->attribute_stock) - ($cart['qty']);
+                //         $prev_stock->update(['attribute_stock' => $new_stock]);
+                //     }
+
+
+
+                //     $stock_ledger = StockLedger::create([
+                //         'company_id'  => $company_id,
+                //         'invoice_no'  => $order_details->invoice_no,
+                //         'invoice_date'=> $order_details->invoice_date,
+                //         'product_id'  => $cart['product']->id,
+                //         'variation_id'=> $variationId,
+                //         'stock_in'    => 0,
+                //         'stock_out'   => $cart['qty'],
+                //         'ledger_type' => 2,
+                //         'status'      => 1,
+                //         'created_by'  => $userID
+                //     ]);
+                // }else{
+                //     $stock_ledger = StockLedger::create([
+                //         'company_id'  => $company_id,
+                //         'invoice_no'  => $order_details->invoice_no,
+                //         'invoice_date'=> $order_details->invoice_date,
+                //         'product_id'  => $cart['product']->id,
+                //         'variation_id'=> NULL,
+                //         'stock_in'    => 0,
+                //         'stock_out'   => $cart['qty'],
+                //         'ledger_type' => 2,
+                //         'status'      => 1,
+                //         'created_by'  => $userID
+                //     ]);
+                // }
+            }
+
+            //Order Update
+            if(!empty($discount_price)){
+                // $net_receiveable_amount = ($order_detials->net_receiveable_amount) - $discount_price;
+                if($order_detials->coupon_amount > 0){
+                    $total_discount = $discount_price + ($order_detials->coupon_amount);
+                }else{
+                    $total_discount = $discount_price;
+                }
+                $order_update = Order::where('id', $order_detials->id)->update([
+                    'discount_type'             => 0,
+                    'discount_amount'           => $total_discount,
+                    // 'net_receiveable_amount'    => $net_receiveable_amount,
+                    // 'due_amount'                => $net_receiveable_amount,
+                    // 'total_amount'              => $net_receiveable_amount
+                ]);
+            }
+
+
+
+            if(!empty($total_vat)){
+                $orderInfo = Order::find($order_detials->id);
+                $orderUpdate = $orderInfo->update([
+                    'net_receiveable_amount'    => $orderInfo->net_receiveable_amount + $total_vat,
+                    'due_amount'                => $orderInfo->net_receiveable_amount + $total_vat,
+                    'total_vat'                 => $total_vat,
+                    'total_amount'              => $orderInfo->net_receiveable_amount + $total_vat
+                ]);
+            }
+
+            $sslc = new SslCommerzNotification();
+            # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
+            $payment_options = $sslc->makePayment($post_data, 'checkout', 'json');
+
+            if (!is_array($payment_options)) {
+                print_r($payment_options);
+                $payment_options = array();
+            }
 
         if (!is_array($payment_options)) {
             print_r($payment_options);

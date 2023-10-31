@@ -16,7 +16,7 @@ window.get_form_data = function (selector) {
         if(i.type === 'file'){
             /**
              * if there are multiple files do a loop
-             * 
+             *
             */
            if(i.multiple){
                for (let j = 0; j < i.value?.length; j++) {
@@ -25,7 +25,7 @@ window.get_form_data = function (selector) {
                 }
             }
             /**
-             * else 
+             * else
              * append the single file
              */
             else{
@@ -246,7 +246,7 @@ function sslCommerzePayment() {
             script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
             tag.parentNode.insertBefore(script, tag);
         };
-    
+
         window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
     })(window, document);
 }
@@ -535,7 +535,7 @@ bKash.init({
 
                 if (data && data.paymentID != null) {
                     paymentID = data.paymentID;
-                    
+
                     bKash.create().onSuccess(data); //pass the whole response data in bKash.create().onSucess() method as a parameter
                     $('.checkout-area').css('filter','unset');
                     $('.checkout-loader').css('display','none');
