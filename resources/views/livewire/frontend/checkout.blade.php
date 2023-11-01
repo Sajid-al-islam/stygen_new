@@ -25,7 +25,8 @@
                         </div>
                     </div>
                 </div>
-                <form action="#" onsubmit="checkout_submit(event)" id="checkout_submission_form" method="post">
+                <form action="{{ route('ssl_payment') }}" id="checkout_submission_form" method="post">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-6 col-12">
 
@@ -37,6 +38,9 @@
                                         <div class="checkout-form-list">
                                             <label>Full Name <span class="required">*</span></label>
                                             <input placeholder="e.g. Rahim" name="name" type="text">
+                                            @error('name')
+                                                <b><span class="text-danger">{{ $message }}</span></b>
+                                            @enderror
                                             {{-- @if (isset($errors['name']))
                                                     <span class="text-danger">{{ $errors['name'][0] }}</span>
                                             @endif --}}
@@ -47,6 +51,9 @@
                                         <div class="checkout-form-list">
                                             <label>Address <span class="required">*</span></label>
                                             <input name="address" placeholder="e.g. House#1, Road#1, Dhaka" type="text">
+                                            @error('address')
+                                                <b><span class="text-danger">{{ $message }}</span></b>
+                                            @enderror
                                             {{-- @if (isset($errors['address']))
                                                     <span class="text-danger">{{ $errors['address'][0] }}</span>
                                             @endif --}}
@@ -57,6 +64,9 @@
                                         <div class="checkout-form-list">
                                             <label>Email Address</label>
                                             <input name="email" placeholder="e.g. example@example.com" type="email">
+                                            @error('email')
+                                                <b><span class="text-danger">{{ $message }}</span></b>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -64,6 +74,9 @@
                                         <div class="checkout-form-list">
                                             <label>Phone <span class="required">*</span></label>
                                             <input name="phone" type="number" placeholder="e.g. 01xxxxxxxxx">
+                                            @error('phone')
+                                                <b><span class="text-danger">{{ $message }}</span></b>
+                                            @enderror
                                             {{-- @if (isset($errors['phone']))
                                                     <span class="text-danger">{{ $errors['phone'][0] }}</span>
                                             @endif --}}
@@ -344,14 +357,14 @@
                                 <div class="card">
                                     <div id="onlinePayment" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
-                                            <button type="button" onclick="submitSSl()" id="sslczPayBtn" class="btn mln-btn mln-btn--border btn-block" token="" postdata="" order="" endpoint="/pay-via-ajax">PAY NOW</button>
+                                            <button type="submit" class="btn mln-btn mln-btn--border btn-block" id="sslczPayBtn">PAY NOW</button>
                                         </div>
                                     </div>
                                     <div id="cashOnDelivery" class="collapse show">
                                         <div class="card-body">
                                             @if ($cart_total > 0)
                                             <div class="order-button-payment d-grid">
-                                                <button class="btn btn-block" type="submit">Place Order</button>
+                                                <button onclick="checkout_submit()" class="btn btn-block" type="button">Place Order</button>
                                             </div>
                                             @endif
                                         </div>
@@ -418,7 +431,7 @@
             var targetId = this.getAttribute('href').substring(1); // Extract the target ID
             var targetCollapse = document.getElementById(targetId);
             var allCollapses = document.querySelectorAll('.collapse');
-            
+
             allCollapses.forEach(function(collapse) {
                 if (collapse !== targetCollapse) {
                     collapse.classList.remove('show');
@@ -452,6 +465,6 @@
     //         tag.parentNode.insertBefore(script, tag);
     //     };
 
-        
+
     // })(window, document);
 </script>
