@@ -18,11 +18,11 @@ class AllProduct extends Component
             'products' => $products,
         ])->extends('layouts.app', [
             'meta' => [
-                "title" =>  "",
-                "image" => "",
-                "og_image" => "",
-                "twitter_image" => "",
-                "description" => "",
+                "title" =>  "Best online Gift Shop in Bangladesh | Stygen",
+                "description" => "Order and send gifts online to your friends & family for any occasion. Gifts delivery in Bangladesh. Flower, cake, perfume, chocolate, books home delivery.",
+                "image" => "{{ asset('assets/frontend/img/logo/stygen_image.jpg') }}",
+                "og_image" => "asset('assets/frontend/img/logo/stygen_image.jpg')",
+                "twitter_image" => "asset('assets/frontend/img/logo/stygen_image.jpg')",
                 "price" => "" ,
                 "keywords" => ""
             ],
