@@ -57,7 +57,6 @@
                             @endforeach
                         </ul>
                     </div>
-                    <!-- menu_list_all area end -->
                 </div>
 
                 <!-- menu_area_all_content end -->
@@ -72,10 +71,12 @@
                 <!-- search area start -->
                 {{-- <div class="search_area">
                     <form action="#">
-                        <input type="text" placeholder="Search product ...">
-                        <button class="search_icon">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
+                        <div class="search-form">
+                            <input class="form-control mobile_search_input" type="search" v-model="keyword"
+                                @keyup="SearchProduct" placeholder="Search product...">
+                            <button class="mobile-search-btn btn btn-primary" @click.prevent="SearchProduct"
+                                type="submit"><i class="ion-ios-search-strong"></i></button>
+                        </div>
                     </form>
                 </div> --}}
 

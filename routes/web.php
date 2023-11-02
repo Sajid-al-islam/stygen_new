@@ -125,6 +125,7 @@ Route::post('add_to_cart', [ProductController::class, 'add_to_cart']);
 Route::get('get_cart_sidebar', [ProductController::class, 'get_cart_sidebar']);
 Route::get('cart_all', [ProductController::class, 'cart_all']);
 Route::post('/checkout', [CashOnDeliveryController::class, 'cashOnDelivery'])->name('checkout');
+Route::post('/bkash-checkout', [BkashController::class, 'bkashCheckout'])->name('bkash_checkout');
 
 Route::get('/mailchimp_add_store', [MailchimpController::class, 'addstore']);
 Route::get('/mailchimp_addproduct', [MailchimpController::class, 'addproducts']);
@@ -237,7 +238,7 @@ Route::get('blog/{slug}',[BlogController::class, 'getSingleBlog'])->name('getSin
 
 
 Route::get('bkash_payment',[BkashController::class, 'visit']);
-// Route::post('token', [BkashController::class, 'token'])->name('token');
+Route::post('token', [BkashController::class, 'token'])->name('token');
 Route::post('createpayment', [BkashController::class, 'createpayment'])->name('createpayment');
 Route::post('executepayment', [BkashController::class, 'executepayment'])->name('executepayment');
 // Route::get('/thank-you', [BkashController::class, 'thank_you'])->name('thanks');
@@ -270,7 +271,7 @@ Route::post('apply-coupon', [CouponController::class, 'apply_coupon'])->name('ap
 Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
 Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
-Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-with-ssl', [SslCommerzPaymentController::class, 'index'])->name('ssl_payment');
 Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
 
 Route::post('/success', [SslCommerzPaymentController::class, 'success']);

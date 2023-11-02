@@ -82,8 +82,8 @@ class CashOnDeliveryController extends Controller
             // dd($cart_total_amount, $shipping_charge, $card_price, $packaging_price);
             $total_amount       = $cart_total_amount + $shipping_charge + $card_price + $packaging_price;
         }
-        $current_date           = date('d/m/Y');
-        $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
+        // $current_date           = date('d/m/Y');
+        // $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
 
         
 
@@ -219,7 +219,8 @@ class CashOnDeliveryController extends Controller
                 $discount_price += $cart['product']->discount_price;
                 $total_vat      += $cart['product']->vat;
 
-                $company_id = Product::where('id', $cart['product']->id)->first()->company_id;
+                $product_data = Product::where('id', $cart['product']->id)->first();
+                $company_id = $product_data !== null ? $product_data->company_id : 0;
                 $order_details = OrderDetail::create([
                     'company_id'        => $company_id,
                     'order_id'          => $order->id,
