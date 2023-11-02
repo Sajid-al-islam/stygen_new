@@ -51,7 +51,7 @@
                                                         <div class="row mt-3">
 
 
-                                                            <div class="col-md-6 col-sm-6 col-lg-6 col-12">
+                                                            <div class="col-md-6 col-sm-6 col-lg-6 col-6">
                                                                 @if ($product->product_variations && count($product->product_variations) > 0)
                                                                     <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2"
                                                                             href="#">select variant</a></span>
@@ -62,7 +62,7 @@
                                                                             to cart</a></span>
                                                                 @endif
                                                             </div>
-                                                            <div class="col-md-6 col-sm-6 col-lg-6 col-12">
+                                                            <div class="col-md-6 col-sm-6 col-lg-6 col-6">
                                                                 <span><a class="btn btn-primary btn-sm ps-2 detailsbtn"
                                                                         href="{{ route('product_details', $product->pro_slug) }}"><i class="fas fa-eye pe-2"></i>Details</a></span>
                                                             </div>

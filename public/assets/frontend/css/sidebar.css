@@ -46,7 +46,7 @@
     outline: 0;
     box-sizing: border-box;
   }
-  
+
   h1,
   h2,
   h3,
@@ -55,18 +55,18 @@
   h6 {
     margin: 0;
   }
-  
+
   p,
   ol,
   ul {
     margin: 0;
     padding: 0;
   }
-  
+
   ul li {
     list-style-type: none;
   }
-  
+
   img,
   iframe,
   a,
@@ -75,7 +75,7 @@
     text-decoration: none;
     display: inline-block;
   }
-  
+
   .sidebar_area_header {
     border: 0px solid red;
     background-color: #e3e3ea;
@@ -300,6 +300,5 @@
     font-size: 14px;
     line-height: 13px;
   }
-  
+
   /*# sourceMappingURL=style.css.map */
-  

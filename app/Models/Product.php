@@ -72,6 +72,11 @@ class Product extends Model
         return $this->hasMany(StockLedger::class, 'product_id');
     }
 
+    public function stock()
+    {
+        return $this->hasMany(ProductStock::class, 'product_id');
+    }
+
     public function scopeProductId($query)
     {
         return $query::where('status', 1)->select('id')->get();
