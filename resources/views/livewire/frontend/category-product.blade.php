@@ -1,7 +1,7 @@
 <div>
     <div class="container">
         <div class="row">
-            
+
             <div class="shop-product">
                 <div id="myTabContent-2" class="tab-content">
                     <div id="grid" class="tab-pane fade show active">
@@ -9,11 +9,11 @@
                             <div class="row" wire:loading.remove wire:target="loadProducts">
                                 @if ($products->count() > 0)
                                     @foreach ($products as $product)
-                                        <div class="col-12 col-lg-4 col-xl-4 col-md-4 mb-3">
+                                        <div class="col-12 col-lg-3 col-xl-3 col-md-3 mb-3">
                                             <!--Single Product Start-->
                                             <div class="single-product mb-3 shop-product-single">
-                                                <div class="product-img">
-                                                    <a href="{{ route('product_details', $product->pro_slug) }}">
+                                                <div class="product-img product-img-category">
+                                                    <a href="{{ route('product_details', $product->pro_slug) }}" class="w-100">
                                                         @if ($product->featured_image)
                                                             <img class="first-img lazy"
                                                                 data-src="/assets/uploads/product/{{ $product->featured_image }}"
@@ -34,7 +34,11 @@
 
                                                 </div>
                                                 <div class="product-content">
-                                                    <h4><a href="{{ route('product_details', $product->pro_slug) }}">{{ $product->product_name }}</a></h4>
+                                                    <h4>
+                                                        <a href="{{ route('product_details', $product->pro_slug) }}">
+                                                            {{ Illuminate\Support\Str::limit($product->product_name, 50) }}
+                                                        </a>
+                                                    </h4>
                                                     <div class="product-price">
                                                         @if ($product->sales_price)
                                                             <span
@@ -104,7 +108,7 @@
             <div class="mt-5 d-flex justify-content-center mb-5">
                 {{ $products->onEachSide(2)->links() }}
             </div>
-           
+
         </div>
 
 
