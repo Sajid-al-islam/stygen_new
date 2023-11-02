@@ -1,6 +1,6 @@
 <div>
     <div class="slider-area transparent-bg">
-        <div class="container-xl container-lg container-md">
+        <div class="container-xl container-lg container-md container-sm container-xxl">
 
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-12">
