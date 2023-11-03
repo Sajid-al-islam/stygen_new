@@ -739,7 +739,7 @@
 
                 let mk_activity_key_param = query_param[1].split("=");
 
-                console.log(mk_activity_key_param);
+                // console.log(mk_activity_key_param);
                 let mk_activity_key = localStorage.getItem("mk_activity_key");
                 if(mk_activity_key && mk_activity_key == mk_activity_key_param[1]) {
                     console.log('mk_activity_key found');

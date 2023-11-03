@@ -39,11 +39,11 @@
                     <div id="add_menu_list" class="menu_list_all">
                         <ul>
                             <li>
-                                <a href="#" class="product_name all_product_title">All Product</a>
+                                <a href="/shop" class="product_name all_product_title">All Product</a>
                             </li>
                             @foreach ($categories as $category)
                                 @if ($category->subcategory->count() == 0)
-                                    <li class="level" data-id="{{ $category->id }}">
+                                    <li class="level d-flex align-items-center" data-id="{{ $category->id }}">
                                         <a href="{{ route('category_product', $category->cat_slug) }}"
                                             class="product_name">
                                             {{ $category->category_name }}
@@ -160,6 +160,27 @@
 
 <script>
     var isOpen = 0;
+    // ="{{ route('category_product', $category->cat_slug) }}"
+    function goToCategory(category_id, cat_slug) {
+        // event.preventDefault();
+        let redirect_url = '/product-category/'+ cat_slug;
+
+        if(isOpen == category_id) {
+
+            location.href = redirect_url;
+        }
+        isOpen = category_id;
+    }
+
+    function goToSubCategory(category_id, cat_slug) {
+        // console.log('hello', category_id, cat_slug);
+        // event.preventDefault();
+        let redirect_url = '/product-category/'+ cat_slug;
+        location.href = redirect_url;
+        isOpen = category_id;
+    }
+
+
     $(document).ready(function() {
 
         $('li.level').on('click', function(event) {
@@ -171,18 +192,18 @@
                 $(this).css("padding-bottom", bottom);
                 $(this).siblings().css("padding-bottom", "0px");
             }
-            if (isOpen === $(this).attr("data-id")) {
-                src = $(this).children('a').attr("data-src");
-                location.href = src;
-            } else {
-                event.preventDefault();
+            // if (isOpen === $(this).attr("data-id")) {
+            //     src = $(this).children('a').attr("data-src");
+            //     // location.href = src;
+            // } else {
+                // event.preventDefault();
                 $(this).siblings().children('ul').css("display", "none");
                 var ulElement = $(this).closest('li').children('ul');
                 if (ulElement.length) {
                     ulElement.css("display", "block");
                 }
                 isOpen = $(this).attr("data-id");
-            }
+            // }
 
         });
 

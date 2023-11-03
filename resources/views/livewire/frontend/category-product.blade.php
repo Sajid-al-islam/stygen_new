@@ -48,7 +48,8 @@
                                                             <span
                                                                 class="price">৳{{ $product->regular_price }}</span>
                                                         @endif
-                                                        <div class="row mt-3">
+                                                        <br>
+                                                        <div class="d-inline-flex gap-2 justify-content-between mt-3">
 
 
                                                             <div class="col-md-6 col-sm-6 col-lg-6 col-6">
@@ -57,7 +58,7 @@
                                                                             href="#">select variant</a></span>
                                                                 @else
                                                                     <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2"
-                                                                            href="javascript:void(0)" onclick="addToCart({{ $product->id }})"><i
+                                                                            href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i
                                                                                 class="fas fa-shopping-bag"></i>Add
                                                                             to cart</a></span>
                                                                 @endif

@@ -5,13 +5,14 @@
             font-size: 12px;
             text-transform: capitalize;
         }
+
         #buynowbtn {
             background-color: #5e2e87;
             padding: 17px;
             text-transform: capitalize;
         }
 
-        #buynowbtn i{
+        #buynowbtn i {
             padding-right: 12px;
         }
     </style>
@@ -36,24 +37,22 @@
                         <div class="col-md-5 col-xl-5 col-sm-12 col-12">
                             <div class="product__details__pic">
                                 @if ($product_details->product_images)
-                                <div class="">
-                                    @if($product_details->featured_image != '')
-
-                                    {{-- <image-magnifier src="`/assets/uploads/product/${product.featured_image}`"
+                                    <div class="">
+                                        @if ($product_details->featured_image != '')
+                                            {{-- <image-magnifier src="`/assets/uploads/product/${product.featured_image}`"
                                         :zoom-src="`/assets/uploads/product/${product.featured_image}`" width="100%"
                                         height="100%" zoom-width="440" zoom-height="440"></image-magnifier> --}}
-                                    <img class="first-img img-fluid w-100 lazy"
-                                        data-src="/assets/uploads/product/{{ $product_details->featured_image }}">
-                                    <noscript><img class="first-img" src="/assets/uploads/product/{{ $product_details->featured_image }}" /></noscript>
-
-                                    @else
-
-                                    <img class="first-img img-fluid w-100 lazy"
-                                        data-src="/assets/frontend/img/icon/empty_product.jpeg">
-                                    <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
-
-                                    @endif
-                                </div>
+                                            <img class="first-img img-fluid w-100 lazy"
+                                                data-src="/assets/uploads/product/{{ $product_details->featured_image }}">
+                                            <noscript><img class="first-img"
+                                                    src="/assets/uploads/product/{{ $product_details->featured_image }}" /></noscript>
+                                        @else
+                                            <img class="first-img img-fluid w-100 lazy"
+                                                data-src="/assets/frontend/img/icon/empty_product.jpeg">
+                                            <noscript><img class="first-img"
+                                                    src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
+                                        @endif
+                                    </div>
                                 @endif
 
                                 {{-- <div class="mt-2"
@@ -75,11 +74,11 @@
                                 <div class="single-product-reviews show-rating" style="display: inline-block;">
                                     <!-- Blade does not have Vue's star-rating component, you'll need to handle this differently -->
                                     <p style="display: inline-block;" class="ml-2">
-                                        @if ($product_details->reviews->count() > 0 && $product_details->reviews->count() < 2) {{
-                                            $product_details->reviews->count() }} Review
-                                            @elseif ($product_details->reviews->count() >= 2)
+                                        @if ($product_details->reviews->count() > 0 && $product_details->reviews->count() < 2)
+                                            {{ $product_details->reviews->count() }} Review
+                                        @elseif ($product_details->reviews->count() >= 2)
                                             {{ $product_details->reviews->count() }} Reviews
-                                            @endif
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="single-product-price">
@@ -92,8 +91,8 @@
                                         @else
                                             <span class="price" v-else>৳{{ $product_details->regular_price }}</span>
                                         @endif
-                                        
-{{--                                         
+
+                                        {{--
                                         <span class="discount"
                                             v-if="discount_percentage(product.regular_price, product.sales_price)">{{
                                             discount_percentage(product.regular_price, product.sales_price) }}</span> --}}
@@ -113,12 +112,12 @@
                                     </p>
                                 </div> --}}
                                 <div class="product-info">
-                                    @if($product_details->short_description && $product_details->short_description != 'null')
+                                    @if ($product_details->short_description && $product_details->short_description != 'null')
                                         <p>
                                             <span>{!! $product_details->short_description !!}</span>
                                         </p>
                                     @endif
-                                    @if($product_details->product_sku && $product_details->product_sku != 'null')
+                                    @if ($product_details->product_sku && $product_details->product_sku != 'null')
                                         {{-- <p>
                                             <span>{!! $product_details->short_description !!}</span>
                                         </p> --}}
@@ -126,9 +125,10 @@
                                             <b>SKU:</b> {{ $product_details->product_sku }}
                                         </p>
                                     @endif
-                                    @if($product_details->brand)    
+                                    @if ($product_details->brand)
                                         <p class="mt-0 single-product-info">
-                                            <b>Brand:</b> <a href="/brand-product-list">{{ $product_details->brand->brand_name }}</a>
+                                            <b>Brand:</b> <a
+                                                href="/brand-product-list">{{ $product_details->brand->brand_name }}</a>
                                         </p>
                                     @endif
                                 </div>
@@ -315,25 +315,28 @@
                                     </form>
                                 </div> --}}
                                 <div class="product-add-to-cart">
-                                    
+
                                     <div class="row d-flex justify-content-start" v-if="product.status != 0">
                                         <div class="col-md-4">
                                             <div class="add mt-4">
-                                                <button class="add-to-cart" onclick="addToCart({{ $product_details->id }})"><i class="fas fa-shopping-bag"></i>
+                                                <button class="add-to-cart"
+                                                    onclick="addToCart({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"><i
+                                                        class="fas fa-shopping-bag"></i>
                                                     add to cart</button>
                                                 <!--<span class="product-availability">In stock</span>-->
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="add mt-4" v-if="product.status != 0">
-                                                <button onclick="buyNow({{ $product_details->id }})" class="btn btn-primary btn-lg" id="buynowbtn"><i
+                                                <button onclick="buyNow({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"
+                                                    class="btn btn-primary btn-lg" id="buynowbtn"><i
                                                         class="fas fa-money-check-alt"></i>Buy now</button>
                                                 <!--<span class="product-availability">In stock</span>-->
                                             </div>
                                         </div>
                                     </div>
 
-                                    
+
 
                                 </div>
                             </div>
@@ -344,12 +347,12 @@
             <!--Single Product End-->
 
 
-            @if($product_details->youtube_link && $product_details->youtube_link != 'null')
+            @if ($product_details->youtube_link && $product_details->youtube_link != 'null')
                 <div class="row mt-2">
                     <div class="col-md-5 text-left">
                         <h4>More Details: </h4>
-                        <iframe width="480" height="315" src="{{ $product_details->youtube_link }}" title="YouTube video player"
-                            frameborder="0"
+                        <iframe width="480" height="315" src="{{ $product_details->youtube_link }}"
+                            title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div>
@@ -395,7 +398,8 @@
                                             <div class="col-md-6">
                                                 <div class="comments-area">
                                                     @if ($product_details->reviews)
-                                                        <h3 v-if="product.reviews">{{ count($product_details->reviews) }} Reviews</h3> 
+                                                        <h3 v-if="product.reviews">
+                                                            {{ count($product_details->reviews) }} Reviews</h3>
                                                     @endif
                                                     @foreach ($product_details->reviews as $review)
                                                         <ol class="commentlist">
@@ -403,12 +407,14 @@
                                                                 <div class="single-comment">
                                                                     <div class="comment-avatar">
                                                                         @if ($review->user->image == 'default.png')
-                                                                            <img src="/assets/frontend/img/icon/user.png" width="50px">
+                                                                            <img src="/assets/frontend/img/icon/user.png"
+                                                                                width="50px">
                                                                         @endif
                                                                     </div>
                                                                     <div class="comment-info">
                                                                         <a href="#">{{ $review->user->name }}</a>
-                                                                        <span class="date">{{ $review->created_at->format('H:i A') }}</span>
+                                                                        <span
+                                                                            class="date">{{ $review->created_at->format('H:i A') }}</span>
                                                                         <p>{{ $review->description }}</p>
                                                                     </div>
                                                                 </div>
@@ -583,48 +589,64 @@
                         @foreach ($related_products as $related_product)
                             <div class="col-lg-3 col-xl-3 col-md-3">
                                 <!--Single Product Start-->
-                                <div class="single-product style-2">
-                                    <div class="product-img">
+                                <div class="single-product style-2 mb-2 mt-1">
+                                    <div class="product-img product-img-category">
                                         <a href="{{ route('product_details', $related_product->pro_slug) }}">
-                                            <img class="first-img lazy" data-src="/assets/uploads/product/{{ $related_product->featured_image }}" alt="{{ $related_product->product_name }}">
-                                            <img class="hover-img lazy" data-src="/assets/uploads/product/{{ $related_product->featured_image }}" alt="{{ $related_product->product_name }}">
-                                            <noscript><img class="first-img" src="/assets/uploads/product/{{ $related_product->featured_image }}" /></noscript>
+                                            <img class="first-img lazy"
+                                                data-src="/assets/uploads/product/{{ $related_product->featured_image }}"
+                                                alt="{{ $related_product->product_name }}">
+                                            <img class="hover-img lazy"
+                                                data-src="/assets/uploads/product/{{ $related_product->featured_image }}"
+                                                alt="{{ $related_product->product_name }}">
+                                            <noscript><img class="first-img"
+                                                    src="/assets/uploads/product/{{ $related_product->featured_image }}" /></noscript>
                                         </a>
-                
-                                        <div class="product-action">
+
+                                        {{-- <div class="product-action">
                                             <ul>
                                                 @if (!empty($related_product->product_variations) && count($related_product->product_variations) > 0)
                                                     <li><a href="#"><i class="ion-settings"></i></a></li>
                                                 @endif
                                                 <li><a href="#open-modal" data-toggle="modal" data-product="{{ $related_product }}" data-image="{{ $related_product->featured_image }}" data-variations="{{ $related_product->product_variations }}"><i class="ion-eye"></i></a></li>
                                             </ul>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="product-content">
                                         {{-- <h4><a href="{{ route('singleProduct', ['slug' => $related_product->pro_slug]) }}">{{ $related_product->product_name }}</a></h4> --}}
-                                        <h4><a href="{{ route('product_details', $related_product->pro_slug) }}">{{ $related_product->product_name }}</a></h4>
+                                        <h4>
+                                            <a href="{{ route('product_details', $related_product->pro_slug) }}">
+                                                {{ Illuminate\Support\Str::limit($related_product->product_name, 50) }}
+                                            </a>
+                                        </h4>
                                         <div class="product-price">
                                             @if (!empty($related_product->sales_price))
-                                                <span class="price"><del>৳{{ number_format($related_product->regular_price) }}</del> ৳{{ number_format($related_product->sales_price) }}</span>
+                                                <span
+                                                    class="price"><del>৳{{ number_format($related_product->regular_price) }}</del>
+                                                    ৳{{ number_format($related_product->sales_price) }}</span>
                                             @else
-                                                <span class="price">৳{{ number_format($related_product->regular_price) }}</span>
+                                                <span
+                                                    class="price">৳{{ number_format($related_product->regular_price) }}</span>
                                             @endif
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="d-inline-flex justify-content-between mt-3">
-                                                    <div class="col-md-6 col-sm-6">
+                                                <div class="d-inline-flex gap-3 justify-content-between mt-3">
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-6">
                                                         @if (!empty($related_product->product_variations) && count($related_product->product_variations) > 0)
-                                                            <a class="btn btn-primary btn-sm pl-2 detailsbtn" href="#">select variant</a>
+                                                            <a class="btn btn-primary btn-sm pl-2 detailsbtn"
+                                                                href="#">select variant</a>
                                                             {{-- <a class="btn btn-primary btn-sm pl-2 detailsbtn" href="{{ route('singleProduct', ['slug' => $related_product->pro_slug]) }}">select variant</a> --}}
                                                         @else
-                                                            <a href="#" onclick="event.preventDefault(); document.getElementById('add-to-cart-form-{{ $related_product->id }}').submit();" class="btn btn-primary btn-sm pr-2 addtocart"><i class="ion-bag"></i>Add to cart</a>
+                                                            <a href="#"
+                                                                onclick="event.preventDefault(); document.getElementById('add-to-cart-form-{{ $related_product->id }}').submit();"
+                                                                class="btn btn-primary btn-sm pr-2 addtocart"><i class="fas fa-shopping-bag me-1"></i>Add to cart</a>
                                                         @endif
                                                     </div>
-                                                    <div class="col-md-6 col-sm-6">
+                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-6">
                                                         <span>
                                                             {{-- <a class="btn btn-primary btn-sm pl-2 detailsbtn" href="{{ route('singleProduct', ['slug' => $related_product->pro_slug]) }}">Details</a> --}}
-                                                            <a class="btn btn-primary btn-sm pl-2 detailsbtn" href="{{ route('product_details', $related_product->pro_slug) }}">Details</a>
+                                                            <a class="btn btn-primary btn-sm pl-2 detailsbtn"
+                                                                href="{{ route('product_details', $related_product->pro_slug) }}"><i class="fas fa-eye me-1"></i>Details</a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -637,7 +659,7 @@
                         @endforeach
                     @endif
                 </div>
-                
+
             </div>
 
             <!-- Quick Cart Modal Start -->

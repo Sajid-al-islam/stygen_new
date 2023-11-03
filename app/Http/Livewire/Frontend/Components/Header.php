@@ -12,7 +12,7 @@ class Header extends Component
     public $categories;
     public $cart_count=0;
     public $carts=null;
-    
+
     public $searchQuery;
     public $search_products=[];
 
@@ -37,6 +37,8 @@ class Header extends Component
         $this->cart_count = $cart_manager->cart_count();
         $this->carts = $cart_manager->get();
         $this->categories = Category::where('status', 1)->where('parent_id', 0)->orderBy('id','asc')->with('subcategory')->get();
+
+        // dd($this->categories->toArray());
         return view('livewire.frontend.components.header');
     }
 }

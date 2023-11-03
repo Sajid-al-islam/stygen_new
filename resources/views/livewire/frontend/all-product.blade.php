@@ -63,7 +63,7 @@
                                                                     @if ($product->product_variations && count($product->product_variations) > 0)
                                                                         <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2" href="#">select variant</a></span>
                                                                     @else
-                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="javascript:void(0)" onclick="addToCart({{ $product->id }})"><i class="fas fa-shopping-bag"></i>Add to cart</a></span>
+                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i class="fas fa-shopping-bag"></i>Add to cart</a></span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-lg-6 col-12">

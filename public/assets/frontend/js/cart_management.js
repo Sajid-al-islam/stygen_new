@@ -153,6 +153,13 @@ $('#ship-box').on('click', function() {
 });
 
 function checkout_submit() {
+    
+    fbq('track', 'InitiateCheckout',{
+        value: price,
+        currency: 'BDT',
+        content_ids: skus,
+        content_type: 'product'
+    });
     $('.checkout-area').css('filter','blur(2px)');
     $('.checkout-loader').css('display','block');
     $('html, body').scrollTop($(".checkout-area").offset().top);
@@ -238,20 +245,28 @@ async function bkash_checkout_submit(event) {
 }
 
 
-// ssl commerce payment gateway
-function sslCommerzePayment() {
-    (function (window, document) {
-        var loader = function () {
-            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
-            tag.parentNode.insertBefore(script, tag);
-        };
 
-        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
-    })(window, document);
-}
+function addToCart(product_id, regular_price, sales_price, qty=1) {
 
-function addToCart(product_id, qty=1) {
+    // console.log(product_id, regular_price, sales_price);
+    //ADD TO CART EVENT FOR FACEBOOK
+    if(sales_price && sales_price.length > 0){
+        var price = sales_price
+    }else{
+        var price = regular_price
+    }
+    var sku = product_id
+    fbq('track', 'AddToCart', {
+        value: price,
+        currency: 'BDT',
+        content_ids: [
+            sku,
+        ],
+        content_type: 'product'
+    });
+    //ADD TO CART EVENT FOR FACEBOOK
+
+
     fetch("/add_to_cart", {
         method: "POST",
         headers: {

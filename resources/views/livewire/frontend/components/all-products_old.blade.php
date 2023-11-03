@@ -1,11 +1,11 @@
 <div>
-   
+
 
     <!-- resources/views/livewire/product-details.blade.php -->
 
     <div>
         <!-- ... (other HTML content) ... -->
-    
+
         <!--Shop Product Start-->
         <div class="shop-product">
             <div id="myTabContent-2" class="tab-content">
@@ -34,7 +34,7 @@
                                                         @if ($product->product_variations && count($product->product_variations) > 0)
                                                             <li><a href="#"><i class="ion-settings"></i></a></li>
                                                         @else
-                                                            <li><a href="#" wire:click.prevent="addToCart({{ $product->id }})"><i class="ion-bag"></i></a></li>
+                                                            <li><a href="#" wire:click.prevent="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i class="ion-bag"></i></a></li>
                                                         @endif
                                                         <li><a wire:click.prevent="quickView({{ $product->id }}, '{{ $product->featured_image }}', {{ $product->product_variations }})" href="#open-modal" data-toggle="modal"><i class="ion-eye"></i></a></li>
                                                         <li><a href="#" wire:click.prevent="addToWishlist({{ $product->id }})"><i class="ion-heart"></i></a></li>
@@ -56,7 +56,7 @@
                                                                     @if ($product->product_variations && count($product->product_variations) > 0)
                                                                         <span><a class="btn btn-primary btn-sm pl-2 detailsbtn" href="#">select variant</a></span>
                                                                     @else
-                                                                        <span><a class="btn btn-primary btn-sm pr-2 addtocart" href="#" wire:click.prevent="addToCart({{ $product->id }})"><i class="ion-bag"></i>Add to cart</a></span>
+                                                                        <span><a class="btn btn-primary btn-sm pr-2 addtocart" href="#" wire:click.prevent="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i class="ion-bag"></i>Add to cart</a></span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6">
@@ -84,7 +84,7 @@
                                 </div>
                             @endif
                         </div>
-    
+
                         <div class="row text-center p-5" wire:loading wire:target="loadProducts">
                             <div class="col-md-12">
                                 <p class="text-white">Loading...</p>
@@ -92,13 +92,13 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- ... (rest of the code) ... -->
-    
+
             </div>
         </div>
         <!--Shop Product End-->
-    
+
         <!--Pagination Start-->
         <div class="pagination-product d-md-flex justify-content-md-between align-items-center mb-3">
             <div class="paginationSection page-list shop-paginate">
