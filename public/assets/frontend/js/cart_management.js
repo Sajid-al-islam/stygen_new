@@ -197,7 +197,7 @@ function checkout_submit() {
         if(res.status === 200) {
             $('.checkout-area').css('filter','unset');
             $('.checkout-loader').css('display','none');
-            location.href = "/thank-you?"+res.data;
+            location.href = "/thank-you/"+res.data;
         }
     })
 }
@@ -252,7 +252,8 @@ async function bkash_checkout_submit(event) {
             $('.checkout-area').css('filter','unset');
             $('.checkout-loader').css('display','none');
             ORDER_ID = res.data
-            console.log(ORDER_ID);
+            window.bkash_order_id = ORDER_ID;
+            // console.log(ORDER_ID);
             await $('#bKash_button').trigger('click');
         }
     })
@@ -595,7 +596,7 @@ bKash.init({
                 if (data && data.paymentID != null) {
                     console.log("trxID: ", data.trxID)
                     window.location.href =
-                        "/thank-you"; // Your redirect route when successful payment
+                        "/thank-you/"+ORDER_ID; // Your redirect route when successful payment
                 } else {
                     console.log("error ");
 

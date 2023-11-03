@@ -95,7 +95,7 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
         return redirect()->route('admin.login');
     })->name('admin_login');
     Route::get('/checkout', "Frontend\Checkout")->name('checkout');
-    Route::get('thank-you', "Frontend\ThankYou")->name('thankyou');
+    Route::get('thank-you{order_id}', "Frontend\ThankYou")->name('thankyou');
 
     Route::get('/about-us', "Frontend\AboutUs")->name('about_us');
     Route::get('/privacy-policy', "Frontend\PrivacyPolicy")->name('privacy_policy');
