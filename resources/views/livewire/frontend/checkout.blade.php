@@ -126,7 +126,7 @@
                             </div> --}}
                         </div>
 
-                        <div class="different-address">
+                        <div class="different-address" wire:ignore>
                             <div class="ship-different-title">
                                 <h3>
                                     <label>Send this as a gift</label>
@@ -183,10 +183,10 @@
                                     @if (count($cards) > 0)
                                     <div class="country-select clearfix">
                                         <label>Add Greetings Card (Optional)</label>
-                                        <select @change.prevent="changeGreetingsCard($event)" v-model="card_id" class="form-control">
+                                        <select @change.prevent="changeGreetingsCard($event)" name="card_id" wire:model="card_id" class="form-control">
                                             <option value="0">Select Greetings Card</option>
                                             @foreach ($cards as $card)
-                                            <option value="{{ $card['price'] }}">{{ $card['name'] }}
+                                                <option value="{{ $card['id'] }}">{{ $card['name'] }}
                                             </option>
                                             @endforeach
                                         </select>
@@ -198,10 +198,10 @@
                                     @if (count($packagings) > 0)
                                     <div class="country-select clearfix">
                                         <label>Packaging (Optional)</label>
-                                        <select @change.prevent="changePackaging($event)" v-model="packaging_id" class="form-control">
+                                        <select name="packaging_id" wire:model="packaging_id" class="form-control">
                                             <option value="0">Select Packaging</option>
                                             @foreach ($packagings as $packaging)
-                                            <option value="{{ $packaging['price'] }}">
+                                            <option value="{{ $packaging['id'] }}">
                                                 {{ $packaging['name'] }}
                                             </option>
                                             @endforeach
@@ -214,7 +214,7 @@
                             @if ($shippings !== null)
                             <div class="country-select clearfix">
                                 <label>Shipping Method <span class="required">*</span></label>
-                                <select name="shipping_charge_id" class="form-control shipping_charge_selection">
+                                <select name="shipping_charge_id" wire:model="shipping_id" class="form-control shipping_charge_selection">
                                     {{-- <option>Select Shipping Method</option> --}}
                                     <!-- <option v-if="cart_products.total > 900" value="0">Free Delivery</option> -->
                                     @foreach ($shippings as $shippings_charge)
@@ -264,6 +264,7 @@
                             <tbody>
                                 @foreach ($carts as $cart)
                                 {{-- @dd($cart) --}}
+                                <input type="hidden" name="product_ids[]" value="{{ $cart['product']['id'] }}">
                                 <tr class="cart_item">
                                     <td class="cart-product-name">
                                         {{ $cart['product']['product_name'] }}<strong class="product-quantity"> × {{ $cart['qty'] }}</strong>
@@ -297,27 +298,27 @@
                                                     <td><span class="amount">৳ {{ $cart_products['vat'] }}</span></td>
                                 </tr>
                                 @endif --}}
-                                {{-- @if ($shipping_charge)
+                                @if ($shipping_price > 0)
                                                 <tr class="cart-subtotal">
                                                     <th>Shipping Charge</th>
-                                                    <td><span class="amount shippingCharge">৳ {{ $shipping_charge }}</span></td>
+                                                    <td><span class="amount shippingCharge">৳ {{ $shipping_price }}</span></td>
                                 </tr>
                                 @endif
-                                @if ($card_price)
+                                @if ($card_price > 0)
                                 <tr class="cart-subtotal">
                                     <th>Greetings Card</th>
                                     <td><span class="amount shippingCharge">৳ {{ $card_price }}</span></td>
                                 </tr>
                                 @endif
-                                @if ($packaging_price)
+                                @if ($packaging_price > 0)
                                 <tr class="cart-subtotal">
                                     <th>Packaging</th>
                                     <td><span class="amount shippingCharge">৳ {{ $packaging_price }}</span></td>
                                 </tr>
-                                @endif --}}
+                                @endif
                                 <tr class="order-total">
                                     <th>Order Total</th>
-                                    <td><strong><span class="amount">৳ <span class="total_order_amount">{{ number_format($cart_total) }}</span></span></strong></td>
+                                    <td><strong><span class="amount">৳ <span class="total_order_amount" id="total_order_amount">{{ number_format($total_amount) }}</span></span></strong></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -424,6 +425,8 @@
     });
 </script> --}}
 <script>
+    window.cart_product_ids = @json($cart_product_ids);
+    window.total_order_value = {!! number_format($total_amount) !!}
     // JavaScript to handle accordion selection
     document.querySelectorAll('.payment_single a').forEach(function (element) {
         element.addEventListener('click', function () {
@@ -441,30 +444,3 @@
     });
 </script>
 
-<script>
-    var obj = {};
-    obj.cus_name = $('#customer_name').val();
-    obj.cus_phone = $('#mobile').val();
-    obj.cus_email = $('#email').val();
-    obj.cus_addr1 = $('#address').val();
-    obj.amount = $('#total_amount').val();
-
-    $('#sslczPayBtn').prop('postdata', obj);
-    function submitSSl() {
-        var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-        // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
-        script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
-        tag.parentNode.insertBefore(script, tag);
-        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
-    }
-    // (function (window, document) {
-    //     var loader = function () {
-    //         var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-    //         // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
-    //         script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
-    //         tag.parentNode.insertBefore(script, tag);
-    //     };
-
-
-    // })(window, document);
-</script>

@@ -153,19 +153,24 @@ $('#ship-box').on('click', function() {
 });
 
 function checkout_submit() {
-    
-    fbq('track', 'InitiateCheckout',{
-        value: price,
-        currency: 'BDT',
-        content_ids: skus,
-        content_type: 'product'
-    });
+
+
     $('.checkout-area').css('filter','blur(2px)');
     $('.checkout-loader').css('display','block');
     $('html, body').scrollTop($(".checkout-area").offset().top);
     // event.preventDefault();
     const {form_values, form_inputs, form_data} = window.get_form_data(`#checkout_submission_form`);
-    // console.log(form_values, form_inputs, form_data);
+    var total_order_value = $('.total_order_amount').text();
+
+    var order_amount = total_order_value.replaceAll(',', '');
+    order_amount = parseInt(order_amount);
+    fbq('track', 'InitiateCheckout',{
+        value: order_amount,
+        currency: 'BDT',
+        content_ids: cart_product_ids,
+        content_type: 'product'
+    });
+
 
     fetch("/checkout", {
         method: "POST",
@@ -209,6 +214,17 @@ async function bkash_checkout_submit(event) {
     $('html, body').scrollTop($(".checkout-area").offset().top);
     // event.preventDefault();
     // let formData = new FormData(event.target);
+
+    var total_order_value = $('.total_order_amount').text();
+
+    var order_amount = total_order_value.replaceAll(',', '');
+    order_amount = parseInt(order_amount);
+    fbq('track', 'InitiateCheckout',{
+        value: order_amount,
+        currency: 'BDT',
+        content_ids: cart_product_ids,
+        content_type: 'product'
+    });
 
     fetch("/bkash-checkout", {
         method: "POST",

@@ -22,8 +22,8 @@ class CartManagerController extends Controller
     }
 
     public function add_to_cart($id, $qty)
-    {   
-        
+    {
+
         foreach ($this->cart as $key => $value) {
             if($value['product']->id == $id)
             {
@@ -31,7 +31,7 @@ class CartManagerController extends Controller
                 return $this->cart;
             }
         }
-        
+
         $product = Product::where('id', $id)
         ->select("id", "product_name", "regular_price", 'sales_price', 'vat' ,'featured_image')
         // ->with(['discounts', 'related_image' => function($q) {
@@ -47,7 +47,7 @@ class CartManagerController extends Controller
                 $price = $product->regular_price;
             }
         }
-        
+
         // if(!is_numeric($price)) {
         //     $price = 0;
         // }
@@ -55,18 +55,18 @@ class CartManagerController extends Controller
         $temp_arr = [
             "product" => $product,
             "qty" => $qty,
-            "price" => $price 
+            "price" => $price
         ];
 
         array_push($this->cart, collect($temp_arr));
         $this->cart_save();
-        
-    
+
+
     }
     public function cart_save() {
         Session::put('carts', $this->cart);
     }
-    
+
     public function cart_count()
     {
         $count = count($this->cart);
@@ -78,7 +78,7 @@ class CartManagerController extends Controller
         $total = 0;
         foreach ($this->cart as $value) {
             // if($value['product']->id == $id)
-            
+
             if(is_numeric($value['price'])) {
                 $total += $value['price'] * $value['qty'];
             }else {
@@ -116,8 +116,18 @@ class CartManagerController extends Controller
                 Session::put('carts', $this->cart);
             }
         }
-        
+
         return $this->cart;
+    }
+
+    public function get_product_ids()
+    {
+        $product_ids = [];
+        foreach ($this->cart as $key => $value) {
+            array_push($product_ids, $value['product']->id);
+
+        }
+        return $product_ids;
     }
 
     public function emptyCart()

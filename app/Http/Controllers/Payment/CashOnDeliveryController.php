@@ -16,6 +16,8 @@ use App\Models\Shipping;
 use App\Models\ShippingCharge;
 use App\Models\StockLedger;
 use App\Models\User;
+use App\Models\Card;
+use App\Models\Packaging;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
@@ -35,11 +37,11 @@ class CashOnDeliveryController extends Controller
     private $cart_handler;
 
     public function cashOnDelivery(Request $request) {
-        // dd($request->all());    
-        $this->cart_handler = new CartManagerController();  
+        // dd($request->all());
+        $this->cart_handler = new CartManagerController();
 
         $shippingStatus = $request->shippingDisplay;
-        
+
         $validator = Validator::make($request->all(), [
             'name'              => 'required',
             'address'           => 'required',
@@ -49,17 +51,17 @@ class CashOnDeliveryController extends Controller
             'shipping_address'  => ['required_if:shippingDisplay,==,ship_to_other'],
             'shipping_phone'    => ['required_if:shippingDisplay,==,ship_to_other'],
         ]);
-        
+
 
         $coupon_code            = $request->coupon_code;
         $coupon_amount          = $request->coupon_amount;
         // if()
-        
+
         $paymentType            = $request->cashOnDelivery;
         $createAccountStatus    = $request->createAccount;
         // $carts                  = \Cart::getContent();
         $carts                  = $this->cart_handler->get();
-        
+
         // $cart_count             = count($carts);
         $cart_count             = $this->cart_handler->cart_count();
         $current_date           = date('d/m/Y');
@@ -67,10 +69,23 @@ class CashOnDeliveryController extends Controller
         // $cart_total_amount      = \Cart::getTotal();
         $cart_total_amount      = floatval($this->cart_handler->cart_total());
         // dd($carts);
+
+
         $card_id                = (!empty($request->card_id)?$request->card_id:NULL);
-        $card_price             = (!empty($request->card_price)?$request->card_price:0);
+        if($card_id != NULL) {
+            $card_price = Card::where('id', $card_id)->first()->price;
+        }else {
+            $card_price = 0;
+        }
+        // $card_price             = (!empty($request->card_price)?$request->card_price:0);
         $packaging_id           = (!empty($request->packaging_id)?$request->packaging_id:NULL);
-        $packaging_price        = (!empty($request->packaging_price)?$request->packaging_price:0);
+        if($packaging_id != NULL) {
+            $packaging_price = Packaging::where('id', $packaging_id)->first()->price;
+        }else {
+            $packaging_price = 0;
+        }
+
+        // $packaging_price        = (!empty($request->packaging_price)?$request->packaging_price:0);
         $personal_notes         = (!empty($request->personal_notes)?$request->personal_notes:NULL);
         $get_shipping_charge    = ShippingCharge::where('id', $request->shipping_charge_id)->first();
         // dd($get_shipping_charge);
@@ -85,9 +100,9 @@ class CashOnDeliveryController extends Controller
         // $current_date           = date('d/m/Y');
         // $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
 
-        
 
-        
+
+
 
 
         if ($validator->fails()) {
