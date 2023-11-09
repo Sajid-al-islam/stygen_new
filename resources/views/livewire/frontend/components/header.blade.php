@@ -83,7 +83,7 @@
 
                 <div class="search_area header-top-search">
                     <div class="search-categories">
-                        <form action="#">
+                        <form action="#" wire:submit.prevent="submitSearchPage">
                             <div class="search-froms">
                                 <input type="text" wire:model="searchQuery" wire:keyup="search_product"
                                     placeholder="Search product...">
