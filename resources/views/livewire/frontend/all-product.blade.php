@@ -59,16 +59,24 @@
                                                             <div class="row mt-3">
 
 
-                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-12">
-                                                                    @if ($product->product_variations && count($product->product_variations) > 0)
-                                                                        <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2" href="#">select variant</a></span>
-                                                                    @else
-                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i class="fas fa-shopping-bag"></i>Add to cart</a></span>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-12">
-                                                                    <span><a class="btn btn-primary btn-sm ps-2 detailsbtn" href="{{ route('product_details', $product->pro_slug) }}"><i class="fas fa-eye pe-2"></i>Details</a></span>
-                                                                </div>
+                                                                @if ($product->purchase_stock_sum_qty - $product->sell_stock_sum_qty > 1 && $product->status == 1)
+                                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-6">
+                                                                        @if ($product->product_variations && count($product->product_variations) > 0)
+                                                                            <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2"
+                                                                                    href="{{ route('product_details', $product->pro_slug) }}">select variant</a></span>
+                                                                        @else
+
+                                                                            <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2"
+                                                                                    href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i
+                                                                                        class="fas fa-shopping-bag"></i>Add
+                                                                                    to cart</a></span>
+                                                                        @endif
+                                                                    </div>
+                                                                @else
+                                                                    <div class="d-block text-center">
+                                                                        <h4>Out of stock</h4>
+                                                                    </div>
+                                                                @endif
 
 
                                                             </div>

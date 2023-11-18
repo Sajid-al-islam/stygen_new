@@ -18,6 +18,7 @@ use App\Models\StockLedger;
 use App\Models\User;
 use App\Models\Card;
 use App\Models\Packaging;
+use App\Models\ProductStock;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
@@ -247,7 +248,12 @@ class CashOnDeliveryController extends Controller
                     'status'            => 'Pending',
                     'created_by'        => $userID
                 ]);
-
+                $product_stock = new ProductStock();
+                $product_stock->product_id = $cart['product']->id;
+                $product_stock->company_id = $company_id;
+                $product_stock->type = "sell";
+                $product_stock->qty  = $order_details->quantity;
+                $product_stock->save();
                 // if(!empty($cart->attributes['color']) || !empty($cart->attributes['size']) || !empty($cart->attributes['weight'])){
                 //     $order_attributes = OrderAttribute::create([
                 //         'company_id'         => $company_id,

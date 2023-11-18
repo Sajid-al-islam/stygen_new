@@ -733,7 +733,12 @@ class SslCommerzPaymentController extends Controller
         //     ->where('transaction_id', $tran_id)
         //     ->select('transaction_id', 'status', 'currency', 'amount')->first();
         $order_detials = DB::table('orders')->where('transaction_id', $tran_id)->first();
-
+        $product_stock = new ProductStock();
+        $product_stock->product_id = $cart['product']->id;
+        $product_stock->company_id = $company_id;
+        $product_stock->type = "sell";
+        $product_stock->qty  = $order_details->quantity;
+        $product_stock->save();
         if ($order_detials->status == 'Pending') {
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
 

@@ -7,9 +7,9 @@
                     <div class="row mt-4">
                         <div class="col-12">
                             <div class="card">
-                                <div class="alert alert-danger" role="alert">
+                                <!-- <div class="alert alert-danger" role="alert">
                                     you have {{ lowstock_data }} <router-link :to="{name: 'lowstockproduct'}">low stock</router-link> products
-                                </div>
+                                </div> -->
                                 <div class="card-header border-0">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -85,7 +85,11 @@
                                         <el-table-column property="product_sku" label="SKU" width="120" show-overflow-tooltip></el-table-column>
                                         <el-table-column property="regular_price" label="Regular Price" width="120" show-overflow-tooltip></el-table-column>
                                         <el-table-column property="sales_price" label="Sales Price" width="120" show-overflow-tooltip></el-table-column>
-                                        <el-table-column label="Qty" property="quantity" width="50" show-overflow-tooltip></el-table-column>
+                                        <el-table-column label="Qty" width="50" show-overflow-tooltip>
+                                            <template slot-scope="scope">
+                                                <p>{{ calculateQty(scope.row) }}</p>
+                                            </template>
+                                        </el-table-column>
                                         <el-table-column label="Status" width="110">
                                             <template slot-scope="scope">
                                                 <!-- <span class="badge badge-success" v-if="scope.row.status == 1">Publish</span>
@@ -265,11 +269,14 @@
                 console.log(productQty);
             },
 
-            low_stock_count() {
-                axios.get('/admin/low-stock-count')
-                .then((res) => {
-                    this.lowstock_data = res.data.low_stock_count
-                })
+            // low_stock_count() {
+            //     axios.get('/admin/low-stock-count')
+            //     .then((res) => {
+            //         this.lowstock_data = res.data.low_stock_count
+            //     })
+            // },
+            calculateQty(product) {
+                return product.purchase_stock_sum_qty - product.sell_stock_sum_qty
             }
         },
 
@@ -289,7 +296,7 @@
             this.productList()
             this.getAllCategory()
             this.getAllSeller()
-            this.low_stock_count()
+            // this.low_stock_count()
         }
     }
 </script>

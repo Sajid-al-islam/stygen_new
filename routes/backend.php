@@ -58,31 +58,49 @@ Route::group(['middleware' => 'auth:admin'], function(){
     Route::get('subscribe-list', [UserController::class, 'subscribeList']);
 
     //Brand
-    Route::resource('brand', BrandController::class);
+    // Route::resource('brand', BrandController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('brand', \Backend\BrandController::class);
+    });
     Route::get('brands-list', [BrandController::class, 'brandsList'])->name('admin.brandsList');
 
     //Shipping Charge
-    Route::resource('shippings-charge', ShippingChargeController::class);
+
+    // Route::resource('shippings-charge', ShippingChargeController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('shippings-charge', \Backend\ShippingChargeController::class);
+    });
     Route::post('multiple-shippings-charge-delete', [ShippingChargeController::class, 'multipleShippingChargeDelete'])->name('admin.multipleShippingChargeDelete');
 
     //Coupon
-    Route::resource('coupon', CouponController::class);
+    // Route::resource('coupon', CouponController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('coupon', \Backend\CouponController::class);
+    });
     Route::get('coupon_user_list', [CouponController::class, 'coupon_users']);
     Route::post('multiple-coupon-delete', [CouponController::class, 'multipleCouponDelete'])->name('admin.multipleCouponDelete');
 
     //Packaging
-    Route::resource('packaging', PackagingController::class);
-
+    // Route::resource('packaging', PackagingController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('packaging', \Backend\PackagingController::class);
+    });
     //Packaging
-    Route::resource('card', CardController::class);
-
+    // Route::resource('card', CardController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('card', \Backend\CardController::class);
+    });
     //Seller List
     Route::get('seller-lists', [CompanyInfoController::class, 'sellerList'])->name('admin.sellerList');
     Route::post('seller-approve', [CompanyInfoController::class, 'sellerApprove'])->name('admin.sellerApprove');
     Route::post('multiple-seller-approve', [CompanyInfoController::class, 'multipleSellerApprove'])->name('admin.multipleSellerApprove');
 
     //Occasion
-    Route::resource('occasion', OccasionController::class);
+    // Route::resource('occasion', OccasionController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('occasion', \Backend\OccasionController::class);
+    });
+
     Route::post('occasion-update', [OccasionController::class, 'update'])->name('admin.occasion.update');
     Route::post('multiple-occasion-delete', [OccasionController::class, 'multipleOccasionDelete'])->name('admin.multipleOccasionDelete');
     Route::get('/get-all-occasion', [OccasionController::class, 'getAllOccasion'])->name('admin.getAllOccasion');
@@ -95,17 +113,26 @@ Route::group(['middleware' => 'auth:admin'], function(){
     Route::post('/occassion-wise-product-update', [OccasionController::class, 'occassionWiseProductUpdate'])->name('admin.occassionWiseProductUpdate');
 
     //Recipient
-    Route::resource('recipient', RecipientController::class);
+    // Route::resource('recipient', RecipientController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('recipient', \Backend\RecipientController::class);
+    });
+
     Route::post('recipient-update', [RecipientController::class, 'update'])->name('admin.recipient.update');
     Route::post('multiple-recipient-delete', [RecipientController::class, 'multipleRecipientDelete'])->name('admin.multipleRecipientDelete');
 
     //Slider
-    Route::resource('slider', SliderController::class);
+    // Route::resource('slider', SliderController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('slider', \Backend\SliderController::class);
+    });
     Route::post('slider-update', [SliderController::class, 'update'])->name('admin.slider.update');
     Route::post('multiple-slider-delete', [SliderController::class, 'multipleSliderDelete'])->name('admin.multipleSliderDelete');
 
     //Category
-    Route::resource('category', CategoryController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('category', \Backend\CategoryController::class);
+    });
     Route::post('category-update', [CategoryController::class, 'update'])->name('admin.categoriesUpdate');
     Route::post('multiple-category-delete', [CategoryController::class, 'multipleCategoryDelete'])->name('admin.multipleCategoryDelete');
     Route::get('categories-list', [CategoryController::class, 'categoriesList'])->name('admin.categoriesList');
@@ -148,13 +175,20 @@ Route::group(['middleware' => 'auth:admin'], function(){
 
 
     //Attribute
-    Route::resource('attribute', AttributeController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        // Route::resource('slider', \Backend\SliderController::class);
+        Route::resource('attribute', \Backend\AttributeController::class);
+    });
+
     Route::post('multiple-attribute-delete', [AttributeController::class, 'multipleAttributeDelete'])->name('seller.multipleAttributeDelete');
     Route::get('get-product-attributes', [ProductController::class, 'getProductAttributes'])->name('admin.getProductAttributes');
 
 
     //Blog
-    Route::resource('blog', BlogController::class);
+    // Route::resource('blog', BlogController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('blog', \Backend\BlogController::class);
+    });
     Route::post('blog-update', [BlogController::class, 'update'])->name('admin.blog.update');
     Route::post('multiple-blog-delete', [BlogController::class, 'multipleBlogDelete'])->name('admin.multipleBlogDelete');
 
@@ -176,7 +210,11 @@ Route::group(['middleware' => 'auth:admin'], function(){
     Route::get('admin-invoice-download/{id}', [OrderController::class, 'AdmininvoiceDownload'])->name('AdmininvoiceDownload');
 
     //Company Info
-    Route::resource('company-info', CompanyInfoController::class);
+
+    // Route::resource('company-info', CompanyInfoController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('company-info', \Backend\CompanyInfoController::class);
+    });
     Route::post('company-info-update', [CompanyInfoController::class, 'update'])->name('admin.company_info.update');
     Route::post('multiple-company-info-delete', [CompanyInfoController::class, 'multipleCompanyInfoDelete'])->name('admin.multipleCompanyInfoDelete');
 

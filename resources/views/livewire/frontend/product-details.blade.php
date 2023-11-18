@@ -54,17 +54,6 @@
                                         @endif
                                     </div>
                                 @endif
-
-                                {{-- <div class="mt-2"
-                                    v-if="product && product.product_images && product.product_images.length > 0">
-                                    <carousel :autoplay="true" :loop="false" :center="false" :nav="false" :margin="5"
-                                        :autoplayHoverPause="true">
-                                        <img v-for="(product_image, index) in product.product_images" :key="index"
-                                            class="pr-2" width="150"
-                                            :src="`/assets/uploads/product/${product_image.image}`"
-                                            :alt="product.product_name" @click="showImage(product_image.image)">
-                                    </carousel>
-                                </div> --}}
                             </div>
 
                         </div>
@@ -316,28 +305,33 @@
                                 </div> --}}
                                 <div class="product-add-to-cart">
 
-                                    <div class="row d-flex justify-content-start" v-if="product.status != 0">
+                                    <div class="row d-flex justify-content-start">
                                         <div class="col-md-4">
                                             <div class="add mt-4">
-                                                <button class="add-to-cart"
+
+                                                @if ($product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty > 1 && $product_details->status == 1)
+                                                    <button class="add-to-cart"
                                                     onclick="addToCart({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"><i
                                                         class="fas fa-shopping-bag"></i>
                                                     add to cart</button>
+                                                @else
+                                                    <h4>Out of stock</h4>
+                                                @endif
+
                                                 <!--<span class="product-availability">In stock</span>-->
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="add mt-4" v-if="product.status != 0">
-                                                <button onclick="buyNow({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"
-                                                    class="btn btn-primary btn-lg" id="buynowbtn"><i
-                                                        class="fas fa-money-check-alt"></i>Buy now</button>
-                                                <!--<span class="product-availability">In stock</span>-->
-                                            </div>
+                                            @if ($product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty > 1 && $product_details->status == 1)
+                                                <div class="add mt-4">
+                                                    <button onclick="buyNow({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"
+                                                        class="btn btn-primary btn-lg" id="buynowbtn"><i
+                                                            class="fas fa-money-check-alt"></i>Buy now</button>
+                                                    <!--<span class="product-availability">In stock</span>-->
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
                         </div>

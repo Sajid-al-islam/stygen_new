@@ -43,7 +43,11 @@
                                         <el-table-column property="product_sku" label="SKU" width="120" show-overflow-tooltip></el-table-column>
                                         <el-table-column property="regular_price" label="Regular Price" width="120" show-overflow-tooltip></el-table-column>
                                         <el-table-column property="sales_price" label="Sales Price" width="120" show-overflow-tooltip></el-table-column>
-                                        <el-table-column property="quantity" label="Qty" width="50" show-overflow-tooltip></el-table-column>
+                                        <el-table-column label="Qty" width="50" show-overflow-tooltip>
+                                            <template slot-scope="scope">
+                                                <p>{{ calculateQty(scope.row) }}</p>
+                                            </template>
+                                        </el-table-column>
                                         <el-table-column label="Status" width="110">
                                             <template slot-scope="scope">
                                                 <!-- <span class="badge badge-success" v-if="scope.row.status == 1">Publish</span>
@@ -245,6 +249,9 @@
             paginationChange(){
                 let payload = {'page': this.currentPage, 'keyword': this.keyword}
                 this.$store.dispatch('product/productList', payload)
+            },
+            calculateQty(product) {
+                return product.purchase_stock_sum_qty - product.sell_stock_sum_qty
             }
         },
 

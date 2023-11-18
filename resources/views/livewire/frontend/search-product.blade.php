@@ -7,7 +7,7 @@
                     <div id="grid" class="tab-pane fade show active">
                         <div class="product-grid-view">
                             <div class="row" wire:loading.remove wire:target="loadProducts">
-                                @if ($products->count() > 0)
+                                @if ($products != null && count($products) > 0 )
                                     @foreach ($products as $product)
                                         <div class="col-12 col-lg-3 col-xl-3 col-md-3 mb-3">
                                             <!--Single Product Start-->
@@ -51,24 +51,24 @@
                                                         <br>
                                                         <div class="d-inline-flex gap-2 justify-content-between mt-3">
 
+                                                            @if ($product->purchase_stock_sum_qty - $product->sell_stock_sum_qty > 1 && $product->status == 1)
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-6">
+                                                                    @if ($product->product_variations && count($product->product_variations) > 0)
+                                                                        <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2"
+                                                                                href="{{ route('product_details', $product->pro_slug) }}">select variant</a></span>
+                                                                    @else
 
-                                                            <div class="col-md-6 col-sm-6 col-lg-6 col-6">
-                                                                @if ($product->product_variations && count($product->product_variations) > 0)
-                                                                    <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2"
-                                                                            href="#">select variant</a></span>
-                                                                @else
-                                                                    <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2"
-                                                                            href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i
-                                                                                class="fas fa-shopping-bag"></i>Add
-                                                                            to cart</a></span>
-                                                                @endif
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-6 col-lg-6 col-6">
-                                                                <span><a class="btn btn-primary btn-sm ps-2 detailsbtn"
-                                                                        href="{{ route('product_details', $product->pro_slug) }}"><i class="fas fa-eye pe-2"></i>Details</a></span>
-                                                            </div>
-
-
+                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2"
+                                                                                href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i
+                                                                                    class="fas fa-shopping-bag"></i>Add
+                                                                                to cart</a></span>
+                                                                    @endif
+                                                                </div>
+                                                            @else
+                                                                <div class="d-block text-center">
+                                                                    <h4>Out of stock</h4>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="product-reviews d-flex justify-content-center mt-0">
@@ -86,6 +86,9 @@
                                             <!--Single Product End-->
                                         </div>
                                     @endforeach
+                                    <div class="mt-5 d-flex justify-content-center mb-5">
+                                        {{ $products->links() }}
+                                    </div>
                                 @else
                                     <div class="col-md-12 text-center pl-5 pr-5 productEmtpyMsgBack">
                                         <p class="mt-3 text-white">We can't find the products matching the selection
@@ -106,9 +109,8 @@
 
                 </div>
             </div>
-            <div class="mt-5 d-flex justify-content-center mb-5">
-                {{ $products->onEachSide(2)->links() }}
-            </div>
+            {{-- @dd($products) --}}
+
 
         </div>
 

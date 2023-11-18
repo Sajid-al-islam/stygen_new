@@ -38,6 +38,12 @@ class ProductController extends Controller
         if($search != null){
             $products = Product::where('company_id', $companyId)
                 ->with('brand')
+                ->withSum(['purchase_stock' => function ($q) {
+                    $q->where('type', 'purchase');
+                }], 'qty')
+                ->withSum(['sell_stock' => function ($q) {
+                    $q->where('type', 'sell');
+                }], 'qty')
                 ->where(function ($query) use ($search) {
                     $query->where("product_name", "LIKE", "%{$search}%")
                         ->orWhere("product_sku", "LIKE", "%{$search}%")
@@ -49,7 +55,14 @@ class ProductController extends Controller
                 ->orderBy('id', 'desc')
                 ->paginate(10);
         } else {
-            $products = Product::where('company_id', $companyId)->orderBy('id','desc')->with('brand')->paginate(10);
+            $products = Product::where('company_id', $companyId)->orderBy('id','desc')->with('brand')
+            ->withSum(['purchase_stock' => function ($q) {
+                $q->where('type', 'purchase');
+            }], 'qty')
+            ->withSum(['sell_stock' => function ($q) {
+                $q->where('type', 'sell');
+            }], 'qty')
+            ->paginate(10);
         }
         return response()->json([
             'products' => $products

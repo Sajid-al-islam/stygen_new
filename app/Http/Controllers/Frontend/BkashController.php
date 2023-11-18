@@ -34,10 +34,10 @@ class BkashController extends Controller
 
         $request->session()->put('token', $token);
 
-        $this->cart_handler = new CartManagerController();  
+        $this->cart_handler = new CartManagerController();
 
         $shippingStatus = $request->shippingDisplay;
-        
+
         $validator = Validator::make($request->all(), [
             'name'              => 'required',
             'address'           => 'required',
@@ -51,12 +51,12 @@ class BkashController extends Controller
         $coupon_code            = $request->coupon_code;
         $coupon_amount          = $request->coupon_amount;
         // if()
-        
+
         $paymentType            = $request->cashOnDelivery;
         $createAccountStatus    = $request->createAccount;
         // $carts                  = \Cart::getContent();
         $carts                  = $this->cart_handler->get();
-        
+
         // $cart_count             = count($carts);
         $cart_count             = $this->cart_handler->cart_count();
         $current_date           = date('d/m/Y');
@@ -333,7 +333,7 @@ class BkashController extends Controller
             return response()->json($orderID);
         }
     }
-    
+
     public function visit(Request $request)
     {
 
@@ -425,13 +425,13 @@ class BkashController extends Controller
     public function createpayment(Request $request) {
         // dd(request()->shoppingID);
         session_start();
-        $this->cart_handler = new CartManagerController();  
+        $this->cart_handler = new CartManagerController();
         // $strJsonFileContents = file_get_contents("config.json");
         // $array = json_decode($strJsonFileContents, true);
         $array = $this->_get_config_file();
 
         $order_data = Order::where('id', $request->order_id)->first();
-    
+
         $shipping_cost = $order_data->shipping_charge;
         $cart_total    = floatval($this->cart_handler->cart_total());
 
@@ -456,7 +456,7 @@ class BkashController extends Controller
                 'x-app-key:'.$array["app_key"]
             );
 
-            
+
             curl_setopt($url,CURLOPT_HTTPHEADER, $header);
             curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($url,CURLOPT_RETURNTRANSFER, true);
@@ -467,7 +467,7 @@ class BkashController extends Controller
             $resultdata = curl_exec($url);
             curl_close($url);
             $arr = json_decode($resultdata, true);
-            
+
             $paymentID = $arr['paymentID'];
 
             $request->session()->put('paymentID',$paymentID);
@@ -514,7 +514,7 @@ class BkashController extends Controller
 
         $resultdatax = json_decode($resultdatax);
         // dd($resultdatax);
-        $this->cart_handler = new CartManagerController();  
+        $this->cart_handler = new CartManagerController();
         if($resultdatax && isset($resultdatax->trxID)) {
             $order_id = $request->session()->get('bkash_order_id');
             $order = Order::where('id', $order_id)->first();
@@ -523,8 +523,13 @@ class BkashController extends Controller
             $order->bkash_payment_id = $resultdatax->paymentID;
             $order->status = 'Paid';
             $order->save();
-            
 
+            $product_stock = new ProductStock();
+            $product_stock->product_id = $cart['product']->id;
+            $product_stock->company_id = $company_id;
+            $product_stock->type = "sell";
+            $product_stock->qty  = $order_details->quantity;
+            $product_stock->save();
             if($order) {
                 //Send Mail Start---------------------------------------
                 $data['order'] = $order;

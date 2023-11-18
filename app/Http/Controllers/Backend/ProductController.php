@@ -35,6 +35,12 @@ class ProductController extends Controller
         $search = $request->keyword;
         if($search != null){
             $products = Product::with('brand')
+                ->withSum(['purchase_stock' => function ($q) {
+                    $q->where('type', 'purchase');
+                }], 'qty')
+                ->withSum(['sell_stock' => function ($q) {
+                    $q->where('type', 'sell');
+                }], 'qty')
                 ->where(function ($query) use ($search) {
                     $query->where("product_name", "LIKE", "%{$search}%")
                         ->orWhere("product_sku", "LIKE", "%{$search}%")
@@ -79,17 +85,45 @@ class ProductController extends Controller
                         if(!empty($request->seller_id)) {
                             $seller_id = $request->seller_id;
                             $company_id = Seller::where('id', $seller_id)->first()->company_id;
-                            $products = Product::whereIn('id', $product_ids)->where('company_id', $company_id)->whereIn('id', $stock_products)->with('brand')->paginate(10);
+                            $products = Product::whereIn('id', $product_ids)->where('company_id', $company_id)->whereIn('id', $stock_products)
+                            ->withSum(['purchase_stock' => function ($q) {
+                                $q->where('type', 'purchase');
+                            }], 'qty')
+                            ->withSum(['sell_stock' => function ($q) {
+                                $q->where('type', 'sell');
+                            }], 'qty')
+                            ->with('brand')->paginate(10);
                         } else {
-                            $products = Product::whereIn('id', $product_ids)->whereIn('id', $stock_products)->with('brand')->paginate(10);
+                            $products = Product::whereIn('id', $product_ids)->whereIn('id', $stock_products)
+                            ->withSum(['purchase_stock' => function ($q) {
+                                $q->where('type', 'purchase');
+                            }], 'qty')
+                            ->withSum(['sell_stock' => function ($q) {
+                                $q->where('type', 'sell');
+                            }], 'qty')
+                            ->with('brand')->paginate(10);
                         }
                     } else {
                         if(!empty($request->seller_id)) {
                             $seller_id = $request->seller_id;
                             $company_id = Seller::where('id', $seller_id)->first()->company_id;
-                            $products = Product::where('company_id', $company_id)->whereIn('id', $stock_products)->with('brand')->paginate(10);
+                            $products = Product::where('company_id', $company_id)->whereIn('id', $stock_products)->with('brand')
+                            ->withSum(['purchase_stock' => function ($q) {
+                                $q->where('type', 'purchase');
+                            }], 'qty')
+                            ->withSum(['sell_stock' => function ($q) {
+                                $q->where('type', 'sell');
+                            }], 'qty')
+                            ->paginate(10);
                         } else {
-                            $products = Product::whereIn('id', $stock_products)->with('brand')->paginate(10);
+                            $products = Product::whereIn('id', $stock_products)->with('brand')
+                            ->withSum(['purchase_stock' => function ($q) {
+                                $q->where('type', 'purchase');
+                            }], 'qty')
+                            ->withSum(['sell_stock' => function ($q) {
+                                $q->where('type', 'sell');
+                            }], 'qty')
+                            ->paginate(10);
                         }
                     }
 
@@ -108,9 +142,23 @@ class ProductController extends Controller
                         if(!empty($request->seller_id)) {
                             $seller_id = $request->seller_id;
                             $company_id = Seller::where('id', $seller_id)->first()->company_id;
-                            $products = Product::whereIn('id', $product_ids)->where('company_id', $company_id)->whereIn('id', $stock_out_products)->with('brand')->paginate(10);
+                            $products = Product::whereIn('id', $product_ids)->where('company_id', $company_id)->whereIn('id', $stock_out_products)->with('brand')
+                            ->withSum(['purchase_stock' => function ($q) {
+                                $q->where('type', 'purchase');
+                            }], 'qty')
+                            ->withSum(['sell_stock' => function ($q) {
+                                $q->where('type', 'sell');
+                            }], 'qty')
+                            ->paginate(10);
                         } else {
-                            $products = Product::whereIn('id', $product_ids)->whereIn('id', $stock_out_products)->with('brand')->paginate(10);
+                            $products = Product::whereIn('id', $product_ids)->whereIn('id', $stock_out_products)
+                            ->withSum(['purchase_stock' => function ($q) {
+                                $q->where('type', 'purchase');
+                            }], 'qty')
+                            ->withSum(['sell_stock' => function ($q) {
+                                $q->where('type', 'sell');
+                            }], 'qty')
+                            ->with('brand')->paginate(10);
                         }
                     } else {
                         if(!empty($request->seller_id)) {
@@ -138,18 +186,45 @@ class ProductController extends Controller
                     if(!empty($request->seller_id)) {
                         $seller_id = $request->seller_id;
                         $company_id = Seller::where('id', $seller_id)->first()->company_id;
-                        $products = Product::whereIn('id', $product_ids)->where('company_id', $company_id)->with('brand')->paginate(10);
+                        $products = Product::whereIn('id', $product_ids)->where('company_id', $company_id)
+                        ->withSum(['purchase_stock' => function ($q) {
+                            $q->where('type', 'purchase');
+                        }], 'qty')
+                        ->withSum(['sell_stock' => function ($q) {
+                            $q->where('type', 'sell');
+                        }], 'qty')
+                        ->with('brand')->paginate(10);
                     } else {
-                        $products = Product::whereIn('id', $product_ids)->with('brand')->paginate(10);
+                        $products = Product::whereIn('id', $product_ids)->with('brand')
+                        ->withSum(['purchase_stock' => function ($q) {
+                            $q->where('type', 'purchase');
+                        }], 'qty')
+                        ->withSum(['sell_stock' => function ($q) {
+                            $q->where('type', 'sell');
+                        }], 'qty')
+                        ->paginate(10);
                     }
                 }
                 elseif(!empty($request->seller_id)) {
                     $seller_id = $request->seller_id;
                     $company_id = Seller::where('id', $seller_id)->first()->company_id;
-                    $products = Product::where('company_id', $company_id)->with('brand')->paginate(10);
+                    $products = Product::where('company_id', $company_id)->with('brand')
+                    ->withSum(['purchase_stock' => function ($q) {
+                        $q->where('type', 'purchase');
+                    }], 'qty')
+                    ->withSum(['sell_stock' => function ($q) {
+                        $q->where('type', 'sell');
+                    }], 'qty')->paginate(10);
                 }
                 else {
-                    $products = Product::orderBy('id','desc')->with('brand')->paginate(10);
+                    $products = Product::orderBy('id','desc')->with('brand')
+                    ->withSum(['purchase_stock' => function ($q) {
+                        $q->where('type', 'purchase');
+                    }], 'qty')
+                    ->withSum(['sell_stock' => function ($q) {
+                        $q->where('type', 'sell');
+                    }], 'qty')
+                    ->paginate(10);
                 }
             }
 

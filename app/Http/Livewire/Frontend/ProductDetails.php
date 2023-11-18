@@ -22,7 +22,7 @@ class ProductDetails extends Component
 
         $query->withSum(['sell_stock' => function ($q) {
             $q->where('type', 'sell');
-        }], 'amount');
+        }], 'qty');
 
         $this->product_details = $query->first();
 
