@@ -38,15 +38,16 @@ class Checkout extends Component
         $this->cart_product_ids = $this->cart_handler->get_product_ids();
         $this->CountCart();
 
-        if($this->packaging_id != null) {
+        if($this->packaging_id != null && $this->packaging_id != 0) {
             $this->packaging_price = Packaging::where('id', $this->packaging_id)->first()->price;
         }
 
-        if($this->card_id != null) {
+        if($this->card_id != null && $this->card_id != 0) {
+            // dd($this->card_id);
             $this->card_price = Card::where('id', $this->card_id)->first()->price;
         }
 
-        if($this->shipping_id != null) {
+        if($this->shipping_id != null && $this->shipping_id != 0) {
             $this->shipping_price = ShippingCharge::where('id', $this->shipping_id)->first()->shipping_charge;
         }
 

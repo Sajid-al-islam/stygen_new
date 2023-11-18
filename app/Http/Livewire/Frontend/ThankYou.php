@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Frontend;
 
 use Livewire\Component;
-
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 class ThankYou extends Component
 {
     public $total_amount;

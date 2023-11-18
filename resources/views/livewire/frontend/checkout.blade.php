@@ -28,7 +28,7 @@
                 <form action="{{ route('ssl_payment') }}" id="checkout_submission_form" method="post">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-12" wire:ignore>
 
                             <div class="checkbox-form">
                                 <h3>Billing Details</h3>
@@ -126,88 +126,93 @@
                             </div> --}}
                         </div>
 
-                        <div class="different-address" wire:ignore>
-                            <div class="ship-different-title">
-                                <h3>
-                                    <label>Send this as a gift</label>
-                                    <input id="ship-box" name="shippingDisplay" value="ship_to_other" type="checkbox">
-                                </h3>
-                            </div>
-                            <div id="ship-box-info" class="row d-block">
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Full Name <span class="required">*</span></label>
-                                        <input name="shipping_name" placeholder="e.g. Rahim" type="text">
-                                        {{-- @if (isset($errors['shipping_name']))
-                                                        <span class="text-danger">{{ $errors['shipping_name'][0] }}</span>
-                                        @endif --}}
-                                    </div>
+                        <div class="different-address">
+                            <div class="address_section">
+                                <div class="ship-different-title" wire:ignore>
+                                    <h3>
+                                        <label>Send this as a gift</label>
+                                        <input id="ship-box" name="shippingDisplay" value="ship_to_other" type="checkbox">
+                                    </h3>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Address <span class="required">*</span></label>
-                                        <input name="shipping_address" placeholder="e.g. House#1, Road#1, Dhaka" type="text">
-                                        {{-- @if (isset($errors['shipping_address']))
-                                                        <span class="text-danger">{{ $errors['shipping_address'][0] }}</span>
-                                        @endif --}}
-                                    </div>
-                                </div>
+                                <div id="ship-box-info" class="row d-block">
+                                    <div class="new_address_section" wire:ignore>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Full Name <span class="required">*</span></label>
+                                                <input name="shipping_name" placeholder="e.g. Rahim" type="text">
+                                                {{-- @if (isset($errors['shipping_name']))
+                                                                <span class="text-danger">{{ $errors['shipping_name'][0] }}</span>
+                                                @endif --}}
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Email Address</label>
-                                        <input name="shipping_email" placeholder="e.g. example@example.com" type="email">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkout-form-list">
-                                        <label>Phone <span class="required">*</span></label>
-                                        <input name="shipping_phone" placeholder="e.g. 01xxxxxxxxx" type="number">
-                                        {{-- @if (isset($errors['shipping_phone']))
-                                                        <span class="text-danger">{{ $errors['shipping_phone'][0] }}</span>
-                                        @endif --}}
-                                    </div>
-                                </div>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Address <span class="required">*</span></label>
+                                                <input name="shipping_address" placeholder="e.g. House#1, Road#1, Dhaka" type="text">
+                                                {{-- @if (isset($errors['shipping_address']))
+                                                                <span class="text-danger">{{ $errors['shipping_address'][0] }}</span>
+                                                @endif --}}
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-12">
-                                    <div class="order-notes">
-                                        <div class="checkout-form-list">
-                                            <label>Personal note for the recipient (Optional)</label>
-                                            <textarea name="personal_notes" id="checkout-mess" cols="30" rows="10" placeholder="e.g. Personal notes for the recipient."></textarea>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Email Address</label>
+                                                <input name="shipping_email" placeholder="e.g. example@example.com" type="email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Phone <span class="required">*</span></label>
+                                                <input name="shipping_phone" placeholder="e.g. 01xxxxxxxxx" type="number">
+                                                {{-- @if (isset($errors['shipping_phone']))
+                                                                <span class="text-danger">{{ $errors['shipping_phone'][0] }}</span>
+                                                @endif --}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="order-notes">
+                                                <div class="checkout-form-list">
+                                                    <label>Personal note for the recipient (Optional)</label>
+                                                    <textarea name="personal_notes" id="checkout-mess" cols="30" rows="10" placeholder="e.g. Personal notes for the recipient."></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-12">
-                                    @if (count($cards) > 0)
-                                    <div class="country-select clearfix">
-                                        <label>Add Greetings Card (Optional)</label>
-                                        <select @change.prevent="changeGreetingsCard($event)" name="card_id" wire:model="card_id" class="form-control">
-                                            <option value="0">Select Greetings Card</option>
-                                            @foreach ($cards as $card)
-                                                <option value="{{ $card['id'] }}">{{ $card['name'] }}
-                                            </option>
-                                            @endforeach
-                                        </select>
+                                    <div class="col-md-12">
+                                        @if (count($cards) > 0)
+                                        <div class="country-select clearfix">
+                                            <label>Add Greetings Card (Optional)</label>
+                                            <select @change.prevent="changeGreetingsCard($event)" name="card_id" wire:model="card_id" class="form-control">
+                                                <option value="0">Select Greetings Card</option>
+                                                @foreach ($cards as $card)
+                                                    <option value="{{ $card['id'] }}">{{ $card['name'] }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @endif
                                     </div>
-                                    @endif
-                                </div>
 
-                                <div class="col-md-12">
-                                    @if (count($packagings) > 0)
-                                    <div class="country-select clearfix">
-                                        <label>Packaging (Optional)</label>
-                                        <select name="packaging_id" wire:model="packaging_id" class="form-control">
-                                            <option value="0">Select Packaging</option>
-                                            @foreach ($packagings as $packaging)
-                                            <option value="{{ $packaging['id'] }}">
-                                                {{ $packaging['name'] }}
-                                            </option>
-                                            @endforeach
-                                        </select>
+                                    <div class="col-md-12">
+                                        @if (count($packagings) > 0)
+                                        <div class="country-select clearfix">
+                                            <label>Packaging (Optional)</label>
+                                            <select name="packaging_id" wire:model="packaging_id" class="form-control">
+                                                <option value="0">Select Packaging</option>
+                                                @foreach ($packagings as $packaging)
+                                                <option value="{{ $packaging['id'] }}">
+                                                    {{ $packaging['name'] }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @endif
                                     </div>
-                                    @endif
                                 </div>
                             </div>
 
