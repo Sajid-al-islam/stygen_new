@@ -35,7 +35,14 @@ class CategoryProduct extends Component
         }
 
         return view('livewire.frontend.category-product', [
-            'products' => Product::where('status', 1)->whereIn('id', $productIds)->orderBy('product_view','desc')->with('brand','product_categories','product_images','product_variations')->paginate(30),
+            'products' => Product::where('status', 1)->whereIn('id', $productIds)->orderBy('product_view','desc')->with('brand','product_categories','product_images','product_variations')
+            ->withSum(['purchase_stock' => function ($q) {
+                $q->where('type', 'purchase');
+            }], 'qty')
+            ->withSum(['sell_stock' => function ($q) {
+                $q->where('type', 'sell');
+            }], 'qty')
+            ->paginate(30),
         ])->extends('layouts.app', [
             'meta' => [
                 "title" =>  $meta_title,
