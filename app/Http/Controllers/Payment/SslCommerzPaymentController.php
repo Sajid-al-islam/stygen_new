@@ -371,7 +371,7 @@ class SslCommerzPaymentController extends Controller
 
             $sslc = new SslCommerzNotification();
             # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
-            $payment_options = $sslc->makePayment($post_data, 'checkout', 'json');
+            $payment_options = $sslc->makePayment($post_data, 'hosted');
 
             if (!is_array($payment_options)) {
                 print_r($payment_options);
@@ -833,7 +833,7 @@ class SslCommerzPaymentController extends Controller
                 \Cart::clear();
                 Auth::loginUsingId($userID);
                 $orderID = $order_detials->id;
-                return redirect('thank-you?order_id='.$orderID);
+                return redirect('thank-you/'.$orderID);
                 //Custom Code End--------------------------------------------------------------------------------------------------//
 
                 echo "<br >Transaction is successfully Completed";
@@ -856,7 +856,7 @@ class SslCommerzPaymentController extends Controller
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
             $orderID = $order_detials->id;
-            return redirect('thank-you?order_id='.$orderID);
+            return redirect('thank-you/'.$orderID);
 
             echo "Transaction is successfully Completed";
         } else {
@@ -889,7 +889,7 @@ class SslCommerzPaymentController extends Controller
             echo "Transaction is Falied";
         } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
             $orderID = $order_detials->id;
-            return redirect('thank-you?order_id='.$orderID);
+            return redirect('thank-you/'.$orderID);
 
             echo "Transaction is already Successful";
         } else {
@@ -917,7 +917,7 @@ class SslCommerzPaymentController extends Controller
             echo "Transaction is Cancel";
         } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
             $orderID = $order_detials->id;
-            return redirect('thank-you?order_id='.$orderID);
+            return redirect('thank-you/'.$orderID);
 
             echo "Transaction is already Successful";
         } else {
