@@ -18,7 +18,6 @@ class CreateProductStocksTable extends Migration
             $table->bigInteger('company_id')->nullable();
             $table->bigInteger('product_id')->unsigned();
             $table->bigInteger('variation_id')->unsigned();
-            $table->bigInteger('variation_id')->unsigned();
             $table->integer('qty')->unsigned();
             $table->integer('type')->unsigned();
             $table->bigInteger('created_by')->unsigned();

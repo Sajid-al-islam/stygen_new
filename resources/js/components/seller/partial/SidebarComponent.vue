@@ -67,7 +67,6 @@
                                 </p>
                             </router-link>
                         </li>
-
                         <!--<li class="nav-item has-treeview menu-open">
                             <router-link :to="{name: 'customerList'}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>

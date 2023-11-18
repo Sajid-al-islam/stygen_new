@@ -19,6 +19,7 @@ import AttributeList from "../components/seller/attribute/AttributeList";
 import ProductEdit from "../components/seller/product/ProductEdit";
 import OrderList from "../components/seller/order/OrderList";
 import OrderDetails from "../components/seller/order/OrderDetails";
+import ProductStock from "../components/seller/product/ProductStock";
 
 const router = new VueRouter({
     mode: 'history',
@@ -134,6 +135,22 @@ const router = new VueRouter({
             path: '/seller/products',
             component: ProductList,
             name: 'productList',
+            beforeEnter: (to, from, next) => {
+                let isAuthenticated = '';
+                let authUser = localStorage.getItem('sellerLoggedInInfo') ? JSON.parse(localStorage.getItem('sellerLoggedInInfo')) : false;
+                if(authUser){
+                    isAuthenticated = authUser.id && authUser.email ? true : false;
+                }else{
+                    isAuthenticated = false;
+                }
+                if (to.name !== 'sellerLogin' && !isAuthenticated) next({ name: 'sellerLogin' })
+                else next()
+            }
+        },
+        {
+            path: '/seller/product-stock/:id',
+            component: ProductStock,
+            name: 'ProductStock',
             beforeEnter: (to, from, next) => {
                 let isAuthenticated = '';
                 let authUser = localStorage.getItem('sellerLoggedInInfo') ? JSON.parse(localStorage.getItem('sellerLoggedInInfo')) : false;

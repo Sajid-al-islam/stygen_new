@@ -15,7 +15,16 @@ class ProductDetails extends Component
 
     public function mount($slug)
     {
-        $this->product_details = Product::where('pro_slug',$slug)->with('brand','product_categories','product_images','product_variations','reviews')->first();
+        $query = Product::where('pro_slug',$slug)->with(['brand','product_categories','product_images','product_variations','reviews']);
+        $query->withSum(['purchase_stock' => function ($q) {
+            $q->where('type', 'purchase');
+        }], 'qty');
+
+        $query->withSum(['sell_stock' => function ($q) {
+            $q->where('type', 'sell');
+        }], 'amount');
+
+        $this->product_details = $query->first();
 
         $color_count = 0;
         $size_count = 0;

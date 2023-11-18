@@ -826,8 +826,8 @@ __webpack_require__.r(__webpack_exports__);
     aykori_api: function aykori_api() {
       var url = window.location;
       var query_param = url.toString().split("?");
-      var mk_activity_key_param = query_param[1].split("=");
-      console.log(mk_activity_key_param);
+      var mk_activity_key_param = query_param[1].split("="); // console.log(mk_activity_key_param);
+
       var mk_activity_key = localStorage.getItem("mk_activity_key");
 
       if (mk_activity_key && mk_activity_key == mk_activity_key_param[1]) {

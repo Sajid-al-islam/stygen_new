@@ -112,7 +112,9 @@ Route::group(['middleware' => 'auth:admin'], function(){
     Route::get('get-all-categories', [CategoryController::class, 'getAllCategories'])->name('admin.getAllCategories');
 
     //Product
-    Route::resource('/product', ProductController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('product', \Backend\ProductController::class);
+    });
     Route::post('product-update/{id}', [ProductController::class, 'update'])->name('admin.update');
     Route::post('multiple-product-delete', [ProductController::class, 'multipleProductDelete'])->name('admin.multipleProductDelete');
     Route::get('/search-product', [ProductController::class, 'searchSellerProduct'])->name('admin.searchSellerProduct');
@@ -126,9 +128,12 @@ Route::group(['middleware' => 'auth:admin'], function(){
     Route::post('/product-add_on-update', [ProductController::class, 'productAddonChange'])->name('admin.productAddonChange');
     Route::post('/product-add_on-edit/{id}', [ProductController::class, 'productAddonUpdate'])->name('admin.productAddonUpdate');
     Route::post('/product-add_on-delete/{id}', [ProductController::class, 'addonDelete'])->name('admin.addonDelete');
+
     // Route::get('/low-stock-products', [ProductController::class, 'lowstockproduct'])->name('admin.lowstockproduct');
     Route::get('low-stock-products', [ProductController::class, 'lowstockproduct'])->name('admin.lowstockproduct');
     Route::get('low-stock-count', [ProductController::class, 'low_stock_count'])->name('admin.low_stock_count');
+
+
 
     Route::get('campaign-userlist',[UserController::class, 'campaign_user'])->name('admin.campaign_user');
 

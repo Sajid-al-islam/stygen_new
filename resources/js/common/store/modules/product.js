@@ -47,6 +47,15 @@ export const product = {
 
             });
         },
+        AllSellerProductList(context, payload){
+            axios.get('/seller/all-products')
+            .then((result) => {
+                // console.log(result);
+                context.commit('productList', result.data.products)
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
         productDelete(context, payload){
             axios.delete('/seller/product/'+payload)
             .then((result) => {

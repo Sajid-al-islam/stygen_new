@@ -51,13 +51,14 @@
                                                 <el-button @click.prevent="changePublication(scope.row.id, scope.row.status)" :type="scope.row.status == 1?'danger':'success'" size="mini" :icon="scope.row.status == 1?'el-icon-close':'el-icon-check'">{{ scope.row.status == 1?'Un publish':'Publish' }}</el-button>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column label="Actions">
+                                        <el-table-column label="Actions" width="450">
                                             <template slot-scope="scope">
                                                 <!--<el-button size="mini" icon="el-icon-search">Details</el-button>-->
                                                 <a :href="'/product/'+scope.row.pro_slug" target="_blank" class="btn btn-outline-success btn-sm"><i class="el-icon-view"></i></a>
                                                 <!-- <router-link :to="{name: 'viewProduct', params: {id:scope.row.id}}" class="btn btn-outline-success btn-sm"><i class="el-icon-view"></i></router-link> -->
                                                 <router-link :to="{name: 'duplicateProduct', params: {id:scope.row.id}}" class="btn btn-outline-warning btn-sm"><i class="el-icon-document-copy"></i> Copy</router-link>
                                                 <router-link :to="{name: 'editProduct', params: {id:scope.row.id}}" class="btn btn-outline-primary btn-sm"><i class="el-icon-edit"></i> Edit</router-link>
+                                                <router-link :to="{name: 'ProductStock', params: {id:scope.row.id}}" class="btn btn-outline-primary btn-sm"><i class="el-icon-box"></i> Manage stock</router-link>
                                                 <el-button size="mini" icon="el-icon-delete" type="danger" @click.prevent="productDelete(scope.row.id)">Delete</el-button>
                                             </template>
                                         </el-table-column>

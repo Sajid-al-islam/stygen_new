@@ -33,7 +33,7 @@
                                 {{-- </router-link> --}}
                             </div>
                             <div class="product-content category-title-section">
-                                <h4 class="text-white"><a href="{{ route('category_product', $category->cat_slug) }}">{{ $category->category_name }}</a></h4>
+                                <h4 class="mb-0"><a href="{{ route('category_product', $category->cat_slug) }}">{{ $category->category_name }}</a></h4>
                             </div>
                         </div>
                         <!--Single Product End-->

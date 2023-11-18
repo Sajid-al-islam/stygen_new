@@ -72,7 +72,12 @@ class Product extends Model
         return $this->hasMany(StockLedger::class, 'product_id');
     }
 
-    public function stock()
+    public function purchase_stock()
+    {
+        return $this->hasMany(ProductStock::class, 'product_id');
+    }
+
+    public function sell_stock()
     {
         return $this->hasMany(ProductStock::class, 'product_id');
     }

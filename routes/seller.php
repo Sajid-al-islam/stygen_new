@@ -39,7 +39,10 @@ Route::group(['middleware' => 'auth:seller'], function(){
     Route::get('get-seller-details', [UserController::class, 'get_seller_details'])->name('seller.get_seller_details');
 
     //Category
-    Route::resource('category', CategoryController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('category', \Seller\CategoryController::class);
+    });
+
     Route::post('category-update', [CategoryController::class, 'update'])->name('seller.categoriesUpdate');
     Route::post('multiple-category-delete', [CategoryController::class, 'multipleCategoryDelete'])->name('seller.multipleCategoryDelete');
     Route::get('categories-list', [CategoryController::class, 'categoriesList'])->name('seller.categoriesList');
@@ -47,24 +50,39 @@ Route::group(['middleware' => 'auth:seller'], function(){
     Route::get('/search-category', [CategoryController::class, 'searchCategory'])->name('seller.searchCategory');
 
     //Brand
-    Route::resource('brand', BrandController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('brand', \Seller\BrandController::class);
+    });
+
     Route::post('multiple-brand-delete', [BrandController::class, 'multipleBrandDelete'])->name('seller.multipleBrandDelete');
     Route::get('brands-list', [BrandController::class, 'brandsList'])->name('seller.brandsList');
     Route::get('/search-brand', [BrandController::class, 'searchBrand'])->name('seller.searchBrand');
 
     //Customer
-    Route::resource('customer', CustomerController::class);
+
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('customer', \Seller\CustomerController::class);
+    });
+
     Route::post('multiple-customer-delete', [CustomerController::class, 'multipleCustomerDelete'])->name('seller.multipleCustomerDelete');
 
     //Attribute
-    Route::resource('attribute', AttributeController::class);
+
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('attribute', \Seller\AttributeController::class);
+    });
+
     Route::post('multiple-attribute-delete', [AttributeController::class, 'multipleAttributeDelete'])->name('seller.multipleAttributeDelete');
     Route::get('attribute-name-list', [AttributeController::class, 'attributeNameList'])->name('seller.attributeNameList');
     Route::get('/search-attribute', [AttributeController::class, 'searchAttribute'])->name('seller.searchAttribute');
 
     //Product
-    Route::resource('product', ProductController::class);
+    Route::prefix('')->namespace('Controllers')->group(function () {
+        Route::resource('product', \Seller\ProductController::class);
+    });
+    // Route::resource('product', ProductController::class);
     Route::post('multiple-product-delete', [ProductController::class, 'multipleProductDelete'])->name('seller.multipleProductDelete');
+    Route::get('all-products', [ProductController::class, 'all_products'])->name('seller.all_products');
     Route::post('product-attribute', [ProductController::class, 'getProAttribute'])->name('seller.getProAttribute');
     Route::get('get-product-attributes', [ProductController::class, 'getProductAttributes'])->name('seller.getProductAttributes');
     Route::post('/product/{id}', [ProductController::class, 'update'])->name('seller.productUpdate');
@@ -73,6 +91,7 @@ Route::group(['middleware' => 'auth:seller'], function(){
     Route::post('/product-upload', [ProductController::class, 'uploadProduct'])->name('seller.uploadProduct');
     Route::get('/search-product', [ProductController::class, 'searchSellerProduct'])->name('seller.searchSellerProduct');
     Route::post('/product-status-update', [ProductController::class, 'productStatusChange'])->name('seller.productStatusChange');
+    Route::post('/product-stock-update', [ProductController::class, 'productStockUpdate'])->name('seller.productStockUpdate');
 
     //Order
     Route::get('order-list', [OrderController::class, 'orders'])->name('seller.orders');

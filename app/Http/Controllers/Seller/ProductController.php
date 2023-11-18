@@ -13,6 +13,7 @@ use DateTime;
 use Helper;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductStock;
 use App\Models\ProductOccasion;
 use App\Models\ProductShippingCharge;
 use App\Models\ProductVariation;
@@ -50,6 +51,40 @@ class ProductController extends Controller
         } else {
             $products = Product::where('company_id', $companyId)->orderBy('id','desc')->with('brand')->paginate(10);
         }
+        return response()->json([
+            'products' => $products
+        ], 200);
+    }
+
+    public function productStockUpdate() {
+        // dd(request()->all());
+        $product_stock = new ProductStock();
+        $product_stock->product_id = request()->product_id;
+        $product_stock->qty = request()->quantity;
+        $product_stock->company_id = Auth::guard('seller')->user()->company_id;
+        $product_stock->type = request()->type;
+        $product_stock->created_by = Auth::guard('seller')->user()->id;
+        $product_stock->save();
+
+        return response()->json([
+            'data' => $product_stock,
+            'message' => "product stock updated"
+        ], 200);
+    }
+
+    public function all_products()
+    {
+        $companyId = Auth::guard('seller')->user()->company_id;
+
+        $products = Product::where('company_id', $companyId)->orderBy('id','desc')->select('id', 'product_name')
+        ->withSum(['purchase_stock' => function ($q) {
+            $q->where('type', 'purchase');
+        }], 'qty')
+        ->withSum(['sell_stock' => function ($q) {
+            $q->where('type', 'sell');
+        }], 'amount')
+        ->get();
+
         return response()->json([
             'products' => $products
         ], 200);
@@ -334,7 +369,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('product_images','product_categories','product_attributes', 'product_variations')->find($id);
+        $product = Product::with('product_images','product_categories','product_attributes', 'product_variations')
+        ->withSum(['purchase_stock' => function ($q) {
+            $q->where('type', 'purchase');
+        }], 'qty')
+        ->withSum(['sell_stock' => function ($q) {
+            $q->where('type', 'sell');
+        }], 'qty')
+        ->find($id);
         return response()->json([
             'product' => $product
         ], 200);
