@@ -31,6 +31,12 @@ class Header extends Component
         }
     }
 
+    public function submitSearchPage()
+    {
+        return redirect()->route('search_product', $this->searchQuery);
+    }
+
+
     public function render()
     {
         $cart_manager = new CartManagerController();
