@@ -1,6 +1,6 @@
 <div>
     <div class="container">
-        <div class="slider-area">
+        {{-- <div class="slider-area">
 
             @if ($category->occasion_image)
                 <div class="row">
@@ -10,7 +10,7 @@
                 </div>
             @endif
 
-        </div>
+        </div> --}}
         <div class="row">
 
             <div class="shop-product">
