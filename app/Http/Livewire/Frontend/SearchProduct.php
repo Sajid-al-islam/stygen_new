@@ -13,7 +13,13 @@ class SearchProduct extends Component
     public function mount($search)
     {
 
-        $query = Product::where('status', 1);
+        $query = Product::where('status', 1)
+        ->withSum(['purchase_stock' => function ($q) {
+            $q->where('type', 'purchase');
+        }], 'qty')
+        ->withSum(['sell_stock' => function ($q) {
+            $q->where('type', 'sell');
+        }], 'qty');
         if(strlen($search) > 0) {
             $query->where(function ($q) use ($search) {
                 $q->Where('product_name', 'LIKE', '%' . $search . '%')

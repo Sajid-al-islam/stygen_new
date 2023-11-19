@@ -28,12 +28,12 @@
                                                         @if ($product->featured_image)
                                                             <img class="first-img lazy"
                                                                 data-src="/assets/uploads/product/{{ $product->featured_image }}"
-                                                                alt="{{ $product->id }}">
-                                                            <noscript><img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" /></noscript>
+                                                                alt="{{ $product->id }}" loading="lazy">
+                                                            <noscript><img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" loading="lazy" /></noscript>
                                                         @else
                                                             <img class="first-img lazy"
-                                                                data-src="/assets/frontend/img/icon/empty_product.jpeg">
-                                                            <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
+                                                                data-src="/assets/frontend/img/icon/empty_product.jpeg" loading="lazy">
+                                                            <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" loading="lazy"/></noscript>
                                                         @endif
                                                     </a>
                                                     {{-- @if (discount_percentage($product->regular_price, $product->sales_price))

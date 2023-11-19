@@ -17,11 +17,11 @@
                                                         @if ($product->featured_image)
                                                             <img class="first-img lazy"
                                                                 data-src="/assets/uploads/product/{{ $product->featured_image }}"
-                                                                alt="{{ $product->id }}">
+                                                                alt="{{ $product->id }}" loading="lazy">
                                                             <noscript><img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" /></noscript>
                                                         @else
                                                             <img class="first-img lazy"
-                                                                data-src="/assets/frontend/img/icon/empty_product.jpeg">
+                                                                data-src="/assets/frontend/img/icon/empty_product.jpeg" loading="lazy">
                                                             <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
                                                         @endif
                                                     </a>

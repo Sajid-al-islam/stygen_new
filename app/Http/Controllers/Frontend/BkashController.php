@@ -524,12 +524,20 @@ class BkashController extends Controller
             $order->status = 'Paid';
             $order->save();
 
-            $product_stock = new ProductStock();
-            $product_stock->product_id = $cart['product']->id;
-            $product_stock->company_id = $company_id;
-            $product_stock->type = "sell";
-            $product_stock->qty  = $order_details->quantity;
-            $product_stock->save();
+            $order_details = OrderDetail::where('order_id', $order_id)->get();
+
+            foreach($order_details as $order_detail) {
+
+                $product_stock = new ProductStock();
+                $product_stock->product_id = $order_detail->product_id;
+                $product_stock->company_id = $order_detail->company_id;
+                $product_stock->type = "sell";
+                $product_stock->qty  = $order_detail->quantity;
+                $product_stock->save();
+            }
+
+
+
             if($order) {
                 //Send Mail Start---------------------------------------
                 $data['order'] = $order;
