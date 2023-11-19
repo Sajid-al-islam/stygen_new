@@ -1,4 +1,4 @@
-<header class="sidebar_area_header">
+<header class="sidebar_area_header" style="background-color: unset; padding: unset;">
     <style>
         #overlay {
             position: fixed;
@@ -21,107 +21,136 @@
             position: relative;
             z-index: 9999;
         }
+
+        .mobile_search_input {
+            border-radius: 15px;
+            height: 85%;
+        }
+
+        .mobile-search-btn{
+            background-color: #573276;
+            border-radius: 15px;
+            color: #fff;
+            margin-left: 5px;
+        }
+
+
+
     </style>
-    <div class="container">
-        <div class="sidebar_area_header_content">
+    <div class="header_area" style="background-color: #e3e3ea; padding: 8px 0px;">
+        <div class="container">
+            <div class="sidebar_area_header_content">
 
-            <!-- left_area start -->
-            <div class="left_area">
-                <div id="overlay" class="d-none"></div>
-                <div class="menu_area_all_content">
-                    <!-- menu_bar start -->
-                    <a href="#" {{-- onclick="add_menu_list.classList.toggle('active_class')"  --}} class="menu_bar main_sidebar_class">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <!-- menu_bar end -->
+                <!-- left_area start -->
+                <div class="left_area">
+                    <div id="overlay" class="d-none"></div>
+                    <div class="menu_area_all_content">
+                        <!-- menu_bar start -->
+                        <a href="#" {{-- onclick="add_menu_list.classList.toggle('active_class')"  --}} class="menu_bar main_sidebar_class">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <!-- menu_bar end -->
 
-                    <!-- menu_list_all area start -->
-                    <div id="add_menu_list" class="menu_list_all">
-                        <ul>
-                            <li>
-                                <a href="/shop" class="product_name all_product_title">All Product</a>
-                            </li>
-                            @foreach ($categories as $category)
-                                @if ($category->subcategory->count() == 0)
-                                    <li class="level d-flex align-items-center" data-id="{{ $category->id }}">
-                                        <a href="{{ route('category_product', $category->cat_slug) }}"
-                                            class="product_name">
-                                            {{ $category->category_name }}
-                                        </a>
-                                    </li>
-                                @else
-                                    @include('livewire.frontend.components.sidebar-component', [
-                                        'category' => $category,
-                                    ])
-                                @endif
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- menu_area_all_content end -->
-
-
-                <!-- logo area start -->
-                <a href="/" class="logo_area">
-                    <img src="{{ asset('assets/frontend/img/logo/logo.png') }}" alt="Stygen_logo">
-                </a>
-                <!--logo area end -->
-
-                <!-- search area start -->
-                {{-- <div class="search_area">
-                    <form action="#">
-                        <div class="search-form">
-                            <input class="form-control mobile_search_input" type="search" v-model="keyword"
-                                @keyup="SearchProduct" placeholder="Search product...">
-                            <button class="mobile-search-btn btn btn-primary" @click.prevent="SearchProduct"
-                                type="submit"><i class="ion-ios-search-strong"></i></button>
+                        <!-- menu_list_all area start -->
+                        <div id="add_menu_list" class="menu_list_all">
+                            <ul>
+                                <li>
+                                    <a href="/shop" class="product_name all_product_title">All Product</a>
+                                </li>
+                                @foreach ($categories as $category)
+                                    @if ($category->subcategory->count() == 0)
+                                        <li class="level d-flex align-items-center" data-id="{{ $category->id }}">
+                                            <a href="{{ route('category_product', $category->cat_slug) }}"
+                                                class="product_name">
+                                                {{ $category->category_name }}
+                                            </a>
+                                        </li>
+                                    @else
+                                        @include('livewire.frontend.components.sidebar-component', [
+                                            'category' => $category,
+                                        ])
+                                    @endif
+                                @endforeach
+                            </ul>
                         </div>
-                    </form>
-                </div> --}}
+                    </div>
+
+                    <!-- menu_area_all_content end -->
 
 
-                <div class="search_area header-top-search">
-                    <div class="search-categories">
-                        <form action="#" wire:submit.prevent="submitSearchPage">
-                            <div class="search-froms">
-                                <input type="text" wire:model="searchQuery" wire:keyup="search_product"
-                                    placeholder="Search product...">
-                                <button class="top-search-btn btn btn-sm d-none" id="header_search_btn"
-                                    type="submit"><i class="fas fa-search text-dark fa-xs"></i></button>
+                    <!-- logo area start -->
+                    <a href="/" class="logo_area">
+                        <img src="{{ asset('assets/frontend/img/logo/logo.png') }}" alt="Stygen_logo">
+                    </a>
+                    <!--logo area end -->
+
+                    <!-- search area start -->
+                    {{-- <div class="search_area">
+                        <form action="#">
+                            <div class="search-form">
+                                <input class="form-control mobile_search_input" type="search" v-model="keyword"
+                                    @keyup="SearchProduct" placeholder="Search product...">
+                                <button class="mobile-search-btn btn btn-primary" @click.prevent="SearchProduct"
+                                    type="submit"><i class="ion-ios-search-strong"></i></button>
                             </div>
                         </form>
+                    </div> --}}
+
+
+                    <div class="search_area header-top-search">
+                        <div class="search-categories">
+                            <form action="#" wire:submit.prevent="submitSearchPage">
+                                <div class="search-froms">
+                                    <input type="text" wire:model="searchQuery" wire:keyup="search_product"
+                                        placeholder="Search product...">
+                                    <button class="top-search-btn btn btn-sm d-none" id="header_search_btn"
+                                        type="submit"><i class="fas fa-search text-dark fa-xs"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
+
+
+                    <!--search  area end -->
+                </div>
+                <!-- left_area end -->
+
+                <!-- right_area start -->
+                <div class="right_area">
+
+                    <!-- shopping_card_area start -->
+                    <a href="#" class="shopping_card r_icon">
+                        <a data-bs-toggle="offcanvas" href="#offcanvasRight" role="button"
+                            aria-controls="offcanvasRight"><i class="fas fa-shopping-cart header-icon"><span
+                                    class="cart-count">{{ $cart_count }}</span></i></a>
+                    </a>
+                    <!-- shopping_card_area end -->
+
+                    <!-- user_area start -->
+                    <a href="#" class="user_area r_icon">
+                        <i class="fa fa-user-alt"></i>
+                    </a>
+                    <!-- user_area end -->
+
+                    <!-- wishlist_area start -->
+                    <a href="#" class="wishlist_area r_icon">
+                        <i class="fas fa-heart"></i>
+                    </a>
                 </div>
 
-
-
-                <!--search  area end -->
             </div>
-            <!-- left_area end -->
-
-            <!-- right_area start -->
-            <div class="right_area">
-
-                <!-- shopping_card_area start -->
-                <a href="#" class="shopping_card r_icon">
-                    <a data-bs-toggle="offcanvas" href="#offcanvasRight" role="button"
-                        aria-controls="offcanvasRight"><i class="fas fa-shopping-cart header-icon"><span
-                                class="cart-count">{{ $cart_count }}</span></i></a>
-                </a>
-                <!-- shopping_card_area end -->
-
-                <!-- user_area start -->
-                <a href="#" class="user_area r_icon">
-                    <i class="fa fa-user-alt"></i>
-                </a>
-                <!-- user_area end -->
-
-                <!-- wishlist_area start -->
-                <a href="#" class="wishlist_area r_icon">
-                    <i class="fas fa-heart"></i>
-                </a>
-            </div>
+        </div>
+    </div>
+    <div class="mobile_search_section">
+        <div class="row">
+            <form action="#" class="mt-2 mb-2" wire:submit.prevent="submitSearchPage">
+                <div class="col-10 mx-auto">
+                    <input type="text" class="form-control mobile_search_input" wire:model="searchQuery" wire:keyup="search_product"
+                    placeholder="Search product...">
+                    {{-- <button type="submit" class="mobile-search-btn btn btn-primary"><i class=""></i></button> --}}
+                </div>
+            </form>
         </div>
     </div>
 
@@ -163,9 +192,9 @@
     // ="{{ route('category_product', $category->cat_slug) }}"
     function goToCategory(category_id, cat_slug) {
         // event.preventDefault();
-        let redirect_url = '/product-category/'+ cat_slug;
+        let redirect_url = '/product-category/' + cat_slug;
 
-        if(isOpen == category_id) {
+        if (isOpen == category_id) {
 
             location.href = redirect_url;
         }
@@ -175,7 +204,7 @@
     function goToSubCategory(category_id, cat_slug) {
         // console.log('hello', category_id, cat_slug);
         // event.preventDefault();
-        let redirect_url = '/product-category/'+ cat_slug;
+        let redirect_url = '/product-category/' + cat_slug;
         location.href = redirect_url;
         isOpen = category_id;
     }
@@ -196,13 +225,13 @@
             //     src = $(this).children('a').attr("data-src");
             //     // location.href = src;
             // } else {
-                // event.preventDefault();
-                $(this).siblings().children('ul').css("display", "none");
-                var ulElement = $(this).closest('li').children('ul');
-                if (ulElement.length) {
-                    ulElement.css("display", "block");
-                }
-                isOpen = $(this).attr("data-id");
+            // event.preventDefault();
+            $(this).siblings().children('ul').css("display", "none");
+            var ulElement = $(this).closest('li').children('ul');
+            if (ulElement.length) {
+                ulElement.css("display", "block");
+            }
+            isOpen = $(this).attr("data-id");
             // }
 
         });

@@ -524,7 +524,7 @@ class BkashController extends Controller
             $order->status = 'Paid';
             $order->save();
 
-            $order_details = OrderDetail::where('order_id', $order_id)->get();
+            $order_details = OrderDetail::where('order_id', $order->id)->get();
 
             foreach($order_details as $order_detail) {
 
