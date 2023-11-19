@@ -1277,7 +1277,7 @@ div .overlay {
     }
 }
 
-@media (min-width: 400px) and (max-width: 576px) {
+@media (min-width: 300px) and (max-width: 576px) {
     .search_result {
         background-color: #fff;
         position: absolute;
