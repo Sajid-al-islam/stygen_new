@@ -32,14 +32,16 @@
     </div>
 
     <script>
-        var total_amount = {!! $total_amount !!};
-        var product_skus = @json($skus);
+        document.addEventListener("load", function(){
+            var total_amount = {!! $total_amount !!};
+            var product_skus = @json($skus);
 
-        fbq('track', 'Purchase',{
-            value: total_amount,
-            currency: 'BDT',
-            content_ids: product_skus,
-            content_type: 'product'
+            fbq('track', 'Purchase',{
+                value: total_amount,
+                currency: 'BDT',
+                content_ids: product_skus,
+                content_type: 'product'
+            });
         });
     </script>
 </div>

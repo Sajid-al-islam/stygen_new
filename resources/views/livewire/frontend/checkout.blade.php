@@ -328,7 +328,7 @@
                             </tfoot>
                         </table>
                     </div>
-                    <div class="payment-method mt-0">
+                    <div class="payment-method mt-0" wire:ignore>
                         <div class="payment-accordion">
                             <div id="accordion">
                                 <p><b>Select a Payment Method</b> <span class="text-danger">*</span></p>
