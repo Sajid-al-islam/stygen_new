@@ -47,9 +47,9 @@
                                                         @endif
                                                         <br>
                                                         <div class="d-inline-flex gap-2 justify-content-between mt-3">
-
                                                             @if ($product->purchase_stock_sum_qty - $product->sell_stock_sum_qty > 1 && $product->status == 1)
                                                                 <div class="col-md-6 col-sm-6 col-lg-6 col-6">
+
                                                                     @if ($product->product_variations && count($product->product_variations) > 0)
                                                                         <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2"
                                                                                 href="{{ route('product_details', $product->pro_slug) }}">select variant</a></span>
@@ -61,8 +61,12 @@
                                                                                 to cart</a></span>
                                                                     @endif
                                                                 </div>
+                                                                <div class="col-md-6 col-sm-6 col-lg-6 col-6">
+                                                                    <span><a class="btn btn-primary btn-sm ps-2 detailsbtn"
+                                                                            href="{{ route('product_details', $product->pro_slug) }}"><i class="fas fa-eye pe-2"></i>Details</a></span>
+                                                                </div>
                                                             @else
-                                                                <div class="d-block text-center">
+                                                                <div class="col-12">
                                                                     <h4>Out of stock</h4>
                                                                 </div>
                                                             @endif

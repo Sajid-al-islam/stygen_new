@@ -13,19 +13,18 @@ class SearchProduct extends Component
     public function mount($search)
     {
 
-        $query = Product::where('status', 1)
-        ->withSum(['purchase_stock' => function ($q) {
-            $q->where('type', 'purchase');
-        }], 'qty')
-        ->withSum(['sell_stock' => function ($q) {
-            $q->where('type', 'sell');
-        }], 'qty');
+        $query = Product::where('status', 1);
         if(strlen($search) > 0) {
             $query->where(function ($q) use ($search) {
                 $q->Where('product_name', 'LIKE', '%' . $search . '%')
                 ->orWhere('product_sku', 'LIKE', '%' . $search . '%');
-            })->select('id', 'regular_price', 'pro_slug' ,'sales_price','product_name', 'featured_image');
-            $this->products = $query->paginate(20);
+            })->select('id', 'regular_price', 'pro_slug' ,'sales_price','product_name', 'featured_image', 'status');
+            $this->products = $query->withSum(['purchase_stock' => function ($q) {
+                $q->where('type', 'purchase');
+            }], 'qty')
+            ->withSum(['sell_stock' => function ($q) {
+                $q->where('type', 'sell');
+            }], 'qty')->paginate(20);
         }else {
             $this->products = null;
         }

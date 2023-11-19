@@ -91,13 +91,13 @@ class CashOnDeliveryController extends Controller
         $get_shipping_charge    = ShippingCharge::where('id', $request->shipping_charge_id)->first();
         // dd($get_shipping_charge);
         $shipping_charge        = floatval($get_shipping_charge->shipping_charge);
-        if($cart_total_amount < 0) {
+        if($cart_total_amount == 0) {
             $total_amount = 0;
         }
-        else {
+
             // dd($cart_total_amount, $shipping_charge, $card_price, $packaging_price);
-            $total_amount       = $cart_total_amount + $shipping_charge + $card_price + $packaging_price;
-        }
+        $total_amount       = $cart_total_amount + $shipping_charge + $card_price + $packaging_price;
+
         // $current_date           = date('d/m/Y');
         // $invoice_date           = DateTime::createFromFormat('d/m/Y', $current_date)->format('Y-m-d');
 
@@ -237,13 +237,15 @@ class CashOnDeliveryController extends Controller
 
                 $product_data = Product::where('id', $cart['product']->id)->first();
                 $company_id = $product_data !== null ? $product_data->company_id : 0;
+                // dd($cart);
+                $price = $cart['product']->sales_price ? $cart['product']->sales_price : $cart['product']->regular_price;
                 $order_details = OrderDetail::create([
                     'company_id'        => $company_id,
                     'order_id'          => $order->id,
                     'product_id'        => $cart['product']->id,
                     'price'             => $cart['product']->sales_price ? $cart['product']->sales_price : $cart['product']->regular_price,
                     'quantity'          => $cart['qty'],
-                    'total_amount'      => $cart['product']->price * $cart['qty'],
+                    'total_amount'      => $price * $cart['qty'],
                     'transaction_id'    => $order->transaction_id,
                     'status'            => 'Pending',
                     'created_by'        => $userID

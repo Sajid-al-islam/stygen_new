@@ -3,6 +3,7 @@
   'frontend.all-product' => 'App\\Http\\Livewire\\Frontend\\AllProduct',
   'frontend.become-seller' => 'App\\Http\\Livewire\\Frontend\\BecomeSeller',
   'frontend.blog' => 'App\\Http\\Livewire\\Frontend\\Blog',
+  'frontend.brand' => 'App\\Http\\Livewire\\Frontend\\Brand',
   'frontend.cart' => 'App\\Http\\Livewire\\Frontend\\Cart',
   'frontend.category-product' => 'App\\Http\\Livewire\\Frontend\\CategoryProduct',
   'frontend.checkout' => 'App\\Http\\Livewire\\Frontend\\Checkout',

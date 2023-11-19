@@ -90,6 +90,7 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     Route::get('/cart', "Frontend\Cart")->name('cart');
     Route::get('product-category/{slug}', "Frontend\CategoryProduct")->name('category_product');
     Route::get('gift-by-occasion/{slug}', "Frontend\OcassionProduct")->name('ocassion_product');
+    // Route::get('brand/{slug}', "Frontend\OcassionProduct")->name('ocassion_product');
     Route::get('product/{slug}', "Frontend\ProductDetails")->name('product_details');
 
     Route::any('/search-product/{search}', "Frontend\SearchProduct")->name('search_product');
