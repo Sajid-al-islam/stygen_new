@@ -13,6 +13,9 @@
             border: 1px solid #ddd;
             background-color: #f7f7f7;
         }
+        .border-1  {
+            border: 1px solid;
+        }
     </style>
     {{-- The Master doesn't talk, he acts. --}}
     <div id="checkout">
