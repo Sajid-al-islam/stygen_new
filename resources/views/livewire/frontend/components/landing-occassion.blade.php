@@ -22,15 +22,24 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="product-img">
-                                                <a>
-                                                    <img class="first-img gift-img" src="{{asset('/assets/uploads/occasion/')}}/{{$occasion->occasion_image}}" lazy="loading">
-                                                </a>
-
+                                                @if ($occasion->occasion_slug)
+                                                    <a href="{{ route('ocassion_product', $occasion->occasion_slug) }}">
+                                                        <img class="first-img gift-img" src="{{asset('/assets/uploads/occasion/')}}/{{$occasion->occasion_image}}" lazy="loading">
+                                                    </a>
+                                                @else
+                                                    <a href="#">
+                                                        <img class="first-img gift-img" src="{{asset('/assets/uploads/occasion/')}}/{{$occasion->occasion_image}}" lazy="loading">
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
 
                                         <div class="col-md-8">
-                                            <h4 class="gifts-title"><router-link>{{ $occasion->occasion_name }}</router-link></h4>
+                                            @if ($occasion->occasion_slug)
+                                                <h4 class="gifts-title"><a href="{{ route('ocassion_product', $occasion->occasion_slug) }}">{{ $occasion->occasion_name }}</a></h4>
+                                            @else
+                                                <h4 class="gifts-title"><a href="#">{{ $occasion->occasion_name }}</a></h4>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

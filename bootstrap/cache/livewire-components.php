@@ -14,6 +14,7 @@
   'frontend.components.slider' => 'App\\Http\\Livewire\\Frontend\\Components\\Slider',
   'frontend.contact-us' => 'App\\Http\\Livewire\\Frontend\\ContactUs',
   'frontend.home' => 'App\\Http\\Livewire\\Frontend\\Home',
+  'frontend.ocassion-product' => 'App\\Http\\Livewire\\Frontend\\OcassionProduct',
   'frontend.privacy-policy' => 'App\\Http\\Livewire\\Frontend\\PrivacyPolicy',
   'frontend.product-details' => 'App\\Http\\Livewire\\Frontend\\ProductDetails',
   'frontend.return-policy' => 'App\\Http\\Livewire\\Frontend\\ReturnPolicy',

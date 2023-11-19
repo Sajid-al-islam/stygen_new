@@ -115,13 +115,6 @@
                                         </p>
                                     @endif
 
-                                    @if ($product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty > 1 && $product_details->status == 1)
-                                        <p class="mt-2 single-product-info">
-                                            <b>Left in stock:</b> {{ $product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty }}
-                                        </p>
-                                    @endif
-
-
                                     @if ($product_details->brand)
                                         <p class="mt-0 single-product-info">
                                             <b>Brand:</b> <a
@@ -311,6 +304,13 @@
                                         </div>
                                     </form>
                                 </div> --}}
+
+                                @if ($product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty > 1 && $product_details->status == 1)
+                                    <p class="mt-4 mb-2 single-product-info text-info">
+                                        <b>{{ $product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty }}</b> product left in stock
+                                    </p>
+                                @endif
+
                                 <div class="product-add-to-cart">
 
                                     <div class="row d-flex justify-content-start">
