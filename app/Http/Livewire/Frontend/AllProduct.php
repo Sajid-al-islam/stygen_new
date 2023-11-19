@@ -12,17 +12,16 @@ class AllProduct extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $products = Product::orderBy('id', 'desc')->with(['brand'])
-        ->withSum(['purchase_stock' => function ($q) {
-            $q->where('type', 'purchase');
-        }], 'qty')
-        ->withSum(['sell_stock' => function ($q) {
-            $q->where('type', 'sell');
-        }], 'qty')
-        ->paginate(30)->onEachSide(3);
 
         return view('livewire.frontend.all-product', [
-            'products' => $products,
+            'products' => $products = Product::orderBy('id', 'desc')->with(['brand'])
+            ->withSum(['purchase_stock' => function ($q) {
+                $q->where('type', 'purchase');
+            }], 'qty')
+            ->withSum(['sell_stock' => function ($q) {
+                $q->where('type', 'sell');
+            }], 'qty')
+            ->paginate(30),
         ])->extends('layouts.app', [
             'meta' => [
                 "title" =>  "Best online Gift Shop in Bangladesh | Stygen",

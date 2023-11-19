@@ -283,7 +283,7 @@
                                         </el-form-item>
 
                                         <el-form-item class="text-right mt-4">
-                                            <router-link :to="{name: 'productList'}" class="btn btn-default">Back</router-link>
+                                            <a @click.prevent="$router.go(-1)" class="btn btn-default">Back</a>
                                             <el-button type="primary" @click.prevent="updateProduct()">Update</el-button>
                                         </el-form-item>
                                     </el-form>
@@ -535,7 +535,7 @@
                     .then((result) => {
                         this.checkoutLoader = false
                         $('.product-edit-area').css('filter','none');
-                        this.$router.push({name: 'productList'})
+                        this.$router.go(-1)
                         this.$message({
                             showClose: true,
                             message: 'Product updated successfully.',

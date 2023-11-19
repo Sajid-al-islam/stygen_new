@@ -30,22 +30,25 @@
                                 <div class="row" wire:loading.remove wire:target="loadProducts">
                                     @if ($products->count() > 0)
                                         @foreach ($products as $product)
-                                            <div class="col-lg-4 col-xl-4 col-md-4 mb-3">
+                                            <div class="col-12 col-lg-3 col-xl-3 col-md-3 mb-3">
                                                 <!--Single Product Start-->
                                                 <div class="single-product mb-3 shop-product-single">
-                                                    <div class="product-img">
-                                                        <a href="{{ route('product_details', $product->pro_slug) }}">
+                                                    <div class="product-img product-img-category">
+                                                        <a href="{{ route('product_details', $product->pro_slug) }}" class="w-100">
                                                             @if ($product->featured_image)
-                                                                <img class="first-img lazy" data-src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}">
-                                                                <img class="hover-img lazy" data-src="/assets/uploads/product/{{ $product->featured_image }}" alt="{{ $product->product_name }}">
+                                                                <img class="first-img lazy"
+                                                                    data-src="/assets/uploads/product/{{ $product->featured_image }}"
+                                                                    alt="{{ $product->id }}">
+                                                                <noscript><img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" /></noscript>
                                                             @else
-                                                                <img class="first-img lazy" data-src="/assets/frontend/img/icon/empty_product.jpeg">
+                                                                <img class="first-img lazy"
+                                                                    data-src="/assets/frontend/img/icon/empty_product.jpeg">
                                                                 <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
                                                             @endif
                                                         </a>
                                                         {{-- @if (discount_percentage($product->regular_price, $product->sales_price))
-                                                            <span class="sticker">{{ discount_percentage($product->regular_price, $product->sales_price) }}</span>
-                                                        @endif --}}
+                                                                <span class="sticker">{{ discount_percentage($product->regular_price, $product->sales_price) }}</span>
+                                                            @endif --}}
 
                                                     </div>
                                                     <div class="product-content">
@@ -72,8 +75,12 @@
                                                                                     to cart</a></span>
                                                                         @endif
                                                                     </div>
+                                                                    <div class="col-md-6 col-sm-6 col-lg-6 col-6">
+                                                                        <span><a class="btn btn-primary btn-sm ps-2 detailsbtn"
+                                                                                href="{{ route('product_details', $product->pro_slug) }}"><i class="fas fa-eye pe-2"></i>Details</a></span>
+                                                                    </div>
                                                                 @else
-                                                                    <div class="d-block text-center">
+                                                                    <div class="col-12">
                                                                         <h4>Out of stock</h4>
                                                                     </div>
                                                                 @endif

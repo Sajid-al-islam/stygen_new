@@ -4,6 +4,15 @@
             background: #5e2e87 none repeat scroll 0 0;
             color: white;
         }
+        /* .payment-accordion a[aria-expanded="true"] {
+            border: 1px solid #333;
+            background-color: #f7f7f7;
+        } */
+
+        .payment-accordion .collapse.show + .card .payment_single a {
+            border: 1px solid #ddd;
+            background-color: #f7f7f7;
+        }
     </style>
     {{-- The Master doesn't talk, he acts. --}}
     <div id="checkout">

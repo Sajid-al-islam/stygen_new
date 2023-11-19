@@ -198,6 +198,8 @@ function checkout_submit() {
             $('.checkout-area').css('filter','unset');
             $('.checkout-loader').css('display','none');
             location.href = "/thank-you/"+res.data;
+
+
         }
     })
 }

@@ -32,10 +32,11 @@
     </div>
 
     <script>
-        document.addEventListener("load", function(){
+        document.addEventListener("DOMContentLoaded", function(){
+
             var total_amount = {!! $total_amount !!};
             var product_skus = @json($skus);
-
+            // console.log(product_skus, total_amount);
             fbq('track', 'Purchase',{
                 value: total_amount,
                 currency: 'BDT',

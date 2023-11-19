@@ -236,6 +236,7 @@
             },
             paginationChange(){
                 let payload = {'page': this.currentPage, 'keyword': this.keyword, 'category_id': this.form.category, 'seller_id': this.form.seller, 'stock': this.form.stock}
+                
                 this.$store.dispatch('aproduct/productList', payload)
             },
             searchProduct:_.debounce(function(){
