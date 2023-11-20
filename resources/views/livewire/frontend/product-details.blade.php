@@ -110,7 +110,7 @@
                                         {{-- <p>
                                             <span>{!! $product_details->short_description !!}</span>
                                         </p> --}}
-                                        <p class="mt-0 single-product-info">
+                                        <p class="mt-0 mb-2 single-product-info">
                                             <b>SKU:</b> {{ $product_details->product_sku }}
                                         </p>
                                     @endif
@@ -636,11 +636,10 @@
                                                     <div class="col-md-6 col-sm-6 col-lg-6 col-6">
                                                         @if (!empty($related_product->product_variations) && count($related_product->product_variations) > 0)
                                                             <a class="btn btn-primary btn-sm pl-2 detailsbtn"
-                                                                href="#">select variant</a>
+                                                                href="{{ route('product_details', $related_product->pro_slug) }}">select variant</a>
                                                             {{-- <a class="btn btn-primary btn-sm pl-2 detailsbtn" href="{{ route('singleProduct', ['slug' => $related_product->pro_slug]) }}">select variant</a> --}}
                                                         @else
-                                                            <a href="#"
-                                                                onclick="event.preventDefault(); document.getElementById('add-to-cart-form-{{ $related_product->id }}').submit();"
+                                                            <a href="javascript:void(0)" onclick="addToCart({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"
                                                                 class="btn btn-primary btn-sm pr-2 addtocart"><i class="fas fa-shopping-bag me-1"></i>Add to cart</a>
                                                         @endif
                                                     </div>
