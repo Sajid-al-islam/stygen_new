@@ -142,15 +142,23 @@
             </div>
         </div>
     </div>
+    
     <div class="mobile_search_section">
-        <div class="row">
-            <form action="#" class="mt-2 mb-2" wire:submit.prevent="submitSearchPage">
-                <div class="col-10 mx-auto">
-                    <input type="text" class="form-control mobile_search_input" wire:model="searchQuery" wire:keyup="search_product"
-                    placeholder="Search product...">
-                    {{-- <button type="submit" class="mobile-search-btn btn btn-primary"><i class=""></i></button> --}}
-                </div>
-            </form>
+        <div class="container">
+            <div class="row">
+                <form action="#" class="mt-2 mb-2" wire:submit.prevent="submitSearchPage">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mobile_form_input flex-grow-1">
+                            <input type="text" class="form-control mobile_search_input" wire:model="searchQuery" wire:keyup="search_product"
+                            placeholder="Search product...">
+                            {{-- <button type="submit" class="mobile-search-btn btn btn-primary"><i class=""></i></button> --}}
+                        </div>
+                        <div class="mobile_form_btn">
+                            <button type="submit" class="mobile-search-btn btn btn-primary"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

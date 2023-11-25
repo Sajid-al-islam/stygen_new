@@ -118,7 +118,7 @@
                                     @if ($product_details->brand)
                                         <p class="mt-0 single-product-info">
                                             <b>Brand:</b> <a
-                                                href="/brand-product-list">{{ $product_details->brand->brand_name }}</a>
+                                                href="{{ route('brand_product', $product_details->brand->brand_slug) }}">{{ $product_details->brand->brand_name }}</a>
                                         </p>
                                     @endif
                                 </div>

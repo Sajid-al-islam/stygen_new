@@ -166,6 +166,9 @@
     {{-- <script src="{{ asset('assets/frontend') }}/js/jquery.lazy.min.js" defer></script> --}}
     @livewireScripts
     {{-- <script src="/js/turbolink.min.js"></script> --}}
+    <script>
+        Livewire.onPageExpired((response, message) => {})
+    </script>
     <script src="{{ asset('assets/frontend') }}/js/livewire_hook.js" defer></script>
     <script src="{{ asset('assets/frontend') }}/js/main.js" defer></script>
 
