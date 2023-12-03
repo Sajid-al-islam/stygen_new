@@ -354,7 +354,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-4 col-sm-12">
+                                        <div class="col-md-4 col-sm-12">
                                             <div class="payment_single text-center">
                                                 <a class="btn" data-bs-toggle="collapse" href="#onlinePayment" role="button" aria-expanded="false" aria-controls="onlinePayment">
                                                     <img src="assets/frontend/img/cart/secure.png" class="img-fluid mx-auto d-block mb-2">
@@ -369,15 +369,15 @@
                                                     <span><i class="fas fa-truck"></i><b>Bkash</b></span>
                                                 </a>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card">
-                                    {{-- <div id="onlinePayment" class="collapse" data-parent="#accordion">
+                                    <div id="onlinePayment" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
                                             <button type="submit" class="btn mln-btn mln-btn--border btn-block" id="sslczPayBtn">PAY NOW</button>
                                         </div>
-                                    </div> --}}
+                                    </div> 
                                     <div id="cashOnDelivery" class="collapse show">
                                         <div class="card-body">
                                             @if ($cart_total > 0)
@@ -387,7 +387,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    {{-- <div id="bkash_pay" class="collapse" data-parent="#accordion">
+                                    <div id="bkash_pay" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
                                             @if ($cart_total > 0)
                                             <div class="order-button-payment d-grid">
@@ -396,7 +396,7 @@
                                             </div>
                                             @endif
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
