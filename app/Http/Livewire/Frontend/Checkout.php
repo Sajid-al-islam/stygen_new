@@ -30,7 +30,7 @@ class Checkout extends Component
 
     public function __construct() {
         $this->cart_handler = new CartManagerController();
-        $this->shipping_price = ShippingCharge::first()->shipping_charge;
+        $this->shipping_price = 0;
     }
     public function render()
     {

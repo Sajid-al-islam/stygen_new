@@ -316,10 +316,12 @@
                                 </tr>
                                 @endif --}}
                                 @if ($shipping_price > 0)
-                                                <tr class="cart-subtotal">
-                                                    <th>Shipping Charge</th>
-                                                    <td><span class="amount shippingCharge">৳ {{ $shipping_price }}</span></td>
-                                </tr>
+                                    <tr class="cart-subtotal">
+                                        <th>Shipping Charge</th>
+                                        <td>
+                                            <span class="amount shippingCharge">৳ {{ $shipping_price }}</span>
+                                        </td>
+                                    </tr>
                                 @endif
                                 @if ($card_price > 0)
                                 <tr class="cart-subtotal">

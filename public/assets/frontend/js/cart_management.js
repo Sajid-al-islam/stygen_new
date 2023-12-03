@@ -1,4 +1,5 @@
 window.ORDER_ID = null;
+window.BKASH_ORDER_AMOUNT = 0;
 window.get_form_data = function (selector) {
     let inputs = [...document.querySelectorAll(selector + " input")];
     let selects = [...document.querySelectorAll(selector + " select")];
@@ -208,7 +209,7 @@ function checkout_submit() {
 
 async function bkash_checkout_submit(event) {
     const {form_values, form_inputs, form_data} = window.get_form_data(`#checkout_submission_form`);
-    console.log(form_values, form_inputs, form_data);
+
 
     // inserting order data to the db first
     $('.checkout-area').css('filter','blur(2px)');
@@ -219,10 +220,12 @@ async function bkash_checkout_submit(event) {
 
     var total_order_value = $('.total_order_amount').text();
 
-    var order_amount = total_order_value.replaceAll(',', '');
-    order_amount = parseInt(order_amount);
+    BKASH_ORDER_AMOUNT = total_order_value.replaceAll(',', '');
+    BKASH_ORDER_AMOUNT = (Math.round(BKASH_ORDER_AMOUNT * 100) / 100).toFixed(2);
+    console.log(BKASH_ORDER_AMOUNT, form_values, form_inputs, form_data);
+    // BKASH_ORDER_AMOUNT = parseInt(BKASH_ORDER_AMOUNT);
     fbq('track', 'InitiateCheckout',{
-        value: order_amount,
+        value: BKASH_ORDER_AMOUNT,
         currency: 'BDT',
         content_ids: cart_product_ids,
         content_type: 'product'
@@ -562,7 +565,7 @@ bKash.init({
     ) { //request object is basically the paymentRequest object, automatically pushed by the script in createRequest method
         $('.checkout-area').css('filter','blur(2px)');
         $('.checkout-loader').css('display','block');
-        console.log("create working !!", shipping_id, ORDER_ID)
+        console.log("create working !!", shipping_id, ORDER_ID, BKASH_ORDER_AMOUNT, price);
         let request_data = {
             order_id: ORDER_ID,
             request: request
