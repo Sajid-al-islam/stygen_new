@@ -1359,3 +1359,6 @@ div .overlay {
 }
 
 /* OTP Login  End--*/
+.dec-and-review-menu>a.nav-link {
+    color: #ff6a00;
+}

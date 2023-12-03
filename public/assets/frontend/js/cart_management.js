@@ -268,6 +268,10 @@ async function bkash_checkout_submit(event) {
 function addToCart(product_id, regular_price, sales_price, qty=1) {
 
     // console.log(product_id, regular_price, sales_price);
+
+    $('.addtocart').prop('disabled', true);
+    $('.add-to-cart').prop('disabled', true);
+
     //ADD TO CART EVENT FOR FACEBOOK
     if(sales_price && sales_price.length > 0){
         var price = sales_price
@@ -297,12 +301,15 @@ function addToCart(product_id, regular_price, sales_price, qty=1) {
             qty: qty
         })
     }).then(async res => {
+        $('.addtocart').prop('disabled', false);
+        $('.add-to-cart').prop('disabled', false);
         let response = {}
         response.status = res.status
         response.data = await res.json();
         return response;
     }).then(res => {
         if(res.status === 200) {
+
             // error_response(res.data)
             window.s_alert(res.data.message, "success");
             // $(".cart-count").val(res.data.cart_count);

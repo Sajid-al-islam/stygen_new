@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-8 ms-auto me-auto">
                     <div class="row text-center">
-                        <h3 class="landing-gifts-title-tag">GIFTS BY OCCASION</h3>
+                        <h3 class="landing-category-title-tag">GIFTS BY OCCASION</h3>
                     </div>
                 </div>
             </div>

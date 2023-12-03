@@ -17,6 +17,7 @@ use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Seller;
 use App\Models\Shipping;
+use App\Models\ProductStock;
 use App\Models\ShippingCharge;
 use App\Models\StockLedger;
 use App\Models\User;

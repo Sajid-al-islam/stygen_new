@@ -379,20 +379,26 @@
                         <div class="col-md-12">
                             <div class="single-product-review-and-description-area">
                                 <!--Review And Description Tab Menu Start-->
-                                <ul class="nav dec-and-review-menu">
+                                {{-- <ul class="nav dec-and-review-menu">
                                     <li>
                                         <a class="active" data-toggle="tab" href="#description">Description</a>
                                     </li>
                                     <li>
                                         <a data-toggle="tab" href="#reviews">Reviews</a>
                                     </li>
-                                </ul>
+                                </ul> --}}
+                                <nav>
+                                    <div class="nav nav-tabs dec-and-review-menu" id="nav-tab" role="tablist">
+                                      <a class="nav-link active product_details_nav" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
+                                      {{-- <a class="nav-link product_details_nav" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reviews</button> --}}
+                                    </div>
+                                </nav>
                                 <!--Review And Description Tab Menu End-->
                                 <!--Review And Description Tab Content Start-->
                                 <div class="tab-content product-review-content-tab mt-30" id="myTabContent-4">
                                     <div class="tab-pane fade show active" id="description">
                                         <div class="single-product-description">
-                                            <p v-html="product.long_description"></p>
+                                            <p>{!! $product_details->long_description !!}</p>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="reviews">

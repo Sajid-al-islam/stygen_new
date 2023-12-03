@@ -44,13 +44,15 @@ class CashOnDeliveryController extends Controller
         $shippingStatus = $request->shippingDisplay;
 
         $validator = Validator::make($request->all(), [
-            'name'              => 'required',
-            'address'           => 'required',
-            'phone'             => 'required',
-            'shipping_charge_id' => ['required', 'not_in:0'],
-            'shipping_name'     => ['required_if:shippingDisplay,==,ship_to_other'],
-            'shipping_address'  => ['required_if:shippingDisplay,==,ship_to_other'],
-            'shipping_phone'    => ['required_if:shippingDisplay,==,ship_to_other'],
+            'name' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+
+            'shipping_charge_id' => ['required','exists:shipping_charges,id'],
+
+            'shipping_name' => ['required_if:shippingDisplay,==,ship_to_other'],
+            'shipping_address' => ['required_if:shippingDisplay,==,ship_to_other'],
+            'shipping_phone' => ['required_if:shippingDisplay,==,ship_to_other'],
         ]);
 
 
@@ -90,7 +92,12 @@ class CashOnDeliveryController extends Controller
         $personal_notes         = (!empty($request->personal_notes)?$request->personal_notes:NULL);
         $get_shipping_charge    = ShippingCharge::where('id', $request->shipping_charge_id)->first();
         // dd($get_shipping_charge);
-        $shipping_charge        = floatval($get_shipping_charge->shipping_charge);
+        if($get_shipping_charge) {
+            $shipping_charge = $get_shipping_charge->shipping_charge;
+          } else {
+            // Shipping charge not found
+            $shipping_charge = 0;
+          }
         if($cart_total_amount == 0) {
             $total_amount = 0;
         }
@@ -250,12 +257,12 @@ class CashOnDeliveryController extends Controller
                     'status'            => 'Pending',
                     'created_by'        => $userID
                 ]);
-                $product_stock = new ProductStock();
-                $product_stock->product_id = $cart['product']->id;
-                $product_stock->company_id = $company_id;
-                $product_stock->type = "sell";
-                $product_stock->qty  = $order_details->quantity;
-                $product_stock->save();
+                // $product_stock = new ProductStock();
+                // $product_stock->product_id = $cart['product']->id;
+                // $product_stock->company_id = $company_id;
+                // $product_stock->type = "sell";
+                // $product_stock->qty  = $order_details->quantity;
+                // $product_stock->save();
                 // if(!empty($cart->attributes['color']) || !empty($cart->attributes['size']) || !empty($cart->attributes['weight'])){
                 //     $order_attributes = OrderAttribute::create([
                 //         'company_id'         => $company_id,

@@ -232,7 +232,7 @@
                             <div class="country-select clearfix">
                                 <label>Shipping Method <span class="required">*</span></label>
                                 <select name="shipping_charge_id" wire:model="shipping_id" class="form-control shipping_charge_selection">
-                                    {{-- <option>Select Shipping Method</option> --}}
+                                    <option value="0" selected>Select Shipping Method</option>
                                     <!-- <option v-if="cart_products.total > 900" value="0">Free Delivery</option> -->
                                     @foreach ($shippings as $shippings_charge)
                                     <option value="{{ $shippings_charge['id'] }}">
@@ -340,66 +340,89 @@
                             </tfoot>
                         </table>
                     </div>
-                    <div class="payment-method mt-0" wire:ignore>
-                        <div class="payment-accordion">
-                            <div id="accordion">
-                                <p><b>Select a Payment Method</b> <span class="text-danger">*</span></p>
-                                <div class="card">
-                                    <div class="row mb-2">
-                                        <div class="col-md-12 col-sm-12 col-12">
-                                            <div class="payment_single text-center border-1">
-                                                <a class="btn" href="#cashOnDelivery" role="button" aria-expanded="true" aria-controls="cashOnDelivery">
-                                                    <img src="assets/frontend/img/cart/cash-on-delivery.png" class="img-fluid mx-auto d-block mb-2">
-                                                    <span><i class="fas fa-truck"></i><b>Cash On Delivery</b></span>
-                                                </a>
+
+                    <div class="accordion" id="accordionWithRadioExamplePreChecked" wire:ignore>
+                        <div class="card">
+                            <div class="card-header">
+                                 <div class="form-check">
+                                    <input class="form-check-input" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseOnePreChecked" id="radio1PreChecked" name="radioAccordionPreChecked" checked>
+                                    <label class="form-check-label w-100" for="radio1PreChecked">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <h5 class="ms-2">Cash on delivery</h5>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <img class="img-fluid w-100" src="/assets/frontend/img/cart/COD.svg" alt="">
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <div class="payment_single text-center">
-                                                <a class="btn" data-bs-toggle="collapse" href="#onlinePayment" role="button" aria-expanded="false" aria-controls="onlinePayment">
-                                                    <img src="assets/frontend/img/cart/secure.png" class="img-fluid mx-auto d-block mb-2">
-                                                    <span><i class="fas fa-money-check"></i><b>Online Payment</b></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12 col-12">
-                                            <div class="payment_single text-center">
-                                                <a class="btn" data-bs-toggle="collapse" href="#bkash_pay" role="button" aria-expanded="false" aria-controls="bkash_pay">
-                                                    <img src="assets/frontend/img/cart/bkash.svg" class="img-fluid mx-auto d-block mb-2">
-                                                    <span><i class="fas fa-truck"></i><b>Bkash</b></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </label>
                                 </div>
-                                <div class="card">
-                                    <div id="onlinePayment" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <button type="submit" class="btn mln-btn mln-btn--border btn-block" id="sslczPayBtn">PAY NOW</button>
+                            </div>
+                            <div id="collapseOnePreChecked" class="accordion-collapse collapse show" data-bs-parent="#accordionWithRadioExamplePreChecked">
+                                <div class="card-body">
+                                    @if ($cart_total > 0)
+                                        <div class="order-button-payment d-grid">
+                                            <button onclick="checkout_submit()" class="btn btn-block py-3" type="button"><b>PLACE ORDER</b></button>
                                         </div>
-                                    </div> 
-                                    <div id="cashOnDelivery" class="collapse show">
-                                        <div class="card-body">
-                                            @if ($cart_total > 0)
-                                            <div class="order-button-payment d-grid">
-                                                <button onclick="checkout_submit()" class="btn btn-block" type="button">Place Order</button>
-                                            </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div id="bkash_pay" class="collapse" data-parent="#accordion">
-                                        <div class="card-body">
-                                            @if ($cart_total > 0)
-                                            <div class="order-button-payment d-grid">
-                                                <button onclick="bkash_checkout_submit()" class="btn btn-block" type="button">Pay with Bkash</button>
-                                                <button id="bKash_button" type="button" hidden></button>
-                                            </div>
-                                            @endif
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                 <div class="form-check">
+                                    <input class="form-check-input" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseTwoPreChecked" id="radio2PreChecked" name="radioAccordionPreChecked">
+                                    <label class="form-check-label w-100" for="radio2PreChecked">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <h5 class="ms-2">Bkash</h5>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <img class="img-fluid w-100" style="height: 70px;" src="/assets/frontend/img/cart/bkash.svg" alt="">
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="collapseTwoPreChecked" class="accordion-collapse collapse" data-bs-parent="#accordionWithRadioExamplePreChecked">
+                                <div class="card-body">
+                                    @if ($cart_total > 0)
+                                        <div class="order-button-payment d-grid">
+                                            <button onclick="bkash_checkout_submit()" class="btn btn-block py-3" type="button"><b>PAY WITH BKASH</b></button>
+                                            <button id="bKash_button" type="button" hidden></button>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                 <div class="form-check">
+                                    <input class="form-check-input" type="radio" data-bs-toggle="collapse" data-bs-target="#onlinePayment" id="onlinePayment" name="radioAccordionPreChecked">
+                                    <label class="form-check-label w-100" for="onlinePayment">
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <h5 class="ms-2">Online payment</h5>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <img class="img-fluid w-100" src="/assets/frontend/img/cart/sslpay.jpg" alt="">
+                                            </div>
+                                        </div>
+
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="onlinePayment" class="accordion-collapse collapse" data-bs-parent="#accordionWithRadioExamplePreChecked">
+                                <div class="card-body">
+                                    <button type="submit" class="btn mln-btn mln-btn--border btn-block" id="sslczPayBtn">PAY NOW</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -412,35 +435,31 @@
 </div>
 <script id="myScript" src="https://scripts.sandbox.bka.sh/versions/1.2.0-beta/checkout/bKash-checkout-sandbox.js">
 </script>
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Select all buttons with data-bs-toggle="collapse"
-        const buttons = document.querySelectorAll('[data-bs-toggle="collapse"]');
+<script>
+    var radioButtons = document.querySelectorAll('.form-check-input');
 
-        buttons.forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent the default link behavior
-                const target = button.getAttribute('href'); // Get the target collapse element
-                const targetElement = document.querySelector(target);
+    radioButtons.forEach(function (radio) {
+        radio.addEventListener('click', function () {
+            var collapseTarget = document.querySelector(this.getAttribute('data-bs-target'));
 
-                // Close all other collapse elements in the same container
-                const parent = button.closest('.payment-accordion');
-                const collapseElements = parent.querySelectorAll('.collapse');
-
-                collapseElements.forEach(function(element) {
-                    if (element !== targetElement) {
-                        const bsCollapse = new bootstrap.Collapse(element);
-                        bsCollapse.hide();
-                    }
-                });
-
-                // Toggle the target element
-                const bsTarget = new bootstrap.Collapse(targetElement);
-                bsTarget.toggle();
+            // Close all accordions
+            document.querySelectorAll('.accordion-collapse').forEach(function (collapse) {
+                new bootstrap.Collapse(collapse, { toggle: false });
             });
+
+            // Open the selected accordion
+            new bootstrap.Collapse(collapseTarget, { toggle: true });
         });
     });
-</script> --}}
+
+    // Set the initial state based on pre-checked attribute
+    document.querySelectorAll('.form-check-input[checked]').forEach(function (input) {
+        var collapseTarget = document.querySelector(input.getAttribute('data-bs-target'));
+        if (collapseTarget) {
+            new bootstrap.Collapse(collapseTarget, { toggle: false });
+        }
+    });
+</script>
 <script>
     window.cart_product_ids = @json($cart_product_ids);
     window.total_order_value = {!! number_format($total_amount) !!}

@@ -25,10 +25,6 @@
                                                             <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
                                                         @endif
                                                     </a>
-                                                    {{-- @if (discount_percentage($product->regular_price, $product->sales_price))
-                                                            <span class="sticker">{{ discount_percentage($product->regular_price, $product->sales_price) }}</span>
-                                                        @endif --}}
-
                                                 </div>
                                                 <div class="product-content">
                                                     <h4>
@@ -40,7 +36,7 @@
                                                         @if ($product->sales_price)
                                                             <span
                                                                 class="price"><del>৳{{ $product->regular_price }}</del>
-                                                                ৳{{ $product->sales_price }}</span>
+                                                                ৳ {{ $product->sales_price }}</span>
                                                         @else
                                                             <span
                                                                 class="price">৳{{ $product->regular_price }}</span>
@@ -55,10 +51,10 @@
                                                                                 href="{{ route('product_details', $product->pro_slug) }}">select variant</a></span>
                                                                     @else
 
-                                                                        <span><a class="btn btn-primary btn-sm pe-2 addtocart mb-2"
+                                                                        <span><button type="button" class="btn btn-primary btn-sm pe-2 addtocart mb-2"
                                                                                 href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i
                                                                                     class="fas fa-shopping-bag"></i>Add
-                                                                                to cart</a></span>
+                                                                                to cart</button></span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-lg-6 col-6">
