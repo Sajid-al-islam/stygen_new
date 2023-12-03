@@ -232,15 +232,6 @@ class OrderController extends Controller
 
                 if($status == 'Canceled') {
                     $companyId = [];
-                    foreach($order_details as $order_detail){
-                        array_push($companyId, $order_detail['company_id']);
-                        $product_stock = new ProductStock();
-                        $product_stock->product_id = $order_detail->product_id;
-                        $product_stock->company_id = $order_detail->company_id;
-                        $product_stock->type = "purchase";
-                        $product_stock->qty  = $order_details->quantity;
-                        $product_stock->save();
-                    }
                     foreach($orders->orders as $mcustomer) {
                         $response = $client->ecommerce->updateOrder("stygen", "$mcustomer->id", [
                             "fulfillment_status" => "cancelled"
