@@ -179,16 +179,16 @@ class OrderController extends Controller
 
         $order_details = OrderDetail::where('order_id', $order_id)->get();
 
-        if($status == "In Transit") {
-            foreach($order_details as $order_detail){
-                $product_stock = new ProductStock();
-                $product_stock->product_id = $order_detail->product_id;
-                $product_stock->company_id = $order_detail->company_id;
-                $product_stock->type = "sell";
-                $product_stock->qty  = $order_details->quantity;
-                $product_stock->save();
-            }
-        }
+        // if($status == "In Transit") {
+        //     foreach($order_details as $order_detail){
+        //         $product_stock = new ProductStock();
+        //         $product_stock->product_id = $order_detail->product_id;
+        //         $product_stock->company_id = $order_detail->company_id;
+        //         $product_stock->type = "sell";
+        //         $product_stock->qty  = $order_details->quantity;
+        //         $product_stock->save();
+        //     }
+        // }
         if($status == 'Delivered' || $status == 'Canceled'){
             $buyer_email = $order->email;
             if(!empty($buyer_email)){
