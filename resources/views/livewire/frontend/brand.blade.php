@@ -16,13 +16,11 @@
                                                     <a href="{{ route('product_details', $product->pro_slug) }}" class="w-100">
                                                         @if ($product->featured_image)
                                                             <img class="first-img lazy"
-                                                                data-src="/assets/uploads/product/{{ $product->featured_image }}"
+                                                                src="/assets/uploads/product/{{ $product->featured_image }}"
                                                                 alt="{{ $product->id }}" loading="lazy">
-                                                            <noscript><img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" /></noscript>
                                                         @else
                                                             <img class="first-img lazy"
-                                                                data-src="/assets/frontend/img/icon/empty_product.jpeg" loading="lazy">
-                                                            <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
+                                                                src="/assets/frontend/img/icon/empty_product.jpeg" loading="lazy">
                                                         @endif
                                                     </a>
                                                     {{-- @if (discount_percentage($product->regular_price, $product->sales_price))
@@ -114,3 +112,4 @@
 
     </div>
 </div>
+

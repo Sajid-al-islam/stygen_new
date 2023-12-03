@@ -15,14 +15,12 @@
                                                 <div class="product-img product-img-category">
                                                     <a href="{{ route('product_details', $product->pro_slug) }}" class="w-100">
                                                         @if ($product->featured_image)
-                                                            <img class="first-img lazy"
-                                                                data-src="/assets/uploads/product/{{ $product->featured_image }}"
+                                                            <img class="first-img"
+                                                                src="/assets/uploads/product/{{ $product->featured_image }}"
                                                                 alt="{{ $product->id }}" loading="lazy">
-                                                            <noscript><img class="first-img" src="/assets/uploads/product/{{ $product->featured_image }}" /></noscript>
                                                         @else
-                                                            <img class="first-img lazy"
+                                                            <img class="first-img"
                                                                 data-src="/assets/frontend/img/icon/empty_product.jpeg" loading="lazy">
-                                                            <noscript><img class="first-img" src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
                                                         @endif
                                                     </a>
                                                 </div>
