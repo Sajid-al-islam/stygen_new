@@ -43,7 +43,7 @@ class BkashController extends Controller
             'name'              => 'required',
             'address'           => 'required',
             'phone'             => 'required',
-            'shipping_charge_id' => ['required', 'not_in:0'],
+            'shipping_charge_id' => ['required','exists:shipping_charges,id'],
             'shipping_name'     => ['required_if:shippingDisplay,==,ship_to_other'],
             'shipping_address'  => ['required_if:shippingDisplay,==,ship_to_other'],
             'shipping_phone'    => ['required_if:shippingDisplay,==,ship_to_other'],

@@ -46,7 +46,7 @@ class SslCommerzPaymentController extends Controller
             'address' => 'required|max:200',
             'email' => 'nullable|email',
             'phone' => 'required',
-            'shipping_charge_id' => 'required',
+            'shipping_charge_id' => ['required','exists:shipping_charges,id'],
         ]);
         // cart data's
         $coupon_code            = $request->coupon_code;
