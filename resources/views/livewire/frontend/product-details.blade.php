@@ -387,18 +387,18 @@
                                         <a data-toggle="tab" href="#reviews">Reviews</a>
                                     </li>
                                 </ul> --}}
-                                <nav>
+                                {{-- <nav>
                                     <div class="nav nav-tabs dec-and-review-menu" id="nav-tab" role="tablist">
                                       <a class="nav-link active product_details_nav" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
                                       <a class="nav-link product_details_nav" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reviews</button>
                                     </div>
-                                </nav>
+                                </nav> --}}
                                 <!--Review And Description Tab Menu End-->
                                 <!--Review And Description Tab Content Start-->
 
 
                                 @if ($product_details->long_description)
-                                    <h4>More Information</h4>
+                                    <h3 class="my-2">More Information</h3>
                                     <div class="single-product-description">
                                         <p>{!! $product_details->long_description !!}</p>
                                     </div>
