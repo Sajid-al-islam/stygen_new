@@ -189,6 +189,16 @@ class OrderController extends Controller
         //         $product_stock->save();
         //     }
         // }
+        if($status == 'Canceled') {
+            foreach($order_details as $order_detail){
+                $product_stock = new ProductStock();
+                $product_stock->product_id = $order_detail->product_id;
+                $product_stock->company_id = $order_detail->company_id;
+                $product_stock->type = "purchase";
+                $product_stock->qty  = $order_details->quantity;
+                $product_stock->save();
+            }
+        }
         if($status == 'Delivered' || $status == 'Canceled'){
             $buyer_email = $order->email;
             if(!empty($buyer_email)){
