@@ -31,6 +31,12 @@ class Header extends Component
         }
     }
 
+    public function updated($fields)
+    {
+        $this->search_product();
+
+    }
+
     public function submitSearchPage()
     {
         return redirect()->route('search_product', $this->searchQuery);

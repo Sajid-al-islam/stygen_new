@@ -149,7 +149,7 @@
                 <form action="#" class="mt-2 mb-2" wire:submit.prevent="submitSearchPage">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="mobile_form_input flex-grow-1">
-                            <input type="text" class="form-control mobile_search_input" wire:model.lazy="searchQuery" wire:keyup="search_product"
+                            <input type="text" class="form-control mobile_search_input" wire:model.lazy="searchQuery"
                             placeholder="Search product...">
                             {{-- <button type="submit" class="mobile-search-btn btn btn-primary"><i class=""></i></button> --}}
                         </div>
