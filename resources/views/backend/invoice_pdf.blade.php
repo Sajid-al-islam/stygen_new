@@ -352,19 +352,19 @@
                     <p class="shippingChargeVal fontSize"> 0</p>
                 @endif
                 <hr class="custom-hr2">
-                @if(isset($order->discount_amount))
+                @if(isset($order->discount_amount) && $order->discount_amount > 0)
                     <p class="discountVal fontSize"> {{number_format($order->discount_amount, 2)}} </p>
                 @else
                     <p class="discountVal fontSize"> 0</p>
                 @endif
                 <hr class="custom-hr8">
-                @if(isset($order->card_price))
+                @if(isset($order->card_price) && $order->card_price > 0)
                     <p class="discountVal fontSize"> {{number_format($order->card_price, 2)}} </p>
                 @else
                     <p class="discountVal fontSize"> 0</p>
                 @endif
                 <hr class="custom-hr7">
-                @if(isset($order->packaging_price))
+                @if(isset($order->packaging_price) && $order->packaging_price > 0)
                     <p class="discountVal fontSize"> {{number_format($order->packaging_price, 2)}} </p>
                 @else
                     <p class="discountVal fontSize"> 0</p>
@@ -384,7 +384,7 @@
 <!--End Fourth Section-->
 
 <!--Start Footer Section-->
-<div class="signTitle">
+{{-- <div class="signTitle">
     <table class="table signature" border="0">
         <tr>
             <td><span class="line fontSize">Prepared by</span></td>
@@ -395,7 +395,7 @@
 </div>
 <div class="footer">
     <p class="footer-text">Powered by STYGEN</p>
-</div>
+</div> --}}
 <!--End Footer Section-->
 </body>
 </html>
