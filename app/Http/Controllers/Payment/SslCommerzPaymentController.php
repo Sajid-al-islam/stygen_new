@@ -72,7 +72,12 @@ class SslCommerzPaymentController extends Controller
         $personal_notes         = (!empty($request->personal_notes)?$request->personal_notes:NULL);
         $get_shipping_charge    = ShippingCharge::where('id', $request->shipping_charge_id)->first();
         // dd($get_shipping_charge);
-        $shipping_charge        = floatval($get_shipping_charge->shipping_charge);
+        if($get_shipping_charge) {
+            $shipping_charge = $get_shipping_charge->shipping_charge;
+        } else {
+        // Shipping charge not found
+        $shipping_charge = 0;
+        }
         if($cart_total_amount < 0) {
             $total_amount = 0;
         }
