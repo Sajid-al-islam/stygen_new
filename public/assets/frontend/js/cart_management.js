@@ -326,8 +326,10 @@ function addToCart(product_id, regular_price, sales_price, qty=1) {
 
 async function buyNow(product_id, qty=1) {
     await addToCart(product_id, qty=1);
+    setTimeout(() => {
+        await window.location.replace('/checkout');
+    }, 1200);
 
-    await window.location.replace('/checkout');
 }
 
 function renderCart() {

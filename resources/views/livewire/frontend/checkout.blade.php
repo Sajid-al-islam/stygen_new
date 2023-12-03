@@ -371,7 +371,7 @@
                             </div>
                         </div>
 
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-header">
                                  <div class="form-check">
                                     <input class="form-check-input" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseTwoPreChecked" id="radio2PreChecked" name="radioAccordionPreChecked">
@@ -397,7 +397,7 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         <div class="card">
