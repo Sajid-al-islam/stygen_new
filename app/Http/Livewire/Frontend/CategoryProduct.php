@@ -17,6 +17,9 @@ class CategoryProduct extends Component
     public function mount($slug)
     {
         $this->category = Category::where('cat_slug',$slug)->first();
+        if(!$this->category) {
+            abort(404, "No product found with this category");
+        }
     }
 
     public function render()

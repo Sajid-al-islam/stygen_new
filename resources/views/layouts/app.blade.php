@@ -212,6 +212,7 @@
 
         gtag('config', 'UA-94036107-1');
     </script>
+    @stack('gtag_data')
     <!--End Google Analytics Code-->
 
     <!-- Google Tag Manager -->
