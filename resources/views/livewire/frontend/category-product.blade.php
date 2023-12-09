@@ -104,45 +104,37 @@
 @push('gtag_data')
 <script>
     let datas = @json($products);
-    let google_product_data = [];
+    var google_product_data = [];
     var index = 0;
+    
     let product_datas = datas.data.forEach(element => {
         index++;
         let product_discount = 0;
         let tempObj = {};
+        let price = element.regular_price;
         tempObj.item_id = element.product_sku;
         tempObj.item_name = element.product_name;
         tempObj.affiliation = "Stygen online shop";
         if (element.sales_price != null) {
             product_discount = element.regular_price - element.sales_price;
+            price = element.sales_price
         }
         tempObj.discount = product_discount;
         tempObj.index = index;
-        // tempObj.brand = ;
+        tempObj.brand = element?.brand?.brand_name;
+        tempObj.item_category = element?.category?.category_name;
+        tempObj.item_list_id = "category_products";
+        tempObj.item_list_name = "Category Products";
+        tempObj.price = price;
+        tempObj.quantity = 1;
+
+        google_product_data.push(tempObj);
     });
+    console.log(google_product_data);
     gtag("event", "view_item_list", {
         item_list_id: "category_products",
         item_list_name: "Category products",
-        items: [{
-            item_id: "SKU_12345",
-            item_name: "Stan and Friends Tee",
-            affiliation: "Google Merchandise Store",
-            coupon: "SUMMER_FUN",
-            discount: 2.22,
-            index: 0,
-            item_brand: "Google",
-            item_category: "Apparel",
-            item_category2: "Adult",
-            item_category3: "Shirts",
-            item_category4: "Crew",
-            item_category5: "Short sleeve",
-            item_list_id: "related_products",
-            item_list_name: "Related Products",
-            item_variant: "green",
-            location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
-            price: 9.99,
-            quantity: 1
-        }]
+        items: google_product_data
     });
 </script>
 @endpush
