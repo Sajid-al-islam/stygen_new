@@ -1,5 +1,8 @@
 window.ORDER_ID = null;
 window.BKASH_ORDER_AMOUNT = 0;
+
+var cart_modal = new bootstrap.Modal(document.getElementById('cartModal'));
+
 window.get_form_data = function (selector) {
     let inputs = [...document.querySelectorAll(selector + " input")];
     let selects = [...document.querySelectorAll(selector + " select")];
@@ -268,21 +271,26 @@ async function bkash_checkout_submit(event) {
 
 
 
-function addToCart(product_id, regular_price, sales_price, qty=1) {
-
+async function addToCart(product, qty=1) {
+    console.log(product);
+    
+    cart_modal.toggle();
     // console.log(product_id, regular_price, sales_price);
+    document.getElementById('added_product').innerHTML = product.product_name;
+    document.getElementById('added_product').href = '/product/'+product.slug;
+
 
     $('.addtocart').prop('disabled', true);
     $('.add-to-cart').prop('disabled', true);
 
     //ADD TO CART EVENT FOR FACEBOOK
-    if(sales_price && sales_price.length > 0){
-        var price = sales_price
+    if(product.sales_price && product.sales_price.length > 0){
+        var price = product.sales_price
     }else{
-        var price = regular_price
+        var price = product.regular_price
     }
-    var sku = product_id
-    fbq('track', 'AddToCart', {
+    var sku = product.product_id
+    await fbq('track', 'AddToCart', {
         value: price,
         currency: 'BDT',
         content_ids: [
@@ -293,14 +301,14 @@ function addToCart(product_id, regular_price, sales_price, qty=1) {
     //ADD TO CART EVENT FOR FACEBOOK
 
 
-    fetch("/add_to_cart", {
+    await fetch("/add_to_cart", {
         method: "POST",
         headers: {
             "content-type": "application/json",
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         body: JSON.stringify({
-            id: product_id,
+            id: product.product_id,
             qty: qty
         })
     }).then(async res => {
@@ -324,8 +332,57 @@ function addToCart(product_id, regular_price, sales_price, qty=1) {
     })
 }
 
-async function buyNow(product_id, qty=1) {
-    await addToCart(product_id, qty=1);
+async function buyNow(product, qty=1) {
+    $('.addtocart').prop('disabled', true);
+    $('.add-to-cart').prop('disabled', true);
+
+    //ADD TO CART EVENT FOR FACEBOOK
+    if(product.sales_price && product.sales_price.length > 0){
+        var price = product.sales_price
+    }else{
+        var price = product.regular_price
+    }
+    var sku = product.product_id
+    await fbq('track', 'AddToCart', {
+        value: price,
+        currency: 'BDT',
+        content_ids: [
+            sku,
+        ],
+        content_type: 'product'
+    });
+    //ADD TO CART EVENT FOR FACEBOOK
+
+
+    await fetch("/add_to_cart", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        body: JSON.stringify({
+            id: product.product_id,
+            qty: qty
+        })
+    }).then(async res => {
+        $('.addtocart').prop('disabled', false);
+        $('.add-to-cart').prop('disabled', false);
+        let response = {}
+        response.status = res.status
+        response.data = await res.json();
+        return response;
+    }).then(res => {
+        if(res.status === 200) {
+
+            // error_response(res.data)
+            window.s_alert(res.data.message, "success");
+            // $(".cart-count").val(res.data.cart_count);
+            $(".cart-count").html(res.data.cart_count);
+            renderCart();
+            // update_cart_count_html(res.data.cart_count);
+            // Livewire.emit('cartAdded');
+        }
+    })
     setTimeout(() => {
         window.location.replace('/checkout');
     }, 1200);

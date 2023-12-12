@@ -266,6 +266,8 @@
         @yield('content')
 
         @livewire('frontend.components.landing-footer')
+
+        @include('frontend.inc.cart_modal')
     </main>
 
     {{-- @livewire('frontend.components.footer') --}}

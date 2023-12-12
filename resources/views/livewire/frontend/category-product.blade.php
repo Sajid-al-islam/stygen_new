@@ -9,6 +9,7 @@
                             <div class="row" wire:loading.remove wire:target="loadProducts">
                                 @if ($products->count() > 0)
                                 @foreach ($products as $product)
+                                
                                 <div class="col-12 col-lg-3 col-xl-3 col-md-3 mb-3">
                                     <!--Single Product Start-->
                                     <div class="single-product mb-3 shop-product-single">
@@ -42,9 +43,21 @@
                                                         @if ($product->product_variations && count($product->product_variations) > 0)
                                                         <span><a class="btn btn-primary btn-sm ps-2 detailsbtn mb-2" href="{{ route('product_details', $product->pro_slug) }}">select variant</a></span>
                                                         @else
-
-                                                        <span><button type="button" class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i class="fas fa-shopping-bag"></i>Add
-                                                                to cart</button></span>
+                                                        @php
+                                                            $product_data = [];
+                                                            $product_data['product_id'] = $product->id;
+                                                            $product_data['product_name'] = $product->product_name;
+                                                            $product_data['sales_price'] = $product->sales_price;
+                                                            $product_data['regular_price'] = $product->regular_price;
+                                                            $product_data['slug'] = $product->pro_slug;
+                                                            $product_data = (object) $product_data;
+                                                            $product_data = json_encode($product_data);
+                                                        @endphp
+                                                        <span>
+                                                            <button type="button" class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="javascript:void(0)" onclick="addToCart({{ $product_data }})"><i class="fas fa-shopping-bag"></i>
+                                                                Add to cart
+                                                            </button>
+                                                        </span>
                                                         @endif
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 col-lg-6 col-6">

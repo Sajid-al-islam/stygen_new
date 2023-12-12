@@ -967,6 +967,13 @@ footer .sslImageMain {
   .payment-method .active{
     color: #ff6a00 !important;
 }
+.color_active {
+    color: #ff6a00;
+}
+.bg-active {
+    background-color: #ff6a00;
+    color: white;
+}
 button#sslczPayBtn {
     color: #fff;
     background: #5e2e87;

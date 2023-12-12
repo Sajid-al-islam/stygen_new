@@ -312,14 +312,24 @@
                                 @endif
 
                                 <div class="product-add-to-cart">
-
+                                    @php
+                                        $product_data = [];
+                                        $product_data['product_id'] = $product_details->id;
+                                        $product_data['product_name'] = $product_details->product_name;
+                                        $product_data['sales_price'] = $product_details->sales_price;
+                                        $product_data['regular_price'] = $product_details->regular_price;
+                                        $product_data['slug'] = $product_details->pro_slug;
+                                        $product_data = (object) $product_data;
+                                        $product_data = json_encode($product_data);
+                                    @endphp
                                     <div class="row d-flex justify-content-start">
                                         <div class="col-md-4">
                                             <div class="add mt-4">
-
+                                                
                                                 @if ($product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty > 1 && $product_details->status == 1)
+                                                    
                                                     <button class="add-to-cart"
-                                                    onclick="addToCart({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"><i
+                                                    onclick="addToCart({{ $product_data }})"><i
                                                         class="fas fa-shopping-bag"></i>
                                                     add to cart</button>
                                                 @else
@@ -332,7 +342,8 @@
                                         <div class="col-md-4">
                                             @if ($product_details->purchase_stock_sum_qty - $product_details->sell_stock_sum_qty > 1 && $product_details->status == 1)
                                                 <div class="add mt-4">
-                                                    <button onclick="buyNow({{ $product_details->id }}, {{ $product_details->regular_price }}, {{ $product_details->sales_price }})"
+                                                    
+                                                    <button onclick="buyNow({{ $product_data }})"
                                                         class="btn btn-primary btn-lg" id="buynowbtn"><i
                                                             class="fas fa-money-check-alt"></i>Buy now</button>
                                                     <!--<span class="product-availability">In stock</span>-->

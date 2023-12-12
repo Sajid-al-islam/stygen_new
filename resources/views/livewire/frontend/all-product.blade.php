@@ -67,9 +67,21 @@
                                                                                     href="{{ route('product_details', $product->pro_slug) }}">select variant</a></span>
                                                                         @else
 
-                                                                        <span><button type="button" class="btn btn-primary btn-sm pe-2 addtocart mb-2"
-                                                                            href="javascript:void(0)" onclick="addToCart({{ $product->id }}, {{ $product->regular_price }}, {{ $product->sales_price }})"><i
-                                                                                class="fas fa-shopping-bag"></i>Add to cart</button></span>
+                                                                        @php
+                                                                            $product_data = [];
+                                                                            $product_data['product_id'] = $product->id;
+                                                                            $product_data['product_name'] = $product->product_name;
+                                                                            $product_data['sales_price'] = $product->sales_price;
+                                                                            $product_data['regular_price'] = $product->regular_price;
+                                                                            $product_data['slug'] = $product->pro_slug;
+                                                                            $product_data = (object) $product_data;
+                                                                            $product_data = json_encode($product_data);
+                                                                        @endphp
+                                                                        <span>
+                                                                            <button type="button" class="btn btn-primary btn-sm pe-2 addtocart mb-2" href="javascript:void(0)" onclick="addToCart({{ $product_data }})"><i class="fas fa-shopping-bag"></i>
+                                                                                Add to cart
+                                                                            </button>
+                                                                        </span>
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-md-6 col-sm-6 col-lg-6 col-6">
@@ -133,3 +145,40 @@
 
     <!--Shop Product End-->
 </div>
+@push('gtag_data')
+<script>
+    let datas = @json($products);
+    var google_product_data = [];
+    var index = 0;
+    
+    let product_datas = datas.data.forEach(element => {
+        index++;
+        let product_discount = 0;
+        let tempObj = {};
+        let price = element.regular_price;
+        tempObj.item_id = element.product_sku;
+        tempObj.item_name = element.product_name;
+        tempObj.affiliation = "Stygen online shop";
+        if (element.sales_price != null) {
+            product_discount = element.regular_price - element.sales_price;
+            price = element.sales_price
+        }
+        tempObj.discount = product_discount;
+        tempObj.index = index;
+        tempObj.brand = element?.brand?.brand_name;
+        tempObj.item_category = element?.category?.category_name;
+        tempObj.item_list_id = "category_products";
+        tempObj.item_list_name = "Category Products";
+        tempObj.price = price;
+        tempObj.quantity = 1;
+
+        google_product_data.push(tempObj);
+    });
+    console.log(google_product_data);
+    gtag("event", "view_item_list", {
+        item_list_id: "category_products",
+        item_list_name: "Category products",
+        items: google_product_data
+    });
+</script>
+@endpush
