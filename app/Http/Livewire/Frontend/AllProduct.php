@@ -21,7 +21,7 @@ class AllProduct extends Component
             ->withSum(['sell_stock' => function ($q) {
                 $q->where('type', 'sell');
             }], 'qty')
-            ->paginate(30),
+            ->paginate(32),
         ])->extends('layouts.app', [
             'meta' => [
                 "title" =>  "Best online Gift Shop in Bangladesh | Stygen",
