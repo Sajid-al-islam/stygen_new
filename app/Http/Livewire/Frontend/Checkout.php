@@ -30,7 +30,7 @@ class Checkout extends Component
 
     public $total_amount = null;
 
-    public $couponAmount = null;
+    public $couponAmount = 0;
     public $coupon_error = null;
     public $coupon_success = null;
     public $coupon_code;
@@ -156,9 +156,11 @@ class Checkout extends Component
 
                     if ($checkCoupon->discount_type == 'Fixed'){
                         $this->couponAmount = number_format($checkCoupon->amount, 2);
+                        $this->couponAmount = (int) $this->couponAmount;
                     }elseif($checkCoupon->discount_type == 'Percentage'){
                         $coupon_total = $this->cart_total * ($checkCoupon->amount / 100);
                         $this->couponAmount = number_format($coupon_total, 2);
+                        $this->couponAmount = (int) $this->couponAmount;
                     }
 
                     if($min_spent > 0 && $min_spent < $this->cart_total && $max_spent == 0){
@@ -188,6 +190,7 @@ class Checkout extends Component
                         //$result['msg'] = 'Your Coupon Bonus is '.$coupon_amount;
                         $this->coupon_success = 'Your coupon applied.';
                     }elseif(($min_spent > 0 && $min_spent < $this->cart_total) && ($max_spent > 0 && $max_spent > $this->cart_total)){
+
                         if ($checkCoupon->discount_type == 1){
                             $this->couponAmount = number_format($checkCoupon->amount, 2);
                         }elseif($checkCoupon->discount_type == 2){

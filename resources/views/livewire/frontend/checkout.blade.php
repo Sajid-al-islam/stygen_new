@@ -195,6 +195,10 @@
                                         </div>
                                     </div>
 
+                                    {{-- coupon handling --}}
+                                    <input type="hidden" name="coupon_code" wire:model="coupon_code">
+                                    <input type="hidden" name="coupon_amount" wire:model="couponAmount">
+
                                     <div class="col-md-12">
                                         @if (count($cards) > 0)
                                         <div class="country-select clearfix">
@@ -262,6 +266,7 @@
                             <p class="checkout-coupon">
                                 <input placeholder="Coupon code" type="text" wire:model.lazy="coupon_code" id="coupon_code">
                                 <button type="button" class="coupon_btn" wire:click="applyCoupon">Apply Coupon</button>
+
                                 <span class="text-success">{{ $coupon_success }}</span>
                                 <span class="text-danger">{{ $coupon_error }}</span>
                             </p>

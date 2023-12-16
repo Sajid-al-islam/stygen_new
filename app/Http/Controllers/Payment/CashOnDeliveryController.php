@@ -239,7 +239,7 @@ class CashOnDeliveryController extends Controller
 
             foreach ($carts as $cart) {
 
-                
+
                 $discount_price += $cart['product']->regular_price - $cart['product']->sales_price;
                 $total_vat      += $cart['product']->vat;
 
