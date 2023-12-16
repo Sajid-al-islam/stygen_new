@@ -1362,3 +1362,17 @@ div .overlay {
 .dec-and-review-menu>a.nav-link {
     color: #ff6a00;
 }
+
+.coupon_btn {
+    background: #333 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 0;
+    color: #fff;
+    height: 36px;
+    cursor: pointer;
+    margin-left: 6px;
+    padding: 5px 10px;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    width: inherit;
+}

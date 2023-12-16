@@ -34,10 +34,6 @@
                                                                 src="/assets/frontend/img/icon/empty_product.jpeg" loading="lazy">
                                                         @endif
                                                     </a>
-                                                    {{-- @if (discount_percentage($product->regular_price, $product->sales_price))
-                                                            <span class="sticker">{{ discount_percentage($product->regular_price, $product->sales_price) }}</span>
-                                                        @endif --}}
-
                                                 </div>
                                                 <div class="product-content">
                                                     <h4>
