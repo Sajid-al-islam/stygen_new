@@ -290,7 +290,7 @@
                                     <td class="cart-product-name">
                                         {{ $cart['product']['product_name'] }}<strong class="product-quantity"> × {{ $cart['qty'] }}</strong>
                                     </td>
-                                    <td class="cart-product-total"><span class="amount">৳{{ $cart['qty'] * $cart['product']['regular_price'] }}</span>
+                                    <td class="cart-product-total"><span class="amount">৳{{ $cart['qty'] * $cart['product']['sales_price'] }}</span>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -339,6 +339,14 @@
                                     <td><span class="amount shippingCharge">৳ {{ $packaging_price }}</span></td>
                                 </tr>
                                 @endif
+
+                                @if ($couponAmount > 0)
+                                <tr class="cart-subtotal">
+                                    <th>Discount</th>
+                                    <td><span class="amount">৳ {{ number_format($couponAmount) }}</span></td>
+                                </tr>
+                                @endif
+
                                 <tr class="order-total">
                                     <th>Order Total</th>
                                     <td><strong><span class="amount">৳ <span class="total_order_amount" id="total_order_amount">{{ number_format($total_amount) }}</span></span></strong></td>
