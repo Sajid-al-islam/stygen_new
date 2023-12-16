@@ -239,7 +239,8 @@ class CashOnDeliveryController extends Controller
 
             foreach ($carts as $cart) {
 
-                $discount_price += $cart['product']->discount_price;
+
+                $discount_price += $cart['product']->regular_price - $cart['product']->sales_price;
                 $total_vat      += $cart['product']->vat;
 
                 $product_data = Product::where('id', $cart['product']->id)->first();

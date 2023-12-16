@@ -132,7 +132,7 @@
     let datas = @json($products);
     var google_product_data = [];
     var index = 0;
-    
+
     let product_datas = datas.data.forEach(element => {
         index++;
         let product_discount = 0;

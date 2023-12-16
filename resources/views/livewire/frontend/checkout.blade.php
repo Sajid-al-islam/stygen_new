@@ -195,6 +195,10 @@
                                         </div>
                                     </div>
 
+                                    {{-- coupon handling --}}
+                                    <input type="hidden" name="coupon_code" wire:model="coupon_code">
+                                    <input type="hidden" name="coupon_amount" wire:model="couponAmount">
+
                                     <div class="col-md-12">
                                         @if (count($cards) > 0)
                                         <div class="country-select clearfix">
@@ -256,19 +260,19 @@
                 <!-- Addon Products Part -->
 
                 <div class="your-order">
-                    <p class="CouponCss mb-4">Have a coupon ? <span id="showcoupon"> Click here to enter
-                            your code</span></p>
-                    <div id="checkout_coupon" class="coupon-checkout-content">
-                        <div class="coupon-info">
-                            <form action="#">
-                                {{-- <p class="checkout-coupon">
-                                                <input placeholder="Coupon code" type="text" v-model="coupon_code">
-                                                <input value="Apply Coupon" type="submit" @click.prevent="applyCoupon"><br>
-                                                <span class="text-success" :class="{ 'text-danger': hasError }" v-if="coupon_msg && coupon_msg.length > 0">{{ coupon_msg }}</span>
-                                </p> --}}
-                            </form>
-                        </div>
+                    <p class="mb-2">Have a coupon ?
+                    <div class="coupon-info mb-5">
+                        <form action="#">
+                            <p class="checkout-coupon">
+                                <input placeholder="Coupon code" type="text" wire:model.lazy="coupon_code" id="coupon_code">
+                                <button type="button" class="coupon_btn" wire:click="applyCoupon">Apply Coupon</button><br>
+
+                                <span class="text-success">{{ $coupon_success }}</span>
+                                <span class="text-danger">{{ $coupon_error }}</span>
+                            </p>
+                        </form>
                     </div>
+
                     <h3 class="text-center">Your order</h3>
                     <div class="your-order-table table-responsive">
                         <table class="table">
