@@ -288,10 +288,10 @@ Route::get('cart-test', function () {
 //SSLCOMMERZ END
 
 //For Frontend Any Path
-Route::get('/{path}', [UserController::class, 'index']);
+// Route::get('/{path}', [UserController::class, 'index']);
 
 //For Frontend Any Path for ID
-Route::get('/{path}/{id}', [UserController::class, 'index']);
+// Route::get('/{path}/{id}', [UserController::class, 'index']);
 
 //For Frontend Any Path for ID
-Route::get('/{path}/{path2}/{id}', [UserController::class, 'index']);
+// Route::get('/{path}/{path2}/{id}', [UserController::class, 'index']);

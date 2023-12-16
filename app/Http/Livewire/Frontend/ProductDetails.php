@@ -25,7 +25,9 @@ class ProductDetails extends Component
         }], 'qty');
 
         $this->product_details = $query->first();
-
+        if(!$this->product_details) {
+            abort(404, "No product found with this link");
+        }
         $color_count = 0;
         $size_count = 0;
         $weight_count = 0;
