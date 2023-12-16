@@ -62,6 +62,10 @@ class Checkout extends Component
 
         $this->total_amount = $this->cart_total + $this->card_price + $this->packaging_price + $this->shipping_price;
 
+        if($this->couponAmount) {
+            $this->total_amount = $this->total_amount - $this->couponAmount;
+        }
+
 
         $this->cards = Card::where('status', 1)->get();
         $this->packagings = Packaging::where('status', 1)->get();
@@ -180,7 +184,7 @@ class Checkout extends Component
                         $result['coupon_amount'] = number_format($this->couponAmount, 2);
                         $coupon_amount = number_format($this->couponAmount, 2);
                         $this->total_amount = $this->total_amount - $coupon_amount;
-
+                        // dd($this->total_amount);
                         //$result['msg'] = 'Your Coupon Bonus is '.$coupon_amount;
                         $this->coupon_success = 'Your coupon applied.';
                     }elseif(($min_spent > 0 && $min_spent < $this->cart_total) && ($max_spent > 0 && $max_spent > $this->cart_total)){
@@ -193,7 +197,7 @@ class Checkout extends Component
                         $result['coupon_amount'] = number_format($this->couponAmount, 2);
                         $coupon_amount = number_format($this->couponAmount, 2);
                         $this->total_amount = $this->total_amount - $coupon_amount;
-
+                        // dd($this->total_amount);
                         //$result['msg'] = 'Your Coupon Bonus is '.$coupon_amount;
                         $this->coupon_success = 'Your coupon applied.';
                     }
@@ -219,6 +223,7 @@ class Checkout extends Component
                 $this->coupon_error = "This coupon doesn't exist.";
             }
 
+            $this->render();
             // dd($this->coupon_error);
             // dd($this->coupon_success);
     }

@@ -260,7 +260,7 @@
                     <div class="coupon-info mb-5">
                         <form action="#">
                             <p class="checkout-coupon">
-                                <input placeholder="Coupon code" type="text" wire:model="coupon_code" id="coupon_code">
+                                <input placeholder="Coupon code" type="text" wire:model.lazy="coupon_code" id="coupon_code">
                                 <button type="button" class="coupon_btn" wire:click="applyCoupon">Apply Coupon</button>
                                 <span class="text-success">{{ $coupon_success }}</span>
                                 <span class="text-danger">{{ $coupon_error }}</span>
