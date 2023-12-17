@@ -290,8 +290,11 @@
                                     <td class="cart-product-name">
                                         {{ $cart['product']['product_name'] }}<strong class="product-quantity"> × {{ $cart['qty'] }}</strong>
                                     </td>
-                                    <td class="cart-product-total"><span class="amount">৳{{ $cart['qty'] * $cart['product']['sales_price'] }}</span>
-                                    </td>
+                                    @if($cart['product']['sales_price'])
+                                        <td class="cart-product-total"><span class="amount">৳{{ $cart['qty'] * $cart['product']['sales_price'] }}</span>
+                                    @else
+                                        <td class="cart-product-total"><span class="amount">৳{{ $cart['qty'] * $cart['product']['regular_price'] }}</span>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
