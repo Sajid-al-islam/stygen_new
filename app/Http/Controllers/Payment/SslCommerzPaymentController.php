@@ -112,8 +112,8 @@ class SslCommerzPaymentController extends Controller
 
         $post_data['notes']                 = (!empty($request->notes))?$request->notes:NULL;
         $post_data['delivery_date']         = (!empty($request->delivery_date))?$request->delivery_date:NULL;
-        $post_data['shipping_charge']       = (!empty($request->shipping_charge))?$request->shipping_charge:NULL;
-        $post_data['shipping_charge_id']    = $request->shipping_charge_id;
+        $post_data['shipping_charge']       = $shipping_charge;
+        $post_data['shipping_charge_id']    = $get_shipping_charge->id;
         $post_data['payment_type']          = 2;
         $post_data['coupon_code']           = (!empty($request->coupon_code))?$request->coupon_code:NULL;
         $post_data['coupon_amount']         = (!empty($request->coupon_amount))?$request->coupon_amount:NULL;
@@ -250,18 +250,18 @@ class SslCommerzPaymentController extends Controller
                     'packaging_id'              => $post_data['packaging_id'],
                     'packaging_price'           => $post_data['packaging_price'],
                     'personal_notes'            => $post_data['personal_notes'],
-                    'total_amount'              => $post_data['total_amount'],
+                    'total_amount'              => $total_amount,
                     'discount_type'             => $post_data['discountType'],
                     'discount_amount'           => 0,
                     'shipping_charge_id'        => $post_data['shipping_charge_id'],
                     'shipping_charge'           => $post_data['shipping_charge'],
-                    'net_receiveable_amount'    => $post_data['total_amount'],
+                    'net_receiveable_amount'    => $total_amount,
                     'collect_amount'            => 0,
                     'return_amount'             => 0,
                     'total_vat'                 => 0,
                     'coupon_code'               => $post_data['coupon_code'],
                     'coupon_amount'             => $post_data['coupon_amount'],
-                    'due_amount'                => $post_data['total_amount'],
+                    'due_amount'                => $total_amount,
                     'transaction_id'            => $post_data['tran_id'],
                     'currency'                  => $post_data['currency'],
                     'status'                    => 'Pending',
