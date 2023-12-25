@@ -1,6 +1,10 @@
 <div id="single_product">
-    <link href="{{ asset('assets/frontend/css/lightbox.css') }}" rel="stylesheet">
-    <script type="text/javascript" src="{{ asset('assets/frontend') }}/js/lightbox.js"></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/js/lightbox.min.js
+    "></script>
+    <link href="
+    https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/css/lightbox.min.css
+    " rel="stylesheet">
     <style>
         #detailsbtn {
             color: white !important;
@@ -39,40 +43,42 @@
                         <div class="col-md-5 col-xl-5 col-sm-12 col-12">
                             <div class="product__details__pic">
                                 @if ($product_details->product_images)
-                                    <div class="">
+                                    <div id="img-1" class="zoomWrapper single-zoom">
                                         @if ($product_details->featured_image != '')
                                             {{-- <image-magnifier src="`/assets/uploads/product/${product.featured_image}`"
                                         :zoom-src="`/assets/uploads/product/${product.featured_image}`" width="100%"
                                         height="100%" zoom-width="440" zoom-height="440"></image-magnifier> --}}
-                                            <a href="/assets/uploads/product/{{ $product_details->featured_image }}" data-lightbox="roadtrip">
-                                                <img class="first-img img-fluid w-100"
+                                            <img class="first-img img-fluid w-100 lazy"
+                                                src="/assets/uploads/product/{{ $product_details->featured_image }}" data-lightbox="roadtrip">
+                                                <noscript><img class="first-img"
+                                                    src="/assets/uploads/product/{{ $product_details->featured_image }}" loading="lazy"/></noscript>
                                                     
-                                                    src="/assets/uploads/product/{{ $product_details->featured_image }}">
-                                            </a>
-                                            <noscript><img class="first-img"
-                                                    src="/assets/uploads/product/{{ $product_details->featured_image }}"/></noscript>
+                                                   
                                         @else
                                             <img class="first-img img-fluid w-100 lazy"
-                                                src="/assets/frontend/img/icon/empty_product.jpeg">
+                                                data-src="/assets/frontend/img/icon/empty_product.jpeg">
                                             <noscript><img class="first-img"
                                                     src="/assets/frontend/img/icon/empty_product.jpeg" /></noscript>
                                         @endif
                                     </div>
+                                    <div class="single-zoom-thumb">
+                                        <div class="row">
+                                            @foreach ($product_details->product_images as $key=>$item)
+                                            <div class="col-3">
+                                                <a href="#" class="elevatezoom-gallery {{$key==0?"active":""}}">
+                                                    <img
+                                                    data-lightbox="roadtrip"
+                                                    style="cursor:pointer; margin: 5px;" width="90px"
+                                                    src="/assets/uploads/product/{{ $item['image'] }}" alt="zo-th-1">
+                                                </a>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                                                                                                                                                                                                                          </ul> --}}
+                                    </div>
                                 @endif
                             </div>
-                            <div class="single-zoom-thumb">
-                                <div class="row">
-                                    @foreach ($product_details->product_images as $key=>$item)
-                                    <div class="col-3">
-                                        <a href="/assets/uploads/product/{{ $item['image'] }}" data-lightbox="roadtrip">
-                                            <img
-                                            style="cursor:pointer; margin: 5px;" width="90px"
-                                            src="/assets/uploads/product/{{ $item['image'] }}" alt="zo-th-1">
-                                        </a>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
+
                         </div>
                         <div class="col-md-7 col-xl-7 col-sm-12 col-12">
                             <div class="single-product-content">
@@ -861,3 +867,85 @@
 
     <!-- End You may also like Section -->
 </div>
+<script>
+    $("#zoom1").elevateZoom({
+        zoomWindowFadeIn : 500,
+        zoomLensFadeIn: 500,
+        gallery: "gallery_01",
+        imageCrossfade: true,
+        zoomWindowWidth:200,
+        zoomWindowHeight:200,
+        zoomWindowOffetx: 10,
+        scrollZoom: true,
+        cursor:"pointer",
+        easyZoom:true,
+        easing:true,
+        responsive:true,
+        lensSize: 10,
+        // cursor:"url('http://sobujdiganta.com/images/sample3.png'),auto",
+    });
+
+    $("#img_01").bind("click", function(e) {
+        var ez =   $('#img_01').data('elevateZoom');
+        $.fancybox(ez.getGalleryList());
+        return false;
+    });
+</script>
+<style>
+    .ratings .fa.fa-star{
+        color: #f5ba00;
+        display: inline-block;
+        padding: 1px 2px;
+        cursor: pointer;
+    }
+    .zoomLens{
+        /* cursor: url('http://sobujdiganta.com/images/sample3.png'),auto !important; */
+        /* background: url('https://laajim.com//hover.png') !important; */
+
+    }
+    .zoomWindow{
+        border: 0 !important;
+        z-index: 999999;
+        box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+    }
+    .input-group{
+        z-index: 0;
+    }
+
+    @media (min-width:992px) and (max-width:1199.99px){
+        .zoomWindow{
+            width: 270px !important;
+            height: 300px !important;
+        }
+        .zoomWrapper img{
+            width: 290px !important;
+            height: 290px !important;
+        }
+    }
+    @media (min-width:1200px){
+        .zoomWindow{
+            width: 488px !important;
+            height: 400px !important;
+            top: -30px !important;
+        }
+        .zoomWrapper{
+            width: 300px !important;
+            height: 313px !important;
+        }
+        .zoomWrapper img{
+            width: 300px !important;
+            height: 313px !important;
+        }
+    }
+
+    @media (min-width:768px) and (max-width:991.99px){
+        .zoomWindow{
+            top: 210px !important;
+            left: 0px !important;
+        }
+        .zoomWrapper img{
+            width: 200px !important;
+            height: 200px !important;
+        }
+    }
+</style>

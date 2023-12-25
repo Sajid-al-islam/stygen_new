@@ -111,14 +111,15 @@
         }
     </style>
     <script src="/js/pace.min.js"></script>
-    <script src="{{ asset('assets/frontend') }}/js/vendor/jquery-1.12.4.min.js"></script>
+    {{-- <script src="{{ asset('assets/frontend') }}/js/vendor/jquery-1.12.4.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
     <script src="{{ asset('assets/frontend') }}/js/sweetalert.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/owl.carousel.min.js"></script>
     <script src="{{ asset('assets/frontend') }}/js/custom.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    
 
     <script src="{{ asset('assets/frontend') }}/js/cart_management.js" defer></script>
     <script>
