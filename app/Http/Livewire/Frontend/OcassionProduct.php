@@ -11,27 +11,27 @@ use Livewire\WithPagination;
 class OcassionProduct extends Component
 {
     use WithPagination;
-    public $category;
+    public $occasion;
     protected $paginationTheme = 'bootstrap';
 
     public function mount($slug)
     {
-        $this->category = Occasion::where('occasion_slug',$slug)->first();
+        $this->occasion = Occasion::where('occasion_slug',$slug)->first();
     }
 
     public function render()
     {
-        $productIds = ProductOccasion::where('occasion_id', $this->category->id)->get()->pluck('product_id');
-        $meta_image = $this->category->category_image != null ? asset('assets/uploads/category') . '/' . $this->category->category_image : null;
+        $productIds = ProductOccasion::where('occasion_id', $this->occasion->id)->get()->pluck('product_id');
+        $meta_image = $this->occasion->occasion_image != null ? asset('assets/uploads/occasion') . '/' . $this->occasion->occasion_image : null;
 
-        $meta_title = "Buy Best gift" . $this->category->category_name . " products in BD | Home delivery";
-        if($this->category->meta_title != null && $this->category->meta_title !== "null") {
-            $meta_title = $this->category->meta_title;
+        $meta_title = "Buy Best gift" . $this->occasion->occasion_name . " products in BD | Home delivery";
+        if($this->occasion->meta_title != null && $this->occasion->meta_title !== "null") {
+            $meta_title = $this->occasion->meta_title;
         }
 
-        $meta_description = "Buy Best gift" . $this->category->category_name . " products in BD | Home delivery";
-        if($this->category->meta_description != null && $this->category->meta_description != "null") {
-            $meta_description = $this->category->meta_description;
+        $meta_description = "Buy Best gift" . $this->occasion->occasion_name . " products in BD | Home delivery";
+        if($this->occasion->meta_description != null && $this->occasion->meta_description != "null") {
+            $meta_description = $this->occasion->meta_description;
         }
 
         return view('livewire.frontend.ocassion-product', [
