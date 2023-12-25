@@ -860,4 +860,12 @@
 
 
     <!-- End You may also like Section -->
+    <script>
+        lightbox.option({
+          'resizeDuration': 200,
+          'alwaysShowNavOnTouchDevices': true,
+          'wrapAround': false,
+          'maxHeight': 600
+        })
+    </script>
 </div>
