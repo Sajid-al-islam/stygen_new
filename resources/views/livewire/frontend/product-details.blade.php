@@ -47,7 +47,7 @@
                                             <a href="/assets/uploads/product/{{ $product_details->featured_image }}" data-lightbox="roadtrip">
                                                 <img class="first-img img-fluid w-100"
                                                     
-                                                    src="/assets/uploads/product/{{ $product_details->featured_image }}">
+                                                    src="/assets/uploads/product/{{ $product_details->featured_image }}" loading="lazy">
                                             </a>
                                             <noscript><img class="first-img"
                                                     src="/assets/uploads/product/{{ $product_details->featured_image }}"/></noscript>
@@ -67,7 +67,7 @@
                                         <a href="/assets/uploads/product/{{ $item['image'] }}" data-lightbox="roadtrip">
                                             <img
                                             style="cursor:pointer; margin: 5px;" width="90px"
-                                            src="/assets/uploads/product/{{ $item['image'] }}" alt="zo-th-1">
+                                            src="/assets/uploads/product/{{ $item['image'] }}" alt="{{ $product_details->product_name }} - {{ $key+1 }}" loading="lazy">
                                         </a>
                                     </div>
                                     @endforeach
@@ -546,14 +546,14 @@
                                 <div class="single-product style-2 mb-2 mt-1">
                                     <div class="product-img product-img-category">
                                         <a href="{{ route('product_details', $related_product->pro_slug) }}">
-                                            <img class="first-img lazy"
-                                                data-src="/assets/uploads/product/{{ $related_product->featured_image }}"
-                                                alt="{{ $related_product->product_name }}">
-                                            <img class="hover-img lazy"
-                                                data-src="/assets/uploads/product/{{ $related_product->featured_image }}"
-                                                alt="{{ $related_product->product_name }}">
+                                            <img class="first-img"
+                                                src="/assets/uploads/product/{{ $related_product->featured_image }}"
+                                                alt="{{ $related_product->product_name }}" loading="lazy">
+                                            <img class="hover-img"
+                                                src="/assets/uploads/product/{{ $related_product->featured_image }}"
+                                                alt="{{ $related_product->product_name }}" loading="lazy">
                                             <noscript><img class="first-img"
-                                                    src="/assets/uploads/product/{{ $related_product->featured_image }}" /></noscript>
+                                                    src="/assets/uploads/product/{{ $related_product->featured_image }}" loading="lazy" /></noscript>
                                         </a>
 
                                         {{-- <div class="product-action">
