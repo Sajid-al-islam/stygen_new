@@ -10,11 +10,16 @@ class AllProduct extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    public $sort = "id-DESC";
     public function render()
     {
 
+        $sortParts = explode('-', $this->sort);
+
+        $column_name = $sortParts[0];
+        $column_direction = $sortParts[1];
         return view('livewire.frontend.all-product', [
-            'products' => $products = Product::orderBy('id', 'desc')->with(['brand'])
+            'products' => Product::orderBy($column_name, $column_direction)->with(['brand'])
             ->withSum(['purchase_stock' => function ($q) {
                 $q->where('type', 'purchase');
             }], 'qty')
@@ -33,5 +38,12 @@ class AllProduct extends Component
                 "keywords" => ""
             ],
         ]);
+    }
+
+    public function applySort()
+    {
+        // Force Livewire to re-render the component
+        
+        $this->render();
     }
 }

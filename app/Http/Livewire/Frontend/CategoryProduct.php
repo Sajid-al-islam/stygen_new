@@ -13,7 +13,7 @@ class CategoryProduct extends Component
     use WithPagination;
     public $category;
     protected $paginationTheme = 'bootstrap';
-
+    public $sort = "id-DESC";
     public function mount($slug)
     {
         $this->category = Category::where('cat_slug',$slug)->first();
@@ -24,6 +24,11 @@ class CategoryProduct extends Component
 
     public function render()
     {
+        $sortParts = explode('-', $this->sort);
+
+        $column_name = $sortParts[0];
+        $column_direction = $sortParts[1];
+
         $productIds = ProductCategory::where('category_id', $this->category->id)->get()->pluck('product_id');
         $meta_image = $this->category->category_image != null ? asset('assets/uploads/category') . '/' . $this->category->category_image : null;
 
@@ -38,7 +43,7 @@ class CategoryProduct extends Component
         }
 
         return view('livewire.frontend.category-product', [
-            'products' => Product::where('status', 1)->whereIn('id', $productIds)->orderBy('product_view','desc')->with('brand','product_categories','product_images','product_variations')
+            'products' => Product::where('status', 1)->whereIn('id', $productIds)->orderBy($column_name, $column_direction)->with('brand','product_categories','product_images','product_variations')
             ->withSum(['purchase_stock' => function ($q) {
                 $q->where('type', 'purchase');
             }], 'qty')
@@ -57,5 +62,12 @@ class CategoryProduct extends Component
                 "keywords" => ""
             ],
         ]);
+    }
+
+    public function applySort()
+    {
+        // Force Livewire to re-render the component
+        
+        $this->render();
     }
 }
