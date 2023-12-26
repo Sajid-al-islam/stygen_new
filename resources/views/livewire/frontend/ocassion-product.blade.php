@@ -12,7 +12,24 @@
 
 </div> --}}
 <div class="row">
-    
+    <div class="shop-topbar-wrapper mb-30 d-md-flex justify-content-md-between align-items-center mt-3">
+        <div class="grid-list-option">
+            <p class="show-product">Showing {{ $products->total() }} results</p>
+        </div>
+        <!--Toolbar Short Area Start-->
+        <div class="toolbar-short-area d-md-flex align-items-center">
+            <div class="toolbar-shorter">
+                <label>Sort By:</label>
+                <select class="productSorting" wire:change="applySort" wire:model="sort">
+                    <option value="id-DESC">Default sorting</option>
+                    <option value="id-DESC">Sort by latest</option>
+                    <option value="regular_price-ASC">Sort by price: low to high</option>
+                    <option value="regular_price-DESC">Sort by price: high to low</option>
+                </select>
+            </div>
+        </div>
+        <!--Toolbar Short Area End-->
+    </div>
     <div class="shop-product">
         <div id="myTabContent-2" class="tab-content">
             <div id="grid" class="tab-pane fade show active">

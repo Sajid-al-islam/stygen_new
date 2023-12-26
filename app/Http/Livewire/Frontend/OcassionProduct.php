@@ -13,6 +13,7 @@ class OcassionProduct extends Component
     use WithPagination;
     public $occasion;
     protected $paginationTheme = 'bootstrap';
+    public $sort = "id-DESC";
 
     public function mount($slug)
     {
@@ -21,6 +22,12 @@ class OcassionProduct extends Component
 
     public function render()
     {
+
+        $sortParts = explode('-', $this->sort);
+
+        $column_name = $sortParts[0];
+        $column_direction = $sortParts[1];
+
         $productIds = ProductOccasion::where('occasion_id', $this->occasion->id)->get()->pluck('product_id');
         $meta_image = $this->occasion->occasion_image != null ? asset('assets/uploads/occasion') . '/' . $this->occasion->occasion_image : null;
 
@@ -35,7 +42,7 @@ class OcassionProduct extends Component
         }
 
         return view('livewire.frontend.ocassion-product', [
-            'products' => Product::where('status', 1)->whereIn('id', $productIds)->orderBy('product_view','desc')->with('brand','product_categories','product_images','product_variations')
+            'products' => Product::where('status', 1)->whereIn('id', $productIds)->orderBy($column_name, $column_direction)->with('brand','product_categories','product_images','product_variations')
             ->withSum(['purchase_stock' => function ($q) {
                 $q->where('type', 'purchase');
             }], 'qty')
@@ -54,5 +61,10 @@ class OcassionProduct extends Component
                 "keywords" => ""
             ],
         ]);
+    }
+
+    public function applySort()
+    {
+        $this->render();
     }
 }
