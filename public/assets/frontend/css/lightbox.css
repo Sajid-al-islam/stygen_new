@@ -85,7 +85,7 @@ body.lb-disable-scrolling{
     left:0;
     float:left;
     background:url(../img/back-arrow.png) left 48% no-repeat;
-    filter:alpha(Opacity=0);
+    filter:alpha(Opacity=100);
     opacity:0;
     -webkit-transition:opacity .6s;
     -moz-transition:opacity .6s;
@@ -101,7 +101,7 @@ body.lb-disable-scrolling{
     right:0;
     float:right;
     background:url(../img/right-arrow.png) right 48% no-repeat;
-    filter:alpha(Opacity=0);
+    filter:alpha(Opacity=100);
     opacity:0;
     -webkit-transition:opacity .6s;
     -moz-transition:opacity .6s;
