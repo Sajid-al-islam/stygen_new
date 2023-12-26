@@ -57,7 +57,7 @@ body.lb-disable-scrolling{
     width:32px;
     height:32px;
     margin:0 auto;
-    background:url(../images/loading.gif) no-repeat
+    background:url(../img/loading.gif) no-repeat
 }
 .lb-nav{
     position:absolute;
@@ -84,9 +84,9 @@ body.lb-disable-scrolling{
     width:34%;
     left:0;
     float:left;
-    background:url(../img/back-arrow.png) left 48% no-repeat;
+    background:url(https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/images/prev.png) left 48% no-repeat;
     filter:alpha(Opacity=100);
-    opacity:0;
+    opacity:100;
     -webkit-transition:opacity .6s;
     -moz-transition:opacity .6s;
     -o-transition:opacity .6s;
@@ -100,9 +100,9 @@ body.lb-disable-scrolling{
     width:64%;
     right:0;
     float:right;
-    background:url(../img/right-arrow.png) right 48% no-repeat;
+    background:url(https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/images/next.png) right 48% no-repeat;
     filter:alpha(Opacity=100);
-    opacity:0;
+    opacity:100;
     -webkit-transition:opacity .6s;
     -moz-transition:opacity .6s;
     -o-transition:opacity .6s;
