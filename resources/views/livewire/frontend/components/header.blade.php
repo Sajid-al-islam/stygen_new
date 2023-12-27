@@ -101,8 +101,7 @@
                         <div class="search-categories">
                             <form action="#" wire:submit.prevent="submitSearchPage">
                                 <div class="search-froms">
-                                    <input type="text" wire:model="searchQuery" wire:keyup="search_product"
-                                        placeholder="Search product...">
+                                    <input type="text" wire:model.lazy="searchQuery" onkeyup="on_keyup_search()" placeholder="Search product...">
                                     <button class="top-search-btn btn btn-sm d-none" id="header_search_btn"
                                         type="submit"><i class="fas fa-search text-dark fa-xs"></i></button>
                                 </div>
@@ -174,28 +173,30 @@
         </div>
     </div>
 
-    @if ($search_products)
-        <div class="search_result">
-            <div class="list-group list-group-flush">
-                @foreach ($search_products as $item)
-                    {{-- @dd($item->id, $item->slug) --}}
-
-                    <a href="{{ route('product_details', $item->pro_slug) }}"
-                        class="list-group-item list-group-item-action">
-                        <img src="/assets/uploads/product/{{ $item->featured_image }}" width="80" height="80"
-                            alt="Image-Ctgcomputer">
-                        {{ $item->product_name }}
-                    </a>
-                @endforeach
-                {{-- <a href="{{ route('search_product', $searchQuery) }}"
-                    class="my-5 list-group-item list-group-item-action active text-center">View
-                    more</a> --}}
-            </div>
-        </div>
-    @endif
+    <div class="search_result" id="search_result">
+        
+    </div>
 </header>
 
 <script>
+    function on_keyup_search(){
+        console.log(event.target.value);
+        let key = event.target.value;
+        $.ajax({
+            url: "/search_product/?key="+key,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#search_result').html(data.result);
+            }
+        });
+        // fetch('/search_product/?key='+key)
+        //     .then(res=>res.text())
+        //     .then(res=>{
+        //         console.log(res);
+        //         document.getElementById('search_result').innerHTML = res;
+        //     })
+    }
     var isOpen = 0;
     // ="{{ route('category_product', $category->cat_slug) }}"
     function goToCategory(category_id, cat_slug) {

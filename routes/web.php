@@ -123,6 +123,8 @@ Route::group(['prefix' => '', 'namespace' => "Livewire"], function () {
     // Route::get('/about-us',"Frontend\About");
 });
 
+Route::get('search_product', [ProductController::class, 'search_product']);
+
 Route::post('add_to_cart', [ProductController::class, 'add_to_cart']);
 Route::get('get_cart_sidebar', [ProductController::class, 'get_cart_sidebar']);
 Route::get('cart_all', [ProductController::class, 'cart_all']);

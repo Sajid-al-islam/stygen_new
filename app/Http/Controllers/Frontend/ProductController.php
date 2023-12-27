@@ -34,6 +34,33 @@ class ProductController extends Controller
         }
     }
 
+    
+    public function search_product() {
+
+        $query = Product::where('status', 1);
+        $key = request()->key;
+        if(strlen($key) > 0) {
+            $query->where(function ($q) use ($key) {
+                $q->Where('product_name', 'LIKE', '%' . $key . '%')
+                ->orWhere('product_sku', 'LIKE', '%' . $key . '%');
+            })->select('id', 'regular_price', 'pro_slug' ,'sales_price','product_name', 'featured_image');
+            $search_products = $query->take(10)->get();
+
+            $result = view('frontend.inc.search_result', compact('search_products'))->render();
+
+            return response()->json([
+                'status' => true,
+                'result' => $result,
+                'message' => 'Data loaded',
+            ]);
+        }else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data not found',
+            ]);
+        }
+    }
+
     // add to cart
     public function add_to_cart() {
         $cart = new CartManagerController();
