@@ -13,6 +13,19 @@
             </div>
         </div>    
         @endif
+        <div class="breadcrumb-area">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <ul>
+                            <li><a href="/">Home </a></li>
+                            <li><a href="#"> gift-by-occasion </a></li>
+                            <li class="active">{{ $occasion->occasion_slug }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="shop-topbar-wrapper mb-30 d-md-flex justify-content-md-between align-items-center mt-3">
                 <div class="grid-list-option">

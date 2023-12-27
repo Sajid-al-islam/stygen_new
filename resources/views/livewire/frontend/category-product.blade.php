@@ -1,20 +1,30 @@
 <div>
-
+    
     <div class="container">
         @if($category->meta_image)
         <div class="slider-area">
-            <div class="active">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="">
-                            <img src="/assets/uploads/slider/{{ $category->meta_image }}" alt="category banner">
-                        </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="">
+                        <img class="img-fluid" src="/assets/uploads/slider/{{ $category->meta_image }}" alt="category banner">
                     </div>
                 </div>
             </div>
         </div>    
         @endif
-        
+        <div class="breadcrumb-area">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <ul>
+                            <li><a href="/">Home </a></li>
+                            <li><a href="#"> Category</a></li>
+                            <li class="active">{{ $category->cat_slug }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="shop-topbar-wrapper mb-30 d-md-flex justify-content-md-between align-items-center mt-3">
                 <div class="grid-list-option">

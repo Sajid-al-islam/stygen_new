@@ -20,7 +20,20 @@
             font-size: 12px;
         }
         </style>
+    
     <div class="container">
+        <div class="breadcrumb-area">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <ul>
+                            <li><a href="/">Home </a></li>
+                            <li class="active">shop</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="shop-topbar-wrapper mb-30 d-md-flex justify-content-md-between align-items-center mt-3">
             <div class="grid-list-option">
                 <p class="show-product">Showing {{ $products->total() }} results</p>
