@@ -31,12 +31,12 @@ class OcassionProduct extends Component
         $productIds = ProductOccasion::where('occasion_id', $this->occasion->id)->get()->pluck('product_id');
         $meta_image = $this->occasion->occasion_image != null ? asset('assets/uploads/occasion') . '/' . $this->occasion->occasion_image : null;
 
-        $meta_title = "Buy Best gift" . $this->occasion->occasion_name . " products in BD | Home delivery";
+        $meta_title = "Buy Best " . $this->occasion->occasion_name . " gift products in BD | Home delivery";
         if($this->occasion->meta_title != null && $this->occasion->meta_title !== "null") {
             $meta_title = $this->occasion->meta_title;
         }
 
-        $meta_description = "Buy Best gift" . $this->occasion->occasion_name . " products in BD | Home delivery";
+        $meta_description = "Buy Best " . $this->occasion->occasion_name . " gift products in BD | Home delivery";
         if($this->occasion->meta_description != null && $this->occasion->meta_description != "null") {
             $meta_description = $this->occasion->meta_description;
         }
@@ -50,6 +50,10 @@ class OcassionProduct extends Component
                 $q->where('type', 'sell');
             }], 'qty')
             ->paginate(32),
+            "meta_title" =>  $meta_title,
+            "meta_description" => $meta_description,
+            "meta_image" => $meta_image
+            
         ])->extends('layouts.app', [
             'meta' => [
                 "title" =>  $meta_title,

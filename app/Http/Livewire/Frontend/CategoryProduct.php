@@ -51,6 +51,9 @@ class CategoryProduct extends Component
                 $q->where('type', 'sell');
             }], 'qty')
             ->paginate(32),
+            "meta_title" =>  $meta_title,
+            "meta_description" => $meta_description,
+            "meta_image" => $meta_image,
         ])->extends('layouts.app', [
             'meta' => [
                 "title" =>  $meta_title,

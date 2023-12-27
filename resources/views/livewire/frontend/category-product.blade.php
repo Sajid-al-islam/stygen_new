@@ -1,5 +1,20 @@
 <div>
+
     <div class="container">
+        @if($category->meta_image)
+        <div class="slider-area">
+            <div class="active">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <img src="/assets/uploads/slider/{{ $category->meta_image }}" alt="category banner">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        @endif
+        
         <div class="row">
             <div class="shop-topbar-wrapper mb-30 d-md-flex justify-content-md-between align-items-center mt-3">
                 <div class="grid-list-option">
@@ -123,6 +138,12 @@
                 {{ $products->onEachSide(2)->links() }}
             </div>
 
+            <div class="seo_section mt-2 mb-5">
+                <h2>{{ $meta_title }}</h2>
+                <p class="my-4">
+                    {{ $meta_description }}
+                </p>
+            </div>
         </div>
 
 
